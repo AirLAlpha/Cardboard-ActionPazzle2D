@@ -20,5 +20,8 @@ MonoBehaviour:
     usableBoxCount: 1
     targetBoxCount: 1
   - stageId: 2
-    usableBoxCount: 1
+    usableBoxCount: 2
+    targetBoxCount: 1
+  - stageId: 3
+    usableBoxCount: 2
     targetBoxCount: 1

@@ -1332,6 +1332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 500, y: 0}
+  isActive: 1
 --- !u!61 &846153102
 BoxCollider2D:
   m_ObjectHideFlags: 0

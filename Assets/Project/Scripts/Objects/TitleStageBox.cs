@@ -8,11 +8,11 @@ public class TitleStageBox : MonoBehaviour
 	private TitleManager titleManager;
 
 	[SerializeField]
-	private int stageID;
+	private int stageIndex;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.tag == "Player")
-			titleManager.LoadStage(stageID);
+			titleManager.LoadStage(stageIndex);
 	}
 }

@@ -14,6 +14,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
+	//	ステージデータベース
+	[SerializeField]
+	private StageDataBase		stageDataBase;
+
 	//	コンポーネント
 	[Header("コンポーネント")]
 	[SerializeField]
@@ -41,10 +45,12 @@ public class TitleManager : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| ステージのロード処理
 	--------------------------------------------------------------------------------*/
-	public void LoadStage(int stageID)
+	public void LoadStage(int stageIndex)
 	{
+		var stage = stageDataBase.StageList[stageIndex];
+
 		var async1 = SceneManager.LoadSceneAsync("StageBase");
-		var async2 = SceneManager.LoadSceneAsync("Stage_" + stageID.ToString(),LoadSceneMode.Additive);
+		var async2 = SceneManager.LoadSceneAsync("Stage_" + stage.StageID.ToString(),LoadSceneMode.Additive);
 
 		async1.allowSceneActivation = true;
 		async2.allowSceneActivation = true;

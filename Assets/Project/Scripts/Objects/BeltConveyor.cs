@@ -15,12 +15,15 @@ public class BeltConveyor : MonoBehaviour
 {
 	[SerializeField]
 	private Vector2 velocity;           //	与える移動量
-	//[SerializeField]
-	//private bool	invert;
-
+	[SerializeField]
+	private bool	isActive;			//	稼働フラグ
+	public bool IsActive { set { isActive = value; } get { return isActive; } }
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
+		if (!isActive)
+			return;
+
 		if (collision.transform.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
 		{
 			rb.velocity = velocity * Time.deltaTime;

@@ -45,6 +45,8 @@ public class StageManager : MonoBehaviour
 
 	private PlayerBoxManager		playerBoxManager;
 
+	//	シーン
+	private int currentStageId;											//	現在のシーンID
 
 	//	段ボール
 	public int UsableBoxCount	{ get; set; }							//	使用可能なハコの数
@@ -55,6 +57,15 @@ public class StageManager : MonoBehaviour
 
 	private int saveCompleteBoxCount;                                   //	前回処理時のゴールさせた箱の数
 	private int saveRemainingBoxCount;                                  //	前回処理時の残り使用可能な箱の数
+
+	//	リスタート
+	[Header("リスタート")]
+	[SerializeField]
+	private float restartTime;			//	リスタートになる時間
+
+	private float restartPressedTime;   //	リスタートボタンを押している時間
+
+	public float RestartProgress => restartPressedTime / restartTime;
 
 	//	ステージクリア
 	public bool IsStageClear	{ get; private set; }					//	ステージクリアフラグ
@@ -84,6 +95,8 @@ public class StageManager : MonoBehaviour
 	//	更新処理
 	private void Update()
 	{
+		RestartUpdate();
+
 		CheckRemainingBoxCount();
 		CheckCompleteBoxCount();
 
@@ -145,6 +158,7 @@ public class StageManager : MonoBehaviour
 		StageData findResult = stageDataBase.StageList.Find(n => n.StageID == stageId);
 
 		//	変数を保持
+		currentStageId = stageId;
 		UsableBoxCount = findResult.UsableBoxCount;
 		TargetBoxCount = findResult.TargetBoxCount;
 		saveRemainingBoxCount = -1;
@@ -152,6 +166,27 @@ public class StageManager : MonoBehaviour
 
 		//	変数の初期化
 		IsStageClear = false;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| リスタートの更新処理
+	--------------------------------------------------------------------------------*/
+	private void RestartUpdate()
+	{
+		if (Input.GetButton("Restart"))
+		{
+			restartPressedTime += Time.deltaTime;
+
+			if (restartPressedTime >= restartTime)
+			{
+				var baseScene = SceneManager.LoadSceneAsync("StageBase");
+				var stageScene = SceneManager.LoadSceneAsync("Stage_" + currentStageId.ToString(), LoadSceneMode.Additive);
+			}
+		}
+		else
+		{
+			restartPressedTime = 0;
+		}
 	}
 
 	/*--------------------------------------------------------------------------------

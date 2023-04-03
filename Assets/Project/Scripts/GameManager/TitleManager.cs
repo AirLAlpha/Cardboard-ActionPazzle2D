@@ -10,6 +10,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
@@ -17,9 +18,6 @@ public class TitleManager : MonoBehaviour
 	[Header("コンポーネント")]
 	[SerializeField]
 	private PlayerMove			playerMove;		//	プレイヤー（移動）
-
-
-
 
 	//	実行前初期化処理
 	private void Awake()
@@ -37,5 +35,18 @@ public class TitleManager : MonoBehaviour
 	private void Update()
 	{
 		
+	}
+
+
+	/*--------------------------------------------------------------------------------
+	|| ステージのロード処理
+	--------------------------------------------------------------------------------*/
+	public void LoadStage(int stageID)
+	{
+		var async1 = SceneManager.LoadSceneAsync("StageBase");
+		var async2 = SceneManager.LoadSceneAsync("Stage_" + stageID.ToString(),LoadSceneMode.Additive);
+
+		async1.allowSceneActivation = true;
+		async2.allowSceneActivation = true;
 	}
 }

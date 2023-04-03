@@ -86,6 +86,10 @@ public class StageManager : MonoBehaviour
 	{
 		CheckRemainingBoxCount();
 		CheckCompleteBoxCount();
+
+		if (IsStageClear &&
+			Input.GetButtonDown("Jump"))
+			ReturnTitle();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -211,4 +215,13 @@ public class StageManager : MonoBehaviour
 		playerMove.DisableInput = true;
 		playerBoxManager.DisableInput = true;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| タイトルに戻る処理
+	--------------------------------------------------------------------------------*/
+	private void ReturnTitle()
+	{
+		SceneManager.LoadScene("TitleScene");
+	}
+
 }

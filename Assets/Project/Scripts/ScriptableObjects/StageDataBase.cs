@@ -22,11 +22,15 @@ public struct StageData
 
 	//	ステージ情報
 	[SerializeField]
-	private int usableBoxCount;		//	ステージ内で使用可能な箱の数
+	private int usableBoxCount;     //	ステージ内で使用可能な箱の数
+	[SerializeField]
+	private int targetBoxCount;		//	ゴールさせるべき箱の数
+
 
 	//	プロパティ
 	public int StageID			{ get { return stageId; } }				//	ステージID
 	public int UsableBoxCount	{ get { return usableBoxCount; } }		//	使用可能な箱の数
+	public int TargetBoxCount	{ get { return targetBoxCount; } }		//	使用可能な箱の数
 	public string SceneName => "Stage_" + stageId.ToString();			//	シーン名
 }
 

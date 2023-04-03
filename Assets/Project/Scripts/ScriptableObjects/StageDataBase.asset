@@ -15,5 +15,10 @@ MonoBehaviour:
   stageList:
   - stageId: 0
     usableBoxCount: 5
+    targetBoxCount: 1
   - stageId: 1
-    usableBoxCount: 100
+    usableBoxCount: 1
+    targetBoxCount: 1
+  - stageId: 2
+    usableBoxCount: 1
+    targetBoxCount: 1

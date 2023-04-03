@@ -18,6 +18,8 @@ public class PlayerBoxManager : MonoBehaviour
 	private PlayerMove		playerMove;			//	PlayerMove
 
 	//	入力
+	public bool				DisableInput { set; get; }		//	入力の無効フラグ
+
 	private bool			inputGenerate;      //	生成
 	private bool			inputPut;			//	設置
 
@@ -75,6 +77,9 @@ public class PlayerBoxManager : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void InputUpdate()
 	{
+		if (DisableInput)
+			return;
+
 		inputGenerate = 
 			Input.GetKeyDown(KeyCode.R) ||
 			Input.GetButtonDown("Fire1");        //	生成

@@ -41,14 +41,16 @@ public class CardboardBox : MonoBehaviour, IBurnable
 
 	private bool			isPacked;           //	パッキング済み
 
+	public bool				IsPacked { get { return isPacked; } }
+
 	//	炎上
 	[SerializeField]
 	private float			burnSpeed;			//	炎上し切る速度
 	[SerializeField, Range(0.0f, 1.0f)]
 	private float			burnProgress;       //	燃える進行度
 
-	private bool isBurning;						//	炎上フラグ
-	private MaterialPropertyBlock propertyBlock;
+	private bool					isBurning;			//	炎上フラグ
+	private MaterialPropertyBlock	propertyBlock;
 
 
 	//	実行前初期化処理
@@ -106,7 +108,7 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	--------------------------------------------------------------------------------*/
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (isPacked)
+		if (isPacked || isBurning)
 			return;
 
 		if (collision.transform.tag == "Enemy")

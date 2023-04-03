@@ -21,9 +21,11 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField]
 	private Animator		anim;           //	Animator
 
-	private Rigidbody2D		rb;				//	Rigidbody2D
+	private Rigidbody2D		rb;             //	Rigidbody2D
 
 	//	入力
+	public bool		DisableInput { get; set; }
+
 	private Vector2 inputVec;               //	移動入力
 	private bool	inputJump;				//	ジャンプ入力	
 
@@ -121,6 +123,9 @@ public class PlayerMove : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void InputUpdate()
 	{
+		if (DisableInput)
+			return;
+
 		//	移動入力
 		inputVec.x = Input.GetAxisRaw("Horizontal");        //	X
 		inputVec.y = Input.GetAxisRaw("Vertical");          //	Y

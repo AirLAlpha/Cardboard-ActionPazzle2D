@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Test
+  m_Name: Blazing
   m_Shader: {fileID: -6465566751694194690, guid: 1832e16f6cfc68648bfba89f95b8639d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

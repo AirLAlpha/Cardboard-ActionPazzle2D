@@ -15,9 +15,12 @@ using UnityEngine;
 public class PlayerBoxManager : MonoBehaviour
 {
 	//	コンポーネント
-	private PlayerMove		playerMove;			//	PlayerMove
+	private PlayerMove		playerMove;         //	PlayerMove
 
 	//	入力
+	[SerializeField]
+	private ButtonHint		buttonHint;			//	ボタンの表示されるアクション名を変更
+
 	public bool				DisableInput { set; get; }		//	入力の無効フラグ
 
 	private bool			inputGenerate;      //	生成
@@ -82,12 +85,13 @@ public class PlayerBoxManager : MonoBehaviour
 
 		inputGenerate = 
 			Input.GetKeyDown(KeyCode.R) ||
-			Input.GetButtonDown("Fire1");        //	生成
+			Input.GetButtonDown("Fire1");				//	生成
 
 
 		inputPut = 
-			Input.GetKeyDown(KeyCode.F)||
-			Input.GetButtonDown("Fire2");				//	設置
+			currentBox != null &&
+			(Input.GetKeyDown(KeyCode.R) ||
+			Input.GetButtonDown("Fire1"));				//	設置
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -119,6 +123,9 @@ public class PlayerBoxManager : MonoBehaviour
 
 		//	ハコ使用数を加算
 		StageManager.Instance.UsedBoxCount++;
+
+		//	アクションの表示名を変更
+		buttonHint.SetDisplayNameIndex("Fire1", 1);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -142,5 +149,8 @@ public class PlayerBoxManager : MonoBehaviour
 		currentBox.transform.parent = null;
 		//	手持ちから解除
 		currentBox = null;
+
+		//	アクションの表示名を変更
+		buttonHint.SetDisplayNameIndex("Fire1", 0);
 	}
 }

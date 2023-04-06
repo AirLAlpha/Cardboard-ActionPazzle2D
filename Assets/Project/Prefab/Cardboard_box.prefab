@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 4821497388240964577}
   - component: {fileID: 1378053522990162084}
   - component: {fileID: 8149671956524622808}
+  - component: {fileID: 1606037705150847436}
   m_Layer: 9
   m_Name: Cardboard_box
   m_TagString: Untagged
@@ -276,8 +277,6 @@ MonoBehaviour:
     m_Bits: 385
   putSpeed: 10
   label: {fileID: 6286792556021150207}
-  burnSpeed: 3.2
-  burnProgress: 0
 --- !u!61 &1378053522990162084
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -325,6 +324,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1606037705150847436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208725194538461517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 4
+  burnProgress: 0
 --- !u!1 &6276012797531984434
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,27 +12,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StageManager : MonoBehaviour
+public class StageManager : SingletonMonoBehaviour<StageManager>
 {
-	//	インスタンス
-	private static StageManager instance;       //	インスタンス
-	public static StageManager Instance			//	インスタンスを取得するプロパティ
-	{
-		get
-		{
-			if (instance == null)
-			{
-				Debug.LogError("StageManagerがアタッチされたオブジェクトはありません。");
-				return null;
-			}
-			else
-			{
-				return instance;
-			}
-		}
-	}
-
-
 	//	ステージデータベース
 	[Header("DataBase")]
 	[SerializeField]
@@ -46,7 +27,8 @@ public class StageManager : MonoBehaviour
 	private PlayerBoxManager		playerBoxManager;
 
 	//	シーン
-	private int currentStageId;											//	現在のシーンID
+	private Scene	loadedScene;										//	読み込み済みのシーン
+	private int		currentStageId;										//	現在のシーンID
 
 	//	段ボール
 	public int UsableBoxCount	{ get; set; }							//	使用可能なハコの数
@@ -79,7 +61,7 @@ public class StageManager : MonoBehaviour
 	//	実行前初期化処理
 	private void Awake()
 	{
-		InitInstance();     //	シングルトンインスタンスの初期化
+		CheckInstance();
 		InitStage();        //	ステージの初期化を行う
 
 		//	コンポーネントの取得
@@ -106,27 +88,6 @@ public class StageManager : MonoBehaviour
 	}
 
 	/*--------------------------------------------------------------------------------
-	|| シングルトンインスタンスの初期化
-	--------------------------------------------------------------------------------*/
-	private void InitInstance()
-	{
-		//	すでに自分自身がアタッチされているときは処理しない
-		if (instance == this)
-		{
-			return;
-		}
-		//	インスタンスが設定されていないときは自身を設定する
-		else if (instance == null)
-		{
-			instance = this;
-			return;
-		}
-
-		//	すでに別のインスタンスが設定されているときは自身を破棄する
-		Destroy(this);
-	}
-
-	/*--------------------------------------------------------------------------------
 	|| ステージの初期化
 	--------------------------------------------------------------------------------*/
 	private void InitStage()
@@ -139,13 +100,13 @@ public class StageManager : MonoBehaviour
 		}
 
 		//	シーン名を取得
+		const string BASE_SCENE_NAME = "StageBase";
 		int loadedSceneCount = SceneManager.sceneCount;
-		string baseSceneName = SceneManager.GetActiveScene().name;
-		string stageSceneNamae = baseSceneName;
+		string stageSceneNamae = BASE_SCENE_NAME;
 		for (int i = 0; i < loadedSceneCount; i++)
 		{
 			string sceneName = SceneManager.GetSceneAt(i).name;
-			if (sceneName == baseSceneName)
+			if (sceneName == BASE_SCENE_NAME)
 				continue;
 
 			stageSceneNamae = sceneName;

@@ -28,8 +28,16 @@ public class FireBall : MonoBehaviour
 	[SerializeField]
 	private float		moveSpeed;					//	移動速度
 
-	public Vector2		Direction { get; set; }		//	移動方向ベクトル
+	public Vector2		Direction { get; set; }     //	移動方向ベクトル
 
+	//	生存
+	[Header("生存")]
+	[SerializeField]
+	private float	lifeTime;		//	生存時間
+	[SerializeField]
+	private string	hitTags;        //	衝突するオブジェクトのタグ(半角スペースで区切って入力）
+
+	private float alivedTime;		//	経過した時間
 
 	//	実行前初期化処理
 	private void Awake()
@@ -41,6 +49,11 @@ public class FireBall : MonoBehaviour
 	private void Update()
 	{
 		rb.velocity = Direction * moveSpeed * Time.deltaTime;
+
+		//	生存時間以上が経過したら自身を削除する
+		alivedTime += Time.deltaTime;
+		if (alivedTime >= lifeTime)
+			Destroy(gameObject);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -57,5 +70,15 @@ public class FireBall : MonoBehaviour
 			Destroy(gameObject);
 		}
 
+		//	指定されたタグに衝突したら自身を削除する
+		string[] tags = hitTags.Split(' ');
+		foreach (var tag in tags)
+		{
+			if(collision.tag == tag)
+			{
+				Destroy(gameObject);
+				return;
+			}
+		}
 	}
 }

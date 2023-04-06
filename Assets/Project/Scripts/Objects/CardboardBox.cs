@@ -13,15 +13,17 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(BlazingShaderController))]
 public class CardboardBox : MonoBehaviour, IBurnable
 {
 	//	コンポーネント
 	[SerializeField]
 	private ParticleSystem	particle;
 
-	private SpriteRenderer	spriteRenderer;		//	SpriteRrender
-	private Rigidbody2D		rb;					//	Rigidbody2D
-	private BoxCollider2D	collider;			//	BoxCollider2D
+	private SpriteRenderer			spriteRenderer;		//	SpriteRrender
+	private Rigidbody2D				rb;					//	Rigidbody2D
+	private BoxCollider2D			collider;           //	BoxCollider2D
+	private BlazingShaderController bsc;                //	BlazingShaderController
 
 	//	設置判定
 	[Header("設置")]
@@ -43,15 +45,6 @@ public class CardboardBox : MonoBehaviour, IBurnable
 
 	public bool				IsPacked { get { return isPacked; } }
 
-	//	炎上
-	[SerializeField]
-	private float			burnSpeed;			//	炎上し切る速度
-	[SerializeField, Range(0.0f, 1.0f)]
-	private float			burnProgress;       //	燃える進行度
-
-	private bool					isBurning;			//	炎上フラグ
-	private MaterialPropertyBlock	propertyBlock;
-
 
 	//	実行前初期化処理
 	private void Awake()
@@ -60,8 +53,7 @@ public class CardboardBox : MonoBehaviour, IBurnable
 		rb				= GetComponent<Rigidbody2D>();
 		collider		= GetComponent<BoxCollider2D>();
 		spriteRenderer	= GetComponent<SpriteRenderer>();
-
-		propertyBlock = new MaterialPropertyBlock();
+		bsc				= GetComponent<BlazingShaderController>();
 	}
 
 	//	初期化処理
@@ -73,12 +65,6 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	//	更新処理
 	private void Update()
 	{
-		if (isBurning)
-		{
-			BurnUpdate();
-			return;
-		}
-
 		if (!isMoving)
 			return;
 
@@ -108,7 +94,7 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	--------------------------------------------------------------------------------*/
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (isPacked || isBurning)
+		if (isPacked)
 			return;
 
 		if (collision.transform.tag == "Enemy")
@@ -136,24 +122,7 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	--------------------------------------------------------------------------------*/
 	public void Burn()
 	{
-		isBurning = true;
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| 炎上の更新処理
-	--------------------------------------------------------------------------------*/
-	private void BurnUpdate()
-	{
-		burnProgress = Mathf.Clamp01(burnProgress + Time.deltaTime * burnSpeed);
-
-		Material mat = spriteRenderer.material;
-
-		spriteRenderer.GetPropertyBlock(propertyBlock);
-		propertyBlock.SetFloat("_Progress", burnProgress);
-		spriteRenderer.SetPropertyBlock(propertyBlock);
-
-		if (burnProgress >= 1.0f)
-			Destroy(gameObject);
+		bsc.IsBurning = true;
 	}
 
 	/*--------------------------------------------------------------------------------

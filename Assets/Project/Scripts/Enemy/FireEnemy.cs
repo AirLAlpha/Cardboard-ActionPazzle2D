@@ -44,8 +44,8 @@ public class FireEnemy : Enemy
 	[SerializeField]
 	private LayerMask	detectionLayer;     //	検出するレイヤー
 
-	private float		attackIntervalCount;	//	攻撃間隔のカウンター
-	private Collider2D[] inAttackRrange;		//	攻撃範囲内のコライダー
+	private float			attackIntervalCount;	//	攻撃間隔のカウンター
+	private Collider2D[]	inAttackRrange;			//	攻撃範囲内のコライダー
 
 	//	範囲の中心座標
 	private Vector2 RangeCenter => transform.position + new Vector3(rangeOffset.x, rangeOffset.y);

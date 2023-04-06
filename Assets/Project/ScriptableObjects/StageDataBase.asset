@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageList:
   - stageId: 0
-    usableBoxCount: 5
+    usableBoxCount: 999
     targetBoxCount: 1
   - stageId: 1
     usableBoxCount: 1
@@ -23,5 +23,5 @@ MonoBehaviour:
     usableBoxCount: 2
     targetBoxCount: 1
   - stageId: 3
-    usableBoxCount: 2
+    usableBoxCount: 1
     targetBoxCount: 1

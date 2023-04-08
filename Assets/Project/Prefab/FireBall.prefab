@@ -137,5 +137,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 700
-  lifeTime: 0.2
+  lifeTime: 1.5
   hitTags: Untagged

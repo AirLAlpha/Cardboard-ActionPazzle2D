@@ -33,11 +33,11 @@ public class PlayerMove : MonoBehaviour
 	//	移動
 	[Header("移動")]
 	[SerializeField] 
-	private float	moveSpeed;					//	移動速度
+	private float		moveSpeed;					//	移動速度
 	[SerializeField]
-	private float	speedChangeRate;            //	移動速度の適応速度
+	private float		speedChangeRate;            //	移動速度の適応速度
 
-	private float	velX;						//	移動ベクトルX
+	private float		velX;						//	移動ベクトルX
 
 	public Direction	CurrentDir	{ get; private set; }       //	現在の方向
 	public bool			CantMove	{ get; set; }				//	移動不可能フラグ（true:移動不可）
@@ -82,6 +82,12 @@ public class PlayerMove : MonoBehaviour
 	private bool				isRotate;               //	回転中
 	private int					rotateCount;
 
+	//	プロパティ
+	public float MoveSpeed			{ get { return moveSpeed; } set { moveSpeed = value; } }
+	public float RotateSpeed		{ get { return rotateSpeed; } set { rotateSpeed = value; } }
+	public float SpeedChangeRate	{ get { return speedChangeRate; } }
+
+
 #if UNITY_EDITOR
 	//	デバッグ
 	[Header("デバッグ")]
@@ -123,12 +129,19 @@ public class PlayerMove : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void InputUpdate()
 	{
+		//	入力をリセット
+		inputVec = Vector2.zero;
+
 		if (DisableInput)
 			return;
 
 		//	移動入力
-		inputVec.x = Input.GetAxisRaw("Horizontal");        //	X
-		inputVec.y = Input.GetAxisRaw("Vertical");          //	Y
+		inputVec.x = Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("D-PadX");        //	X
+		inputVec.y = Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("D-PadY");          //	Y
+
+		inputVec.x = Mathf.Clamp(inputVec.x, -1, 1);
+		inputVec.y = Mathf.Clamp(inputVec.y, -1, 1);
+
 
 		//	ジャンプ入力
 		inputJump = Input.GetButtonDown("Jump");			//	ジャンプ

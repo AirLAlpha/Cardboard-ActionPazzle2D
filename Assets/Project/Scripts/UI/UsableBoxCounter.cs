@@ -46,8 +46,8 @@ public class UsableBoxCounter : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		StageManager.Instance.OnChangedRemainingBoxCount += ChangeCount;
-		StageManager.Instance.OnNonRemaining += NonRemaining;
+		StageManager.Instance.OnChangedRemainingBoxCount.AddListener(ChangeCount);
+		StageManager.Instance.OnNonRemaining.AddListener(NonRemaining);
 	}
 
 	//	更新処理

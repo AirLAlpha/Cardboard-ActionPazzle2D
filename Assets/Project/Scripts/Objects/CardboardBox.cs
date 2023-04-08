@@ -22,7 +22,7 @@ public class CardboardBox : MonoBehaviour, IBurnable
 
 	private SpriteRenderer			spriteRenderer;		//	SpriteRrender
 	private Rigidbody2D				rb;					//	Rigidbody2D
-	private BoxCollider2D			collider;           //	BoxCollider2D
+	private new BoxCollider2D		collider;           //	BoxCollider2D
 	private BlazingShaderController bsc;                //	BlazingShaderController
 
 	//	設置判定

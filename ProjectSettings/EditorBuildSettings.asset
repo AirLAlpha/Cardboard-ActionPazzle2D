@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/TestScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Project/Scenes/TaskDataScene.unity
+    guid: 1575afdd2221df940967e5481e1cd70f
+  - enabled: 1
+    path: Assets/Project/Scenes/Stages/Stage_0.unity
+    guid: dbced799fb9ce114ba796e4b439a1370
+  - enabled: 1
     path: Assets/Project/Scenes/Stages/Stage_1.unity
     guid: 30868c84c53740d48bd9c2d14c896e56
   - enabled: 1

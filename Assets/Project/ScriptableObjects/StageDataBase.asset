@@ -12,16 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7fa5e75be53824e9fb531b9d821678, type: 3}
   m_Name: StageDataBase
   m_EditorClassIdentifier: 
-  stageList:
-  - stageId: 0
-    usableBoxCount: 999
-    targetBoxCount: 1
-  - stageId: 1
-    usableBoxCount: 1
-    targetBoxCount: 1
-  - stageId: 2
-    usableBoxCount: 2
-    targetBoxCount: 1
-  - stageId: 3
-    usableBoxCount: 1
-    targetBoxCount: 1
+  stages:
+  - {fileID: 11400000, guid: cdcea2bbce3b44246948bf8ca2a94df3, type: 2}

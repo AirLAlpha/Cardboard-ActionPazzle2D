@@ -26,9 +26,11 @@ public class BackgroundScroll : MonoBehaviour
 	private float scrollMax;            //	最大スクロール量
 	[SerializeField]
 	private float scrollMin;            //	最小スクロール量
-
 	[SerializeField]
-	private float returnOffsetX;		//	折り返し時のオフセット
+	private float returnOffsetX;        //	折り返し時のオフセット
+	[SerializeField]
+	private bool ignoreY;				//	Y軸を無視するフラグ
+
 
 	private Vector3 saveCameraPos;      //	前回処理時のカメラ座標
 
@@ -51,6 +53,11 @@ public class BackgroundScroll : MonoBehaviour
 	{
 		//	カメラの座標を取得する
 		Vector3 pos = camera.transform.position;
+		if (ignoreY)
+			pos.y = 0.0f;
+		//	自身をカメラの座標と重ねる
+		transform.position = pos;
+
 		//	X軸の移動量をスクロール量として取得
 		float scrollValue = scrollTargets.localPosition.x;
 
@@ -69,6 +76,8 @@ public class BackgroundScroll : MonoBehaviour
 		{
 			//	差分（移動量を計算）
 			Vector3 sub = pos - saveCameraPos;
+			if (ignoreY)
+				sub.y = 0.0f;
 
 			scrollTargets.localPosition += sub * Time.deltaTime * scrollSpeed;
 		}

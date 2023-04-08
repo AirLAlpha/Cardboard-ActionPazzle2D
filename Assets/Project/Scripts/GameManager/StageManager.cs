@@ -11,13 +11,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class StageManager : SingletonMonoBehaviour<StageManager>
 {
 	//	ステージデータベース
 	[Header("DataBase")]
 	[SerializeField]
-	private StageDataBase stageDataBase;
+	private StageDataBase		stageDataBase;
+	[SerializeField]
+	private SelectedTaskData	selectedStageData;
 
 	//	プレイヤー
 	[Header("Player")]
@@ -25,6 +28,11 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	private PlayerMove				playerMove;
 
 	private PlayerBoxManager		playerBoxManager;
+
+	//	キャンバス
+	[Header("キャンバス")]
+	[SerializeField]
+	private CanvasAlphaController	canvasAlphaController;
 
 	//	シーン
 	private Scene	loadedScene;										//	読み込み済みのシーン
@@ -53,14 +61,19 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	public bool IsStageClear	{ get; private set; }					//	ステージクリアフラグ
 
 	//	アクション
-	public System.Action OnChangedRemainingBoxCount { get; set; }		//	残りの箱の数が更新されたときに呼び出される
-	public System.Action OnNonRemaining				{ get; set; }       //	箱の残りがなかったときに呼び出される
-	public System.Action OnChangedCompleteBoxCount	{ get; set; }       //	ゴールさせた箱の数が更新されたときに呼び出される
-	public System.Action OnStageClear				{ get; set; }		//	ステージクリア時に呼び出される
+	public UnityEvent OnChangedRemainingBoxCount	{ get; set; }		//	残りの箱の数が更新されたときに呼び出される
+	public UnityEvent OnNonRemaining				{ get; set; }       //	箱の残りがなかったときに呼び出される
+	public UnityEvent OnChangedCompleteBoxCount		{ get; set; }       //	ゴールさせた箱の数が更新されたときに呼び出される
+	public UnityEvent OnStageClear					{ get; set; }		//	ステージクリア時に呼び出される
 
 	//	実行前初期化処理
 	private void Awake()
 	{
+		OnChangedCompleteBoxCount = new UnityEvent();
+		OnChangedRemainingBoxCount = new UnityEvent();
+		OnNonRemaining = new UnityEvent();
+		OnStageClear = new UnityEvent();
+
 		CheckInstance();
 		InitStage();        //	ステージの初期化を行う
 
@@ -85,6 +98,16 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		if (IsStageClear &&
 			Input.GetButtonDown("Jump"))
 			ReturnTitle();
+	}
+
+	//	終了時処理
+	private void OnDisable()
+	{
+		//	すべてのイベントに登録されたデリゲートを削除する
+		OnChangedCompleteBoxCount.RemoveAllListeners();
+		OnChangedRemainingBoxCount.RemoveAllListeners();
+		OnNonRemaining.RemoveAllListeners();
+		OnStageClear.RemoveAllListeners();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -113,15 +136,14 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			break;
 		}
 
-		//	シーン名からステージIDを取得
-		int stageId = int.Parse(stageSceneNamae.Replace("Stage_", ""));
-		//	データベース内のステージIDから検索
-		StageData findResult = stageDataBase.StageList.Find(n => n.StageID == stageId);
+		//	タスクデータの取得
+		int stageId = selectedStageData.StageID;
+		int taskIndex = selectedStageData.TaskIndex;
+		TaskData task = stageDataBase.Stages[stageId].Tasks[taskIndex];
 
 		//	変数を保持
-		currentStageId = stageId;
-		UsableBoxCount = findResult.UsableBoxCount;
-		TargetBoxCount = findResult.TargetBoxCount;
+		UsableBoxCount = task.UsableBoxCount;
+		TargetBoxCount = task.TargetBoxCount;
 		saveRemainingBoxCount = -1;
 		saveCompleteBoxCount = -1;
 
@@ -140,8 +162,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 
 			if (restartPressedTime >= restartTime)
 			{
-				var baseScene = SceneManager.LoadSceneAsync("StageBase");
-				var stageScene = SceneManager.LoadSceneAsync("Stage_" + currentStageId.ToString(), LoadSceneMode.Additive);
+				//	ステージを再読込する
+				ResetStage();
 			}
 		}
 		else
@@ -208,6 +230,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	--------------------------------------------------------------------------------*/
 	private void StageClear()
 	{
+		canvasAlphaController.TargetAlpha = 0.0f;
 		playerMove.DisableInput = true;
 		playerBoxManager.DisableInput = true;
 	}
@@ -218,6 +241,27 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	private void ReturnTitle()
 	{
 		SceneManager.LoadScene("TitleScene");
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ステージの再読み込み処理
+	--------------------------------------------------------------------------------*/
+	public void ResetStage()
+	{
+		int loadedSceneCount = SceneManager.sceneCount;
+		string[] scenes = new string[loadedSceneCount];
+		//	すべてのシーン名を取得
+		for (int i = 0; i < loadedSceneCount; i++)
+		{
+			scenes[i] = SceneManager.GetSceneAt(i).name;
+		}
+
+		//	再読み込みを実行
+		SceneManager.LoadScene(scenes[0]);
+		for (int i = 1; i < loadedSceneCount; i++)
+		{
+			SceneManager.LoadScene(scenes[i], LoadSceneMode.Additive);
+		}
 	}
 
 }

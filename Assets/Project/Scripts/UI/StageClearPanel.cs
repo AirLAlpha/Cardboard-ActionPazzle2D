@@ -31,7 +31,7 @@ public class StageClearPanel : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		StageManager.Instance.OnStageClear += OnStageClear;
+		StageManager.Instance.OnStageClear.AddListener(OnStageClear);
 		gameObject.SetActive(false);
 	}
 

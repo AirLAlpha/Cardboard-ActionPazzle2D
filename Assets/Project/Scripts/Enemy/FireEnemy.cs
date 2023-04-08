@@ -83,7 +83,8 @@ public class FireEnemy : Enemy
 			case State.IDLE:		//	待機
 				break;	
 
-			case State.ATTENTION:	//	警戒
+			case State.ATTENTION:   //	警戒
+				attackIntervalCount = 0.0f;
 				break;
 
 			case State.ATTACK:      //	攻撃

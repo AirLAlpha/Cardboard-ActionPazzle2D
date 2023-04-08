@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 1455866010489839868}
   - component: {fileID: 1455866010489839869}
   - component: {fileID: 4369791879675407418}
+  - component: {fileID: 8765415605556229797}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -297,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835985a45203f92489f0541e69715f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonHint: {fileID: 0}
   boxOriginal: {fileID: 4821497388240964577, guid: e22f2b5a21df01f40be42bf08e3caec3, type: 3}
   generatePos: {x: 0, y: 0}
   generateParent: {fileID: 1455866009813371979}
@@ -317,6 +319,49 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8765415605556229797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866010489839843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af3779b777c68d469c0bf5674e55560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenders:
+  - {fileID: 1455866009983635765}
+  - {fileID: 1455866009813371976}
+  OnDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CameraZoom, Assembly-CSharp
+        m_MethodName: StartZoom
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1455866010489839871}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerDead, Assembly-CSharp
+        m_MethodName: Dead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  blazingMat: {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
 --- !u!1 &1455866011123590184
 GameObject:
   m_ObjectHideFlags: 0

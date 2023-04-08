@@ -1225,6 +1225,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2116191612392014422, guid: 18cc6f7f7e2512d40a88c0b48a307fa4, type: 3}
   m_PrefabInstance: {fileID: 315372972}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2066855339
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355660, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851119450428355671, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+      propertyPath: m_Name
+      value: FireEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
 --- !u!1 &5787673086182457901
 GameObject:
   m_ObjectHideFlags: 0

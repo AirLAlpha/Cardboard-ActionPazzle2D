@@ -7,6 +7,7 @@
  *  制作日：2024/04/05
  * 
  **********************************************/
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public static class StageBaseLoader
 		"StageBase",
 	};
 
-	//	StageBaseシーンを読み込む
+	//	StageBaseシーン
 	static readonly string STAGE_BASE_NAME = "StageBase";
 	//	Stageのディレクトリ
 	static readonly string STAGE_DIRECTORY = "Assets/Project/Scenes/";
@@ -53,7 +54,5 @@ public static class StageBaseLoader
 
 		EditorSceneManager.OpenScene(STAGE_DIRECTORY + STAGE_BASE_NAME + ".unity", OpenSceneMode.Additive);
 	}
-
-	
-
 }
+#endif

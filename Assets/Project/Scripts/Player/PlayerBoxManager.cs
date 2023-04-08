@@ -38,6 +38,8 @@ public class PlayerBoxManager : MonoBehaviour
 	//	管理
 	private CardboardBox	currentBox;         //	所持しているハコ
 
+	public CardboardBox CurrentBox { get { return currentBox; } }
+
 	//	設置
 	[Header("設置")]
 	[SerializeField]

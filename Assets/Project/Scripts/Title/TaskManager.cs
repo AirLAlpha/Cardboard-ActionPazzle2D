@@ -12,8 +12,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//	TODO : リファクタリング
+
 public class TaskManager : MonoBehaviour
 {
+	//	送り状
+	[System.Serializable]
+	private struct Invoice
+	{
+		public SpriteRenderer	sprite;
+		public SpriteRenderer	clearStamp;
+		public SpriteRenderer	timeIcon;
+		public SpriteRenderer	boxIcon;
+		public TextMeshPro		stageNumText;
+		public TextMeshPro		clearTimeText;
+		public TextMeshPro		boxCountText;
+	}
+	
+
 	//	選択済みのタスクを保持するためのオブジェクト
 	[Header("選択済みタスク")]
 	[SerializeField]
@@ -22,6 +38,10 @@ public class TaskManager : MonoBehaviour
 	[Header("コンポーネント")]
 	[SerializeField]
 	private TitleManager			titleManager;
+	[SerializeField]
+	private SpriteAlphaController	backgroundAlphaControlelr;
+
+	private SoundPlayer				soundPlayer;
 
 	//	ステージインデックスの設定
 	public int StageIndex { set { selectedTask.StageID = value; } }
@@ -60,16 +80,14 @@ public class TaskManager : MonoBehaviour
 	//	間隔
 	[Header("間隔")]
 	[SerializeField]
-	private float					taskGapX;			//	タスク同士の間隔（X)
+	private float					taskGapX;           //	タスク同士の間隔（X)
 
-	//	タスク
-	[Header("タスク")]
+	//	送り状
+	[Header("送り状")]
 	[SerializeField]
-	private SpriteRenderer[]		taskImages;         //	タスクの画像
-	[SerializeField]
-	private TextMeshPro[]			taskTexts;          //	タスクの文字
-	[SerializeField]
-	private SpriteRenderer[]		clearStamps;		//	クリアスタンプ
+	private Invoice[]				invoicies;          //	送り状
+
+	private int						activeInvoiceCount;	//	有効な送り状の数
 
 	//	選択
 	[Header("選択")]
@@ -137,19 +155,19 @@ public class TaskManager : MonoBehaviour
 	//	アニメーション
 	[Header("アニメーション")]
 	[SerializeField]
-	private float					animationSpeed;     //	sin波の変化速度
+	private float					animationSpeed;             //	sin波の変化速度
 
-	private float					sin;				//	sin波用の変数
-	private float					animationValue;     //	アニメーション用の変数
+	private float					sin;						//	sin波用の変数
+	private float					animationValue;				//	アニメーション用の変数
 
 	private float					rootAnimationProgress;      //	ルートオブジェクトのアニメーション進行度
 
-	private float					pickupAnimationProgress;	//	タスクを1つ選択したときのアニメーション進行度
+	private float					pickupAnimationProgress;    //	タスクを1つ選択したときのアニメーション進行度
 	
 	//	実行前初期化処理
 	private void Awake()
 	{
-		
+		soundPlayer = GetComponent<SoundPlayer>();
 	}
 
 	//	初期化処理
@@ -208,6 +226,9 @@ public class TaskManager : MonoBehaviour
 		{
 			inputX = x;
 			inputXTimer = inputXInterval;
+
+			//	サウンドの再生
+			soundPlayer.Play(1);
 		}
 		else if(inputXTimer > 0)
 		{
@@ -229,15 +250,16 @@ public class TaskManager : MonoBehaviour
 		//	入力を選択中のインデックスに反映
 		if (pickupAnimationProgress <= 0.0f)
 			selectedNum += (int)inputX;
-		selectedNum = (int)Mathf.Repeat(selectedNum, taskImages.Length);
+		selectedNum = (int)Mathf.Repeat(selectedNum, activeInvoiceCount);
 
 		//	選択時の変数を用意
 		float selectedScale = Mathf.Lerp(selectedMinScale, selectedMaxScale, animationValue);
 		float selectedPosY = Mathf.Lerp(selectedMinPosY, selectedMaxPosY, animationValue);
 
 		//	選択中のイメージを拡大、そうでないものを等倍に変化させる
-		for (int i = 0; i < taskImages.Length; i++)
+		for (int i = 0; i < invoicies.Length; i++)
 		{
+			var taskImage = invoicies[i].sprite;
 			bool isSelected = i == selectedNum;     //	現在のインデックスが選択中か否か
 
 			float targetScale = isSelected ? selectedScale : nonSelectedScale;  //	スケール
@@ -245,12 +267,12 @@ public class TaskManager : MonoBehaviour
 			Color targetColor = isSelected ? selectedColor : nonSelectedColor;  //	色
 
 			//	スケールを適応
-			taskImages[i].transform.localScale = Vector3.Lerp(taskImages[i].transform.localScale, Vector3.one * targetScale, Time.deltaTime * scaleChangeRate);
+			taskImage.transform.localScale = Vector3.Lerp(taskImage.transform.localScale, Vector3.one * targetScale, Time.deltaTime * scaleChangeRate);
 			//	Y座標を適応
-			float posY = Mathf.Lerp(taskImages[i].transform.localPosition.y, targetPosY, Time.deltaTime * posChangeRate);
-			taskImages[i].transform.localPosition = new Vector3(taskImages[i].transform.localPosition.x, posY);
+			float posY = Mathf.Lerp(taskImage.transform.localPosition.y, targetPosY, Time.deltaTime * posChangeRate);
+			taskImage.transform.localPosition = new Vector3(taskImage.transform.localPosition.x, posY);
 			//	色を適応
-			taskImages[i].color = Color.Lerp(taskImages[i].color, targetColor, Time.deltaTime * colorChangeRate);
+			taskImage.color = Color.Lerp(taskImage.color, targetColor, Time.deltaTime * colorChangeRate);
 		}
 	}
 
@@ -260,7 +282,7 @@ public class TaskManager : MonoBehaviour
 	private void FrameUpdate()
 	{
 		//	枠の座標を変更
-		frameImage.transform.localPosition = taskImages[selectedNum].transform.localPosition;
+		frameImage.transform.localPosition = invoicies[selectedNum].sprite.transform.localPosition;
 
 		//	枠のスケールを変更
 		float absRad = Mathf.Abs(sin / 2);
@@ -312,9 +334,12 @@ public class TaskManager : MonoBehaviour
 		float yPos = Mathf.Lerp(selectedMaxPosY, pickupPosY, pickupAnimationProgress) + animationValue * pickupAmplitude;
 
 		//	スケールの適応
-		taskImages[selectedNum].transform.localScale = new Vector3(xScale, scale, scale);
+		invoicies[selectedNum].sprite.transform.localScale = new Vector3(xScale, scale, scale);
 		//	座標の適応
-		taskImages[selectedNum].transform.localPosition = new Vector3(xPos, yPos);
+		invoicies[selectedNum].sprite.transform.localPosition = new Vector3(xPos, yPos);
+
+		//	背景のアルファを適応
+		backgroundAlphaControlelr.Alpha = pickupAnimationProgress;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -331,12 +356,27 @@ public class TaskManager : MonoBehaviour
 	private void PickUp()
 	{
 		//	X座標を保持
-		pickupStartX = selectedNum * taskGapX - Mathf.FloorToInt(taskImages.Length / 2) * taskGapX;
+		pickupStartX = selectedNum * taskGapX - Mathf.FloorToInt(invoicies.Length / 2) * taskGapX;
 
 		//	描画順の設定
-		for (int i = 0; i < taskImages.Length; i++)
+		for (int i = 0; i < invoicies.Length; i++)
 		{
-			taskImages[i].sortingOrder = selectedNum == i ? 10 : 3;
+			//	送り状の描画順
+			int order = selectedNum == i ? 10 : 3;
+			//	送り状に描画するものの描画順
+			int childOrder = order + 1;
+
+			//	送り状
+			invoicies[i].sprite.sortingOrder = order;
+			//	スタンプ
+			invoicies[i].clearStamp.sortingOrder = childOrder;
+			//	アイコン
+			invoicies[i].timeIcon.sortingOrder = childOrder;
+			invoicies[i].boxIcon.sortingOrder = childOrder;
+			//	テキスト
+			invoicies[i].stageNumText.sortingOrder = childOrder;
+			invoicies[i].clearTimeText.sortingOrder = childOrder;
+			invoicies[i].boxCountText.sortingOrder = childOrder;
 		}
 
 		//	ピックアップフラグの有効化
@@ -349,9 +389,9 @@ public class TaskManager : MonoBehaviour
 	private void SetTaskTexts()
 	{
 		//	ステージ番号の書き換え
-		for (int i = 0; i < taskTexts.Length; i++)
+		for (int i = 0; i < invoicies.Length; i++)
 		{
-			taskTexts[i].text = (selectedTask.StageID + 1) + " - " + (i + 1);
+			invoicies[i].stageNumText.text = selectedTask.StageID + " - " + (i + 1);
 		}
 	}
 
@@ -360,12 +400,35 @@ public class TaskManager : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void SetClearStatus()
 	{
-		//	クリアスタンプの設定
-		for (int i = 0; i < taskImages.Length; i++)
-		{
-			//	TODO : クリア状況の読み込み
+		//	セーブデータの読み込み
+		SaveData data = SaveDataLoader.LoadJson();
 
-			clearStamps[i].gameObject.SetActive(false);
+		//	クリアスタンプの設定
+		for (int i = 0; i < invoicies.Length; i++)
+		{
+			TaskScore score = data.stageScores[selectedTask.StageID].scores[i];
+
+			//	クリア時間が0以下のときは”未クリア”として処理
+			if(score.clearTime <= 0.0f)
+			{
+				//	テキストの書き換え
+				invoicies[i].clearTimeText.text = "--:--";
+				invoicies[i].boxCountText.text = "--";
+				//	スタンプの無効化
+				invoicies[i].clearStamp.gameObject.SetActive(false);
+			}
+			//	クリア時間が0以上のときはテキストを書き換え、スタンプを表示
+			else
+			{
+				int min = (int)(score.clearTime / 60.0f);	//	秒
+				int sec = (int)(score.clearTime % 60.0f);	//	分
+
+				//	テキストの書き換え
+				invoicies[i].clearTimeText.text = min.ToString("D2") + ":" + sec.ToString("D2");
+				invoicies[i].boxCountText.text = score.usedBoxCount.ToString("D2");
+				//	スタンプの有効化
+				invoicies[i].clearStamp.gameObject.SetActive(true);
+			}
 		}
 	}
 
@@ -376,6 +439,9 @@ public class TaskManager : MonoBehaviour
 	{
 		selectedTask.TaskIndex = selectedNum;
 
+		//	サウンドの再生
+		soundPlayer.Play(0);
+
 		//	シーンの読み込みを実行
 		titleManager.LoadScene();
 	}
@@ -383,14 +449,36 @@ public class TaskManager : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 有効化時処理
 	--------------------------------------------------------------------------------*/
-	public void Activate(Vector3 pos)
+	public void Activate(Vector3 pos, int taskCount)
 	{
 		//	タスクのテキストを設定
 		SetTaskTexts();
 		//	クリア状況の反映
 		SetClearStatus();
+		//	送り状の表示を設定
+		SetInvoiceActive(taskCount);
+
 
 		StartCoroutine(ActivateCrountine(pos));
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 送り状の有効化処理
+	--------------------------------------------------------------------------------*/
+	private void SetInvoiceActive(int taskCount)
+	{
+		//	有効な送り状の数を保持
+		activeInvoiceCount = taskCount;
+
+		//	アクティブを切り替える
+		for (int i = 0; i < invoicies.Length; i++)
+		{
+			bool active = false;
+			if (i < taskCount)
+				active = true;
+
+			invoicies[i].sprite.transform.gameObject.SetActive(active);
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -407,6 +495,9 @@ public class TaskManager : MonoBehaviour
 		isActive = true;
 		//	ルートオブジェクトを有効化
 		taskImageRoot.gameObject.SetActive(true);
+
+		//	サウンドの再生
+		soundPlayer.Play(2);
 	}
 
 	/*--------------------------------------------------------------------------------

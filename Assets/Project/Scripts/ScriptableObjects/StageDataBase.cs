@@ -16,10 +16,10 @@ using UnityEngine;
 public class StageDataBase : ScriptableObject
 {
 	[SerializeField]
-	StageData[] stages;								//	ステージデータの配列
+	StageInfo[] stages;								//	ステージデータの配列
 
 	public int StageCount => stages.Length;		//	ステージの数
 
 	//	プロパティ
-	public StageData[] Stages { get { return stages; } }
+	public StageInfo[] Stages { get { return stages; } }
 }

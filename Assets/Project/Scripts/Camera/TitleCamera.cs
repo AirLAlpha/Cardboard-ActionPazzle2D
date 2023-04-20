@@ -32,9 +32,9 @@ public class TitleCamera : ScrollCamera
 	}
 
 	//	初期化処理
-	private void Start()
+	protected override void Start()
 	{
-		
+		base.Start();
 	}
 
 	//	更新処理

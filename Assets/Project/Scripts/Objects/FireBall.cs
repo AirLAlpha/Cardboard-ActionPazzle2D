@@ -11,12 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//	燃やすことが出来るオブジェクトに付与するインターフェース
-public interface IBurnable
-{
-	public abstract void Burn();		//	燃えたときに呼ばれる処理
-}
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class FireBall : MonoBehaviour
 {

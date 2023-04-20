@@ -20,13 +20,15 @@ MonoBehaviour:
     negativeKeySprite: {fileID: -1013339856, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     controllerSprite: {fileID: -878075277, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Vertical
-    displayNames: []
+    displayNames:
+    - MOVE
     positiveKeySprite: {fileID: 1674181247, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 1972798246, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     controllerSprite: {fileID: -878075277, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Jump
     displayNames:
     - JUMP
+    - CONFIRM
     positiveKeySprite: {fileID: 781182871, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
     controllerSprite: {fileID: -140568353, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}

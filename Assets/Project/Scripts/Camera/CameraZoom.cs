@@ -41,9 +41,10 @@ public class CameraZoom : MonoBehaviour
 	private float			zoomProgress;	//	進行度
 
 	//	プロパティ
-	public bool			ZoomIn		{ get { return zoomIn; } set { zoomIn = value; } }
-	public Vector3		TargetPos	{ get { return targetPos; } set { targetPos = value; } }
-	public Transform	Target		{ set { targetPos = value.position; } }
+	public bool			ZoomIn			{ get { return zoomIn; }		set { zoomIn = value; } }
+	public float		ZoomDiameter	{ get { return zoomDiameter; }	set { zoomDiameter = value; } }
+	public Vector3		TargetPos		{ get { return targetPos; }		set { targetPos = value; } }
+	public Transform	Target			{ set { targetPos = value.position; } }
 
 	//	実行前初期化処理
 	private void Awake()

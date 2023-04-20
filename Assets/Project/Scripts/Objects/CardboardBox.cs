@@ -30,21 +30,34 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	[SerializeField]
 	private LayerMask		tryCheckMask;       //	設置前判定用レイヤーマスク
 	[SerializeField]
-	private float			putSpeed;
+	private float			putSpeed;			//	設置速度
 
-	private float			putProgress;
-	private bool			isMoving;
-	private Vector2			startPos;
-	private Vector2			targetPos;
+	private float			putProgress;		//	設置の進行度
+	private bool			isMoving;			//	設置中フラグ
+	private Vector2			startPos;			//	設置の開始座標
+	private Vector2			targetPos;          //	設置先の座標
 
 	//	梱包
+	[Header("梱包")]
 	[SerializeField]
-	private Transform		label;				//	ラベル
+	private Color[]			stateColors;		//	各ステートにおける色
+	[SerializeField]
+	private Transform		label;              //	ラベル
 
+	private CardboardType	type;				//	梱包ステート
 	private bool			isPacked;           //	パッキング済み
 
 	public bool				IsPacked { get { return isPacked; } }
 
+	//	割れ物注意
+	[Header("割れ物注意")]
+	[SerializeField]
+	private float			breakingVelocity;     //	破壊されてしまう高さ
+
+	private bool			inFreefall;
+	private bool			saveInFreefall;
+	private float			saveVel;            //	
+	private bool			isBreakable;
 
 	//	実行前初期化処理
 	private void Awake()
@@ -65,6 +78,50 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	//	更新処理
 	private void Update()
 	{
+		switch (type)
+		{
+			case CardboardType.BREAKABLE:			//	割れ物注意
+				BreakableUpdate();
+				break;
+
+			case CardboardType.RIGHTSIDEUP:			//	天地無用
+				break;
+
+			default:								//	それ以外の状態は処理を行わない
+				break;
+		}
+
+		//	箱の移動処理
+		MoveUpdate();
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 割れ物注意時の更新処理
+	--------------------------------------------------------------------------------*/
+	private void BreakableUpdate()
+	{
+		if (!inFreefall)
+			return;
+
+		float sqrMag = rb.velocity.sqrMagnitude;
+
+		if(Mathf.Abs(saveVel - sqrMag) > breakingVelocity)
+		{
+			isBreakable = true;
+		}
+		else
+		{
+			isBreakable = false;
+		}
+
+		saveVel = sqrMag;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 箱の移動処理
+	--------------------------------------------------------------------------------*/
+	private void MoveUpdate()
+	{
 		if (!isMoving)
 			return;
 
@@ -77,16 +134,10 @@ public class CardboardBox : MonoBehaviour, IBurnable
 
 		transform.localPosition = new Vector2(x, y);
 		transform.localScale = Vector3.one;
-
 	}
-
 	private float EaseX(float x)
 	{
 		return 1 - Mathf.Pow(1 - x, 3);
-	}
-	private float EaseY(float x)
-	{
-		return x * x * x * x;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -94,19 +145,41 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	--------------------------------------------------------------------------------*/
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
+		if (type == CardboardType.BREAKABLE)
+		{
+			float hitVel = collision.relativeVelocity.sqrMagnitude;
+			if (hitVel >= breakingVelocity * breakingVelocity)
+				Burn();
+
+			Debug.Log(collision.relativeVelocity);
+		}
+
 		if (isPacked)
 			return;
 
-		if (collision.transform.tag == "Enemy")
-			Packing(collision.transform);
+		if (collision.transform.TryGetComponent<IPackable>(out var hit))
+		{
+			//	相手の梱包処理を実行
+			CardboardType type = hit.Packing();
+			//	自身の梱包時処理を実行
+			Packing(type);
+		}
+	}
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		if (type == CardboardType.BREAKABLE)
+			inFreefall = true;
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| 梱包処理
 	--------------------------------------------------------------------------------*/
-	private void Packing(Transform packingTarget)
+	private void Packing(CardboardType type)
 	{
-		Destroy(packingTarget.gameObject);
+		//	タイプを保持する
+		this.type = type;
+		//	対応する色に変化させる
+		spriteRenderer.color = stateColors[(int)type];
 
 		//	パッキング済みにする
 		isPacked = true;
@@ -148,9 +221,12 @@ public class CardboardBox : MonoBehaviour, IBurnable
 		if(checkResult != null)
 		{
 			//	敵がいた場合は梱包を行う
-			if (checkResult.tag == "Enemy")
+			if (checkResult.TryGetComponent<IPackable>(out var hit))
 			{
-				Packing(checkResult.transform);
+				//	相手の梱包処理を行う
+				CardboardType type = hit.Packing();
+				//	自身の梱包時処理を実行
+				Packing(type);
 			}
 			//	それ以外は設置不能として処理
 			else

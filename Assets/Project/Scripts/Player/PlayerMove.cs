@@ -69,7 +69,7 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField]
 	private Transform			spriteRoot;
 	[SerializeField]
-	private Transform			cap;
+	private SpriteRenderer		cap;
 	[SerializeField]
 	private AnimationCurve		rotateCurve;
 	[SerializeField]
@@ -156,6 +156,16 @@ public class PlayerMove : MonoBehaviour
 			CurrentDir = Direction.RIGHT;
 		else if (inputVec.x < 0)
 			CurrentDir = Direction.LEFT;
+
+		//	帽子が設定されていないときは処理しない
+		if (cap == null)
+			return;
+
+		//	向いている方向に応じて帽子を反転させる
+		if (CurrentDir == Direction.RIGHT)
+			cap.flipX = false;
+		else
+			cap.flipX = true;
 	}
 
 	/*--------------------------------------------------------------------------------

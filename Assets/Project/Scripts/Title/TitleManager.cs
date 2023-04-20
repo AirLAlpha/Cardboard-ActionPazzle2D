@@ -10,6 +10,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
@@ -45,17 +46,43 @@ public class TitleManager : MonoBehaviour
 	private Transform[]			stageNumberBoxes;				//	ステージ番号のハコ
 
 	public int					SelectedStage { get; set; }     //	選択中のステージ
+	private int					saveSelectedStage;
 
+	//	ボタンヒント
+	[Header("ボタンヒント")]
+	[SerializeField]
+	private ButtonHint			buttonHit;
+	[SerializeField]
+	private RectTransform		cancelHint;
 
 	//	入力
 	private bool				inputConfirm;					//	確定ボタン
-	private bool				inputCancel;					//	キャンセルボタン
+	private bool				inputCancel;                    //	キャンセルボタン
+
+	//	オープニング
+	[Header("オープニング")]
+	[SerializeField]
+	private PlayableDirector	openingDirector;
+	[SerializeField]
+	private float				playerSpawnPosY;
+
 
 	//	実行前初期化処理
 	private void Awake()
 	{
 		//	変数の初期化
-		SelectedStage = -1;	
+		SelectedStage = -1;
+
+		if (selectedData.StageID == -1)
+			openingDirector.Play();
+		else
+		{
+			Vector3 pos = stageNumberBoxes[selectedData.StageID].transform.position; ;
+			pos.y = playerSpawnPosY;
+			playerMove.transform.position = pos;
+			titleCamera.SkipScroll();
+		}
+
 	}
 
 	//	初期化処理
@@ -73,6 +100,11 @@ public class TitleManager : MonoBehaviour
 			StageSelect();
 		if (inputCancel && state == State.TASK_SELECT)
 			CancelTaskSelect();
+
+		ButtonHintUpdate();
+
+		//	値を保持する
+		saveSelectedStage = SelectedStage;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -101,7 +133,14 @@ public class TitleManager : MonoBehaviour
 		//	タスク選択の開始
 		titleCamera.StartTaskSelect();
 		taskManager.StageIndex = SelectedStage;
-		taskManager.Activate(stageNumberBoxes[SelectedStage].position);
+		//	タスクの表示を有効化
+		taskManager.Activate(
+			stageNumberBoxes[SelectedStage].position,			//	座標
+			stageDataBase.Stages[SelectedStage].TaskCount		//	タスクの数
+			);
+
+		//	キャンセルボタンのヒントを表示
+		cancelHint.gameObject.SetActive(true);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -119,6 +158,27 @@ public class TitleManager : MonoBehaviour
 		titleCamera.EndTaskSelect();
 		//	プレイヤーの入力を有効化
 		playerMove.DisableInput = false;
+
+		//	キャンセルボタンのヒントを非表示
+		cancelHint.gameObject.SetActive(false);
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ボタンヒントの更新処理
+	--------------------------------------------------------------------------------*/
+	private void ButtonHintUpdate()
+	{
+		if (SelectedStage == saveSelectedStage)
+			return;
+
+		if(SelectedStage != -1)
+		{
+			buttonHit.SetDisplayNameIndex("Jump", 1);
+		}
+		else
+		{
+			buttonHit.SetDisplayNameIndex("Jump", 0);
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -133,7 +193,7 @@ public class TitleManager : MonoBehaviour
 			return;
 		}
 
-		StageData stage = stageDataBase.Stages[selectedData.StageID];
+		StageInfo stage = stageDataBase.Stages[selectedData.StageID];
 		if(stage == null)
 		{
 			Debug.LogError("ステージID : " + selectedData.StageID + " は設定されていません。");
@@ -146,16 +206,20 @@ public class TitleManager : MonoBehaviour
 			return;
 		}
 
-		TaskData task = stage.Tasks[selectedData.TaskIndex];
+		TaskInfo task = stage.Tasks[selectedData.TaskIndex];
 		if(task.Scene == null)
 		{
 			Debug.LogError("ステージID : " + selectedData.StageID + " タスクID : " + selectedData.TaskIndex + " は設定されていません。");
 			return;
 		}
 
-		string taskSceneName = task.Scene.SceneName;
-
-		SceneManager.LoadSceneAsync("StageBase");
-		SceneManager.LoadSceneAsync(taskSceneName, LoadSceneMode.Additive);
+		//	シーン名を配列にする
+		string[] scenes =
+		{
+			"StageBase",
+			task.Scene.SceneName
+		};
+		//	シーン遷移の開始
+		Transition.Instance.StartTransition(scenes);
 	}
 }

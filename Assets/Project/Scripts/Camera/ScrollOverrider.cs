@@ -64,12 +64,12 @@ public class ScrollOverrider : MonoBehaviour
 	{
 		if(!inRange)
 		{
-			if (scrollCamera.overrideTarget == transform)
-				scrollCamera.overrideTarget = null;
+			if (scrollCamera.OverrideTarget == transform)
+				scrollCamera.OverrideTarget = null;
 		}
 		else
 		{
-			scrollCamera.overrideTarget = transform;
+			scrollCamera.OverrideTarget = transform;
 		}
 	}
 

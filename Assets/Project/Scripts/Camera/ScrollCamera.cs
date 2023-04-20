@@ -6,9 +6,11 @@ using UnityEngine;
 public class ScrollCamera : MonoBehaviour
 {
 	[SerializeField]
-	private Transform trackingTarget;				//	追跡対象
+	private Transform trackingTarget;               //	追跡対象
+	[SerializeField]
+	private Transform overrideTarget;               //	上書き用追跡対象
 
-	public Transform overrideTarget { get; set; }	//	上書き用追跡対象
+	public Transform OverrideTarget { get { return overrideTarget; } set { overrideTarget = value; } }	
 
 	[SerializeField]
 	protected Vector2		trackingOffset;     //	追跡のオフセット
@@ -28,23 +30,31 @@ public class ScrollCamera : MonoBehaviour
 
 	protected float			ignoredPosY;		//	ignoreY有効時のY座標
 	protected Vector3		saveNonOffsetPos;	//	オフセットを考慮しない座標
-	protected Vector3		currentTargetPos;	//	現在のターゲット座標
+	protected Vector3		currentTargetPos;   //	現在のターゲット座標
+
+	protected virtual void Start()
+	{
+		Vector3 pos = OverrideTarget == null ? trackingTarget.position : OverrideTarget.position;
+		if (ignoreY)
+			pos.y = ignoredPosY;
+		saveNonOffsetPos.y = pos.y;
+	}
 
 	//	更新処理
 	protected virtual void LateUpdate()
 	{
 		//	追跡対象が設定されていないときは処理しない
-		if (!trackingTarget && !overrideTarget)
+		if (!trackingTarget && !OverrideTarget)
 			return;
 
 		//	追跡対象
-		currentTargetPos = overrideTarget == null ? trackingTarget.position : overrideTarget.position;
+		currentTargetPos = OverrideTarget == null ? trackingTarget.position : OverrideTarget.position;
 		if (ignoreY)
 		{
 			currentTargetPos.y = ignoredPosY;
 		}
 		//	追跡速度
-		float speed	= overrideTarget == null ? trackingSpeed : overrideSpeedd;
+		float speed	= OverrideTarget == null ? trackingSpeed : overrideSpeedd;
 
 		saveNonOffsetPos = Vector3.Lerp(saveNonOffsetPos, currentTargetPos, Time.deltaTime * speed);
 
@@ -62,4 +72,19 @@ public class ScrollCamera : MonoBehaviour
 	{
 		saveNonOffsetPos = transform.position;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| 移動アニメーションのスキップ
+	--------------------------------------------------------------------------------*/
+	public void SkipScroll()
+	{
+		saveNonOffsetPos = trackingTarget.position;
+		Vector3 pos = saveNonOffsetPos + new Vector3(trackingOffset.x, trackingOffset.y);
+		pos.z = -10;
+		pos.x = Mathf.Clamp(pos.x, trackingMinPos.x, trackingMaxPos.x);
+		pos.y = Mathf.Clamp(pos.y, trackingMinPos.y, trackingMaxPos.y);
+
+		transform.position = pos;
+	}
+
 }

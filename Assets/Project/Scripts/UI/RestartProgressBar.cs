@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class RestartProgressBar : MonoBehaviour
 {
 	private CanvasGroup group;
-
+	[SerializeField]
+	private CanvasAlphaController canvasAlphaController;
 	[SerializeField]
 	private Slider progressSlider;
 	[SerializeField]
@@ -41,7 +42,7 @@ public class RestartProgressBar : MonoBehaviour
 			alpha -= Time.deltaTime * alphaSpeed;
 		}
 		alpha = Mathf.Clamp01(alpha);
-		group.alpha = alpha;
+		group.alpha = alpha * canvasAlphaController.TargetAlpha;
 
 		progressSlider.value = Ease(progress);
 		

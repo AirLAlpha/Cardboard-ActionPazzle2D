@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SelectedStageData
   m_EditorClassIdentifier: 
   stageId: 0
-  taskIndex: 1
+  taskIndex: 0

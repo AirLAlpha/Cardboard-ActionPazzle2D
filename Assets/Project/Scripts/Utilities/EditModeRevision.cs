@@ -17,7 +17,9 @@ public class EditModeRevision : MonoBehaviour
 {
 	//const float GRID_GAP_HALF = 0.5f;			//	グリッドの大きさの半分
 	[SerializeField]
-	private Vector2 gridOffset;		//	グリッドからのズレ
+	private Vector2 gridOffset;     //	グリッドからのズレ
+	[SerializeField]
+	private float z;
 
 	private void Update()
 	{
@@ -30,6 +32,7 @@ public class EditModeRevision : MonoBehaviour
 		//	座標をintに変換してグリッドの座標の半分を足す
 		Vector3 posI = Vector3Int.FloorToInt(transform.position - offset);
 		transform.position = posI + offset + new Vector3(gridOffset.x, gridOffset.y);
+		transform.position = new Vector3(transform.position.x, transform.position.y, z);
 	}
 }
 #endif

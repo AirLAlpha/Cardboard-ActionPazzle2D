@@ -37,7 +37,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 	}
 
 	//	実行前初期化処理
-	private void Awake() 
+	protected virtual void Awake() 
 	{
 		CheckInstance();
 	}
@@ -61,7 +61,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 		}
 
 		//	他のインスタンスが存在しているとき
-		Destroy(this);
+		Destroy(gameObject);
 	}
 
 }

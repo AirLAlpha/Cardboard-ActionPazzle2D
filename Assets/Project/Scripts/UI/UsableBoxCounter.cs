@@ -46,8 +46,6 @@ public class UsableBoxCounter : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		StageManager.Instance.OnChangedRemainingBoxCount.AddListener(ChangeCount);
-		StageManager.Instance.OnNonRemaining.AddListener(NonRemaining);
 	}
 
 	//	更新処理
@@ -60,7 +58,7 @@ public class UsableBoxCounter : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 数値が変化したときに呼び出される処理
 	--------------------------------------------------------------------------------*/
-	private void ChangeCount()
+	public void ChangeCount()
 	{
 		//	残数の取得
 		int count = StageManager.Instance.RemainingBoxCount;
@@ -82,7 +80,7 @@ public class UsableBoxCounter : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 残数がなかったときに呼び出される
 	--------------------------------------------------------------------------------*/
-	private void NonRemaining()
+	public void NonRemaining()
 	{
 		//	文字色を変更
 		currentCountText.color = Color.red;

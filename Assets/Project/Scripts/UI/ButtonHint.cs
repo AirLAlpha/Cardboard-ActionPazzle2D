@@ -1,8 +1,19 @@
+/**********************************************
+ * 
+ *  ButtonHint.cs 
+ *  ボタンヒントに関する処理を記述
+ * 
+ *  製作者：牛丸 文仁
+ *  制作日：2023/04/06
+ * 
+ **********************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+//	TODO : リファクタリング
 
 public class ButtonHint : MonoBehaviour
 {
@@ -39,6 +50,7 @@ public class ButtonHint : MonoBehaviour
 	static readonly string[] CONTROL_NAMES =
 	{
 		"Horizontal",
+		"Vertical",
 		"Jump",
 		"Fire1",
 		"Restart",
@@ -71,72 +83,77 @@ public class ButtonHint : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	public void ControlButtons(bool isConnected)
 	{
-		for (int i = 0; i < controlHints.Length; i++)
-		{
-			int index = dataBase.FindIndex(CONTROL_NAMES[i]);
+		/////////////////////////////////////////////////////////////////////
+		///	注意：controlHintの配列の並びは、データベースの並びに依存する ///
+		/////////////////////////////////////////////////////////////////////
 
-			Sprite newSprite = null;
-			Sprite newNegativeSprite = null;
-			//	接続時
+		for (int i = 0; i < dataBase.Buttons.Count; i++)
+		{
+			//	設定されたヒントの数を超えたら終了する
+			if (controlHints.Length <= i)
+				return;
+
+			//	データを一つ取り出す
+			ButtonContainor containor = dataBase.Buttons[i];
+
+			//	スプライトの設定
+			//	コントローラー接続時
 			if (isConnected)
 			{
-				//	画像の差し替え
-				newSprite = dataBase.Buttons[index].controllerSprite;
+				//	コントローラーのボタン画像を設定
+				controlHints[i].image.sprite = containor.controllerSprite;
+
+				//	ネガティブキーは非アクティブに設定
+				if (controlHints[i].negativeImage != null)
+					controlHints[i].negativeImage.gameObject.SetActive(false);
 			}
-			//	接続解除時
+			//	コントローラー接続解除時
 			else
 			{
-				//	画像の差し替え
-				newSprite = dataBase.Buttons[index].positiveKeySprite;
-				newNegativeSprite = dataBase.Buttons[index].negativeKeySprite;
+				//	ポジティブキーに画像を設定
+				controlHints[i].image.sprite = containor.positiveKeySprite;
+
+				//	ネガティブキーが存在するときは設定する
+				if (controlHints[i].negativeImage != null)
+				{
+					//	アクティブに設定
+					controlHints[i].negativeImage.gameObject.SetActive(true);
+					//	画像を割り当てる
+					controlHints[i].negativeImage.sprite = containor.negativeKeySprite;
+				}
 			}
 
-			//	どちらも設定されていないときは処理しない
-			if (newSprite == null &&
-				newNegativeSprite == null)
-				return;
 
-			//	変更がないときは処理しない
-			if (controlHints[i].image?.sprite == newSprite)
-				return;
-
-			//	ボタンのスプライトを設定
-			if (newSprite != null)
-				controlHints[i].image.sprite = newSprite;
-
-			const float OFFSET_X = 90.0f;
-			//	negativeSpriteの設定があるときは変更する
-			if (dataBase.Buttons[index].negativeKeySprite != null)
+			//	ネガティブボタンが存在する場合は配置を整える
+			if(controlHints[i].negativeImage != null)
 			{
-				//	親のRectTransformを取得
-				var parentRectTransform = controlHints[i].negativeImage.transform.parent as RectTransform;
-				//	画像が設定されるとき
-				if (newNegativeSprite != null)
+				//	ネガティブボタンの画像のアクティブ状態を取得
+				bool negativeActive = controlHints[i].negativeImage.gameObject.activeSelf;
+
+				//	親（画像やテキストをまとめる）のRectTransformを取得
+				RectTransform parentRectTransform = controlHints[i].negativeImage.transform.parent as RectTransform;
+
+				//	アクティブなとき
+				if(negativeActive)
 				{
-					//	キャンバスのサイズを大きくする
-					parentRectTransform.sizeDelta += Vector2.right * OFFSET_X;
+					//	横幅を 2010 に設定
+					parentRectTransform.sizeDelta = new Vector2(2010, parentRectTransform.sizeDelta.y);
 
-					//	negativeImageを有効化し画像を設定
-					controlHints[i].negativeImage.gameObject.SetActive(true);
-					controlHints[i].negativeImage.sprite = newNegativeSprite;
-
-					//	各オブジェクトをずらす
-					controlHints[i].text.rectTransform.localPosition += Vector3.right * OFFSET_X;
-					controlHints[i].image.rectTransform.localPosition += Vector3.right * OFFSET_X;
-					controlHints[i].negativeImage.rectTransform.localPosition += Vector3.right * OFFSET_X;
+					//	ポジティブボタンの画像をずらす
+					controlHints[i].image.rectTransform.anchoredPosition = new Vector3(213, -1000);
+					//	テキストをずらす
+					controlHints[i].text.rectTransform.anchoredPosition = new Vector3(309, -1015);
 				}
+				//	非アクティブなとき
 				else
 				{
-					//	キャンバスのサイズを小さくする
-					parentRectTransform.sizeDelta -= Vector2.right * OFFSET_X;
+					//	横幅を 2010 に設定
+					parentRectTransform.sizeDelta = new Vector2(1920, parentRectTransform.sizeDelta.y);
 
-					//	negativeImageを無効化
-					controlHints[i].negativeImage.gameObject.SetActive(false);
-
-					//	各オブジェクトをずらす
-					controlHints[i].text.rectTransform.localPosition -= Vector3.right * OFFSET_X;
-					controlHints[i].image.rectTransform.localPosition -= Vector3.right * OFFSET_X;
-					controlHints[i].negativeImage.rectTransform.localPosition -= Vector3.right * OFFSET_X;
+					//	ポジティブボタンの画像をずらす
+					controlHints[i].image.rectTransform.anchoredPosition = new Vector3(123, -1000);
+					//	テキストをずらす
+					controlHints[i].text.rectTransform.anchoredPosition = new Vector3(229, -1015);
 				}
 
 				//	LyaoutGroupの再計算
@@ -144,8 +161,10 @@ public class ButtonHint : MonoBehaviour
 			}
 		}
 
+		//	文字の更新
 		DisplayNameUpdate();
 	}
+
 
 	/*--------------------------------------------------------------------------------
 	|| メニューキーの表示
@@ -183,10 +202,11 @@ public class ButtonHint : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	public void SetDisplayNameIndex(string inputName, int newIndex)
 	{
-		List<string> controlNameList = new List<string>(CONTROL_NAMES);
-		int i = controlNameList.FindIndex(a => a == inputName);
-		displayNameIndex[i] = newIndex;
+		int i = dataBase.FindIndex(inputName);
+		if (i == -1)
+			return;
 
+		displayNameIndex[i] = newIndex;
 		DisplayNameUpdate();
 	}
 
@@ -195,11 +215,28 @@ public class ButtonHint : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void DisplayNameUpdate()
 	{
-		for (int i = 0; i < CONTROL_NAMES.Length; i++)
+		for (int i = 0; i < dataBase.Buttons.Count; i++)
 		{
-			int index = dataBase.FindIndex(CONTROL_NAMES[i]);
+			if (displayNameIndex.Length <= i)
+				return;
 
-			controlHints[i].text.text = dataBase.Buttons[index].displayNames[displayNameIndex[i]];
+			int nameIndex = displayNameIndex[i];
+			controlHints[i].text.text = dataBase.Buttons[i].displayNames[nameIndex];
 		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 表示、非表示の切り替え
+	--------------------------------------------------------------------------------*/
+	public void SetActive(string inputName, bool active)
+	{
+		int i = dataBase.FindIndex(inputName);
+		if (i == -1)
+			return;
+
+		if (controlHints.Length == i)
+			menuHint.image.transform.parent.gameObject.SetActive(active);
+		else
+			controlHints[i].image.transform.parent.gameObject.SetActive(active);
 	}
 }

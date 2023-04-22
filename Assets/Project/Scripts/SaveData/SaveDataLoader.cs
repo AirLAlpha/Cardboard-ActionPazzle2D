@@ -16,7 +16,7 @@ using System.IO;
 public static class SaveDataLoader
 {
 	[SerializeField]
-	static readonly private string		SAVE_PATH = "SaveData.json";		//	セーブデータのパス
+	static readonly public string		SAVE_PATH = "SaveData.json";		//	セーブデータのパス
 
 	/*--------------------------------------------------------------------------------
 	|| セーブデータの書き出し
@@ -54,27 +54,5 @@ public static class SaveDataLoader
 
 		//	構造体に変換する
 		return (SaveData)JsonUtility.FromJson(json, typeof(SaveData));
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| セーブデータのリセット
-	--------------------------------------------------------------------------------*/
-	[MenuItem("SaveData/Reset SaveData")]
-	public static void ResetSaveData()
-	{
-		TaskScore task = new TaskScore();
-		StageScore[] stages = new StageScore[5];
-		for (int i = 0; i < stages.Length; i++)
-		{
-			stages[i].scores = new TaskScore[5];
-
-			for (int j = 0; j < stages[i].scores.Length; j++)
-			{
-				stages[i].scores[j] = task;
-			}
-		}
-		SaveData saveData = new SaveData(stages);
-
-		ExportJson(saveData);
 	}
 }

@@ -21,6 +21,7 @@ public static class StageBaseLoader
 	{
 		"TitleScene",
 		"StageBase",
+		"PlayScene"
 	};
 
 	//	StageBaseƒV[ƒ“

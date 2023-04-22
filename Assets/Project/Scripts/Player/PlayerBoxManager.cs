@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMove))]
-public class PlayerBoxManager : MonoBehaviour
+public class PlayerBoxManager : MonoBehaviour, IPoseable
 {
 	//	コンポーネント
 	private PlayerMove		playerMove;         //	PlayerMove
@@ -155,4 +155,22 @@ public class PlayerBoxManager : MonoBehaviour
 		//	アクションの表示名を変更
 		buttonHint.SetDisplayNameIndex("Fire1", 0);
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| ポーズ処理
+	--------------------------------------------------------------------------------*/
+	public  void Pose()
+	{
+		//	入力を無効化
+		DisableInput = true;
+	}
+	/*--------------------------------------------------------------------------------
+	|| 再開処理
+	--------------------------------------------------------------------------------*/
+	public  void Resume()
+	{
+		//	入力を有効化
+		DisableInput = false;
+	}
+
 }

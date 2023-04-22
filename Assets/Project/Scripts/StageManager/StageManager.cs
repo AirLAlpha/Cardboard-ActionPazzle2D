@@ -22,6 +22,9 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	[SerializeField]
 	private SelectedTaskData	selectedStageData;
 
+	[SerializeField]
+	private StageLoader			stageLoader;
+
 	public int StageID => selectedStageData.StageID;
 	public int TaskIndex => selectedStageData.TaskIndex;
 
@@ -75,6 +78,12 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	//	初期化処理
 	private void Start()
 	{
+		if (stageLoader == null)
+			return;
+
+		//	ステージの読み込みを行う
+		string stageFileName = stageDataBase.Stages[selectedStageData.StageID].Tasks[selectedStageData.TaskIndex].SceneFileName;
+		stageLoader.LoadStageFromAssetBundle(stageFileName);
 	}
 
 	//	更新処理
@@ -250,9 +259,9 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		StageInfo stage = stageDataBase.Stages[selectedStageData.StageID];
 		TaskInfo task = stage.Tasks[selectedStageData.TaskIndex];
 
-		string taskSceneName = task.Scene.SceneName;
+		string taskSceneName = SceneManager.GetActiveScene().name;
 
-		string[] scenes = { "StageBase", taskSceneName };
+		string[] scenes = { /*"StageBase", */taskSceneName };
 
 		Transition.Instance.StartTransition(scenes);
 	}

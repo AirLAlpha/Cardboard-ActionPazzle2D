@@ -207,7 +207,7 @@ public class TitleManager : MonoBehaviour
 		}
 
 		TaskInfo task = stage.Tasks[selectedData.TaskIndex];
-		if(task.Scene == null)
+		if(task.SceneFileName == string.Empty)
 		{
 			Debug.LogError("ステージID : " + selectedData.StageID + " タスクID : " + selectedData.TaskIndex + " は設定されていません。");
 			return;
@@ -216,8 +216,9 @@ public class TitleManager : MonoBehaviour
 		//	シーン名を配列にする
 		string[] scenes =
 		{
-			"StageBase",
-			task.Scene.SceneName
+			//"StageBase",
+			//task.Scene.SceneName
+			SceneManager.GetActiveScene().name
 		};
 		//	シーン遷移の開始
 		Transition.Instance.StartTransition(scenes);

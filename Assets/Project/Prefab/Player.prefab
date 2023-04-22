@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1455866009813371979}
   - component: {fileID: 1455866009813371976}
+  - component: {fileID: 1300957975}
   m_Layer: 0
   m_Name: player_cap
   m_TagString: Untagged
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,6 +85,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1300957975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866009813371978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 3
+  burnProgress: 0
 --- !u!1 &1455866009983635766
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1455866009983635767}
   - component: {fileID: 1455866009983635765}
+  - component: {fileID: 1963932670}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -136,7 +153,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -168,6 +185,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1963932670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866009983635766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 3
+  burnProgress: 0
 --- !u!1 &1455866010489839843
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +216,7 @@ GameObject:
   - component: {fileID: 8765415605556229797}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +228,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455866010489839843}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.624001, y: -0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -224,7 +256,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 93ffd0e64e3e0fe4b808c91459efb9fe, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1455866010489839868
 MonoBehaviour:
@@ -249,7 +281,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 897
   spriteRoot: {fileID: 1455866011123590185}
-  cap: {fileID: 1455866009813371979}
+  cap: {fileID: 1455866009813371976}
   rotateCurve:
     serializedVersion: 2
     m_Curve:
@@ -334,13 +366,13 @@ MonoBehaviour:
   spriteRenders:
   - {fileID: 1455866009983635765}
   - {fileID: 1455866009813371976}
-  anim: {fileID: 0}
+  anim: {fileID: 1455866011123590182}
   OnDead:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraZoom, Assembly-CSharp
-        m_MethodName: StartZoom
+        m_MethodName: set_Target
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1455866010489839871}

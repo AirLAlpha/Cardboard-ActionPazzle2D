@@ -44,8 +44,6 @@ public class StageEditorManager : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		//	メインとなるカメラを非アクティブに変更する
-		Camera.main.gameObject.SetActive(false);
 	}
 
 	//	更新処理
@@ -83,8 +81,13 @@ public class StageEditorManager : MonoBehaviour
 		else
 			targetZoom = inPlayZoom;
 
-
+		//	カメラに徐々にズームを適応する
 		editorCamera.orthographicSize = Mathf.Lerp(editorCamera.orthographicSize, targetZoom, Time.deltaTime * zoomSpeed);
+
+		if (Mathf.Abs(editorCamera.orthographicSize - inPlayZoom) < 0.05f)
+			editorCamera.gameObject.SetActive(false);
+		else 
+			editorCamera.gameObject.SetActive(true);
 	}
 
 #if UNITY_EDITOR

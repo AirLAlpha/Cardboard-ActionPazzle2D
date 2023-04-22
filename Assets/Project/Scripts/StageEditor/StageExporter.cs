@@ -14,8 +14,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Text.RegularExpressions;
-using static UnityEditor.PlayerSettings;
-using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class StageExporter : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class StageExporter : MonoBehaviour
 	[SerializeField]
 	private Transform	gimmickRoot;
 	[SerializeField]
-	private Tilemap		tilemap;				//	出力するタイルマップ
+	private Tilemap		tilemap;                //	出力するタイルマップ
 
 	[Header("出力")]
 	[SerializeField]
@@ -43,13 +42,21 @@ public class StageExporter : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| ステージデータの書き出し
 	--------------------------------------------------------------------------------*/
-	[ContextMenu("ExportStage")]
+	//[ContextMenu("ExportStage")]
 	public void ExportStage()
 	{
 		//	書き出し用の構造体を作成
 		var exportStruct = new StageData();
 		exportStruct.objectDatas = new List<StageObjectData>();
 		exportStruct.gimmickDatas = new List<GimmickObjectData>();
+
+		var playerData = ExportPlayer();
+		if(playerData == null)
+		{
+			Debug.LogError("プレイヤーが存在しないステージは書き出すことができません。");
+			return;
+		}
+		exportStruct.objectDatas.Add(playerData);
 
 		//	タイルマップが設定されている時
 		if (tilemap != null)
@@ -70,6 +77,23 @@ public class StageExporter : MonoBehaviour
 		//	書き出し
 		File.WriteAllText(ExportPath, json);
 
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| プレイヤーの出力
+	--------------------------------------------------------------------------------*/
+	public StageObjectData ExportPlayer()
+	{
+		//	プレイヤーを検索する
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		if (player == null)
+			return null;
+
+		string name = GetNonInstanceNumberName(player.name);
+		int index = objectDatabase.FindObject(name);
+
+		StageObjectData data = new StageObjectData(index, player.transform.position, player.transform.rotation);
+		return data;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -102,7 +126,7 @@ public class StageExporter : MonoBehaviour
 					continue;
 
 				//	オブジェクトを作成し、座標とデータベースのインデックス番号を設定する
-				StageObjectData newData = new StageObjectData(objectIndex, new Vector3(x, y));
+				StageObjectData newData = new StageObjectData(objectIndex, new Vector3(x, y), Quaternion.identity);
 				//	リストに追加する
 				ret.Add(newData);
 			}
@@ -121,19 +145,15 @@ public class StageExporter : MonoBehaviour
 		//	子オブジェクトでデータベースに登録されているものをリスト化し保持する
 		foreach (Transform child in root)
 		{
-			//	インスタンスの名前の" _(数値) "を取り除く
-			string name = Regex.Replace(child.name, @"_[0-9]{0,3}", string.Empty);
-			//	名前の" (clone) "を取り除く
-			name = name.Replace("(Clone)", "");
-
 			//	データベースからタイルのオブジェクトを検索する
+			string name = GetNonInstanceNumberName(child.name);
 			int findIndex = objectDatabase.FindObject(name);
 			//	見つからなければこれ以上処理しない
 			if (findIndex == -1)
 				continue;
 
 			//	新たなデータを作成し情報を格納
-			StageObjectData newObj = new StageObjectData(findIndex, child.position);
+			StageObjectData newObj = new StageObjectData(findIndex, child.position, child.rotation);
 			//	戻り値のリストに追加する
 			ret.Add(newObj);
 		}
@@ -155,12 +175,8 @@ public class StageExporter : MonoBehaviour
 			if (!child.TryGetComponent<Gimmick>(out gimmick))
 				continue;
 
-			//	インスタンスの名前の" _(数値) "を取り除く
-			string name = Regex.Replace(child.name, @"_[0-9]{0,3}", string.Empty);
-			//	名前の" (clone) "を取り除く
-			name = name.Replace("(Clone)", "");
-
 			//	データベースからタイルのオブジェクトを検索する
+			string name = GetNonInstanceNumberName(child.name);
 			int findIndex = objectDatabase.FindObject(name);
 			//	見つからなければこれ以上処理しない
 			if (findIndex == -1)
@@ -179,14 +195,13 @@ public class StageExporter : MonoBehaviour
 			}
 
 			//	新たなデータを作成し情報を格納
-			GimmickObjectData newObj = new GimmickObjectData(findIndex, child.position, gimmick.Type, gimmickTarget);
+			GimmickObjectData newObj = new GimmickObjectData(findIndex, child.position, child.rotation, gimmick.Type, gimmickTarget);
 			//	戻り値のリストに追加する
 			ret.Add(newObj);
 		}
 
 		return ret;
 	}
-
 
 	/*--------------------------------------------------------------------------------
 	|| 子オブジェクトのインデックスを検索する
@@ -202,4 +217,18 @@ public class StageExporter : MonoBehaviour
 		//	見つからなければ-1を返す
 		return -1;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| オブジェクトの名前の添字を削除する
+	--------------------------------------------------------------------------------*/
+	private string GetNonInstanceNumberName(string name)
+	{
+		//	インスタンスの名前の" _(数値) "を取り除く
+		string ret = Regex.Replace(name, @"_[0-9]{0,3}", string.Empty);
+		//	名前の" (clone) "を取り除く
+		ret = ret.Replace("(Clone)", "");
+
+		return ret;
+	}
+
 }

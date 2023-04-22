@@ -1,0 +1,228 @@
+{
+    "objectDatas": [
+        {
+            "databaseIndex": 3,
+            "pos": {
+                "x": -2.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 4,
+            "pos": {
+                "x": -1.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 4,
+            "pos": {
+                "x": 0.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 5,
+            "pos": {
+                "x": 1.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 9,
+            "pos": {
+                "x": -1.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 9,
+            "pos": {
+                "x": 0.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 9,
+            "pos": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 9,
+            "pos": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": -6.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 1,
+            "pos": {
+                "x": -5.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 2,
+            "pos": {
+                "x": -4.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": 3.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 1,
+            "pos": {
+                "x": 4.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 2,
+            "pos": {
+                "x": 5.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": -6.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 1,
+            "pos": {
+                "x": -5.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 2,
+            "pos": {
+                "x": -4.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": 3.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 1,
+            "pos": {
+                "x": 4.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 2,
+            "pos": {
+                "x": 5.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": -6.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 1,
+            "pos": {
+                "x": -5.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 2,
+            "pos": {
+                "x": -4.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": 3.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 1,
+            "pos": {
+                "x": 4.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 2,
+            "pos": {
+                "x": 5.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 13,
+            "pos": {
+                "x": 4.5,
+                "y": 4.5,
+                "z": 0.0
+            }
+        },
+        {
+            "databaseIndex": 13,
+            "pos": {
+                "x": -4.5,
+                "y": 4.5,
+                "z": 0.0
+            }
+        }
+    ]
+}

@@ -30,14 +30,21 @@ public class StageLoaderEditor : Editor
 		if (GUILayout.Button("Reset", GUILayout.Height(30)))
 		{
 			//	クリックされたらステージのリセットを実行
-			loader.ResetStage();
+			loader.ResetStage(true);
 		}
 
 		//	ロード処理を実行するボタンを表示
-		if (GUILayout.Button("Load", GUILayout.Height(30)))
+		if (GUILayout.Button("Load (Json)", GUILayout.Height(30)))
 		{
 			//	クリックされたらロード処理を実行
-			loader.LoadStage();
+			loader.LoadStageFromJson();
+		}
+
+		//	ロード処理を実行するボタンを表示
+		if (GUILayout.Button("Load (AssetBundle)", GUILayout.Height(30)))
+		{
+			//	クリックされたらロード処理を実行
+			loader.LoadStageFromAssetBundle();
 		}
 	}
 }

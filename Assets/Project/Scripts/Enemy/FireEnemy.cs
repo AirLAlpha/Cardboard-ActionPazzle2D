@@ -44,6 +44,9 @@ public class FireEnemy : Enemy, IPackable
 	//	更新処理
 	protected override void Update()
 	{
+		if (disableUpdate)
+			return;
+
 		base.Update();				//	親クラスの処理
 
 		AnimationUpdate();			//	アニメーションの更新処理

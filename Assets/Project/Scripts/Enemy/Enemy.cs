@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IPoseable
 {
 	//	状態
 	public enum State
@@ -51,6 +51,9 @@ public abstract class Enemy : MonoBehaviour
 	[SerializeField]
 	protected CardboardType		packedType;         //	梱包後のダンボールタイプ
 
+	//	ポーズ
+	protected bool				disableUpdate;      //	アップデートの無効化
+	private Vector2				posedVelocity;
 
 #if UNITY_EDITOR
 	[Header("デバッグ")]
@@ -72,6 +75,9 @@ public abstract class Enemy : MonoBehaviour
 	//	更新処理
 	protected virtual void Update()
 	{
+		if (disableUpdate)
+			return;
+
 		StateUpdate();              //	状態の更新処理
 
 		switch (currentState)
@@ -135,6 +141,29 @@ public abstract class Enemy : MonoBehaviour
 	|| 攻撃の処理
 	--------------------------------------------------------------------------------*/
 	protected abstract void AttackUpdate();
+
+	/*--------------------------------------------------------------------------------
+	|| ポーズ時処理
+	--------------------------------------------------------------------------------*/
+	public void Pose()
+	{
+		disableUpdate = true;
+
+		posedVelocity = rb.velocity;
+		rb.isKinematic = true;
+		rb.velocity = Vector2.zero;
+	}
+	/*--------------------------------------------------------------------------------
+	|| 再開時処理
+	--------------------------------------------------------------------------------*/
+	public void Resume()
+	{
+		disableUpdate = false;
+
+		rb.isKinematic = true;
+		rb.velocity = posedVelocity;
+	}
+
 
 #if UNITY_EDITOR
 	/*--------------------------------------------------------------------------------

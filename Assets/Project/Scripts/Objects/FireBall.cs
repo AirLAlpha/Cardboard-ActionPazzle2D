@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class FireBall : MonoBehaviour
+public class FireBall : MonoBehaviour, IPoseable
 {
 	//	コンポーネント
 	private Rigidbody2D rb;         //	Rigidbody2D
@@ -31,7 +31,11 @@ public class FireBall : MonoBehaviour
 	[SerializeField]
 	private string	hitTags;        //	衝突するオブジェクトのタグ(半角スペースで区切って入力）
 
-	private float alivedTime;		//	経過した時間
+	private float alivedTime;       //	経過した時間
+
+	//	ポーズ
+	private bool	disableUpdate;
+	private Vector2 posedVelocity;
 
 	//	実行前初期化処理
 	private void Awake()
@@ -42,6 +46,9 @@ public class FireBall : MonoBehaviour
 	//	更新処理
 	private void Update()
 	{
+		if (disableUpdate)
+			return;
+
 		rb.velocity = Direction * moveSpeed * Time.deltaTime;
 
 		//	生存時間以上が経過したら自身を削除する
@@ -74,5 +81,22 @@ public class FireBall : MonoBehaviour
 				return;
 			}
 		}
+	}
+
+	public void Pose()
+	{
+		disableUpdate = true;
+
+		posedVelocity = rb.velocity;
+		rb.isKinematic = true;
+		rb.velocity = Vector2.zero;
+	}
+
+	public void Resume()
+	{
+		disableUpdate = false;
+
+		rb.isKinematic = false;
+		rb.velocity = posedVelocity;
 	}
 }

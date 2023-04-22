@@ -3,7 +3,7 @@
         {
             "scores": [
                 {
-                    "clearTime": 0.008352600038051606,
+                    "clearTime": 0.0,
                     "usedBoxCount": 0
                 },
                 {
@@ -27,20 +27,20 @@
         {
             "scores": [
                 {
-                    "clearTime": 5.7293701171875,
+                    "clearTime": 4.263788223266602,
                     "usedBoxCount": 1
                 },
                 {
-                    "clearTime": 5.226251602172852,
+                    "clearTime": 6.38293981552124,
                     "usedBoxCount": 1
-                },
-                {
-                    "clearTime": 7.937072277069092,
-                    "usedBoxCount": 2
                 },
                 {
                     "clearTime": 0.0,
                     "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 7.385073184967041,
+                    "usedBoxCount": 1
                 },
                 {
                     "clearTime": 0.0,

@@ -8,7 +8,7 @@ public struct TaskInfo
 {
 	//	シーン情報
 	[SerializeField]
-	private SceneObject scene;
+	private string stageFileName;
 
 	//	ステージ情報
 	[SerializeField]
@@ -18,7 +18,7 @@ public struct TaskInfo
 
 
 	//	プロパティ
-	public SceneObject Scene { get { return scene; } }              //	ステージID
+	public string SceneFileName { get { return stageFileName; } }              //	ステージID
 	public int UsableBoxCount { get { return usableBoxCount; } }        //	使用可能な箱の数
 	public int TargetBoxCount { get { return targetBoxCount; } }        //	使用可能な箱の数
 }

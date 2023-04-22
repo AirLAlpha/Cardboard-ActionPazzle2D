@@ -18,13 +18,15 @@ using UnityEngine;
 public class StageObjectData
 {
 	public int				databaseIndex;		//	データベースにおけるインデックス番号
-	public Vector3			pos;				//	座標
+	public Vector3			pos;                //	座標
+	public Quaternion		rot;				//	回転
 
 	//	コンストラクタ
-	public StageObjectData(int databaseIndex, Vector3 pos)
+	public StageObjectData(int databaseIndex, Vector3 pos, Quaternion rot)
 	{
 		this.databaseIndex = databaseIndex;
 		this.pos = pos;
+		this.rot = rot;
 	}
 }
 
@@ -35,8 +37,8 @@ public class GimmickObjectData : StageObjectData
 	public int				targetIndex;        //	イベントの追加対象
 
 	//	コンストラクタ
-	public GimmickObjectData(int databaseIndex, Vector3 pos, GimmickType type, int targetIndex) 
-		: base(databaseIndex, pos)
+	public GimmickObjectData(int databaseIndex, Vector3 pos, Quaternion rot, GimmickType type, int targetIndex) 
+		: base(databaseIndex, pos, rot)
 	{
 		this.type = type;
 		this.targetIndex = targetIndex;

@@ -31,4 +31,26 @@ public class GameReset
 		task.StageID = 0;
 		task.TaskIndex = 0;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| セーブデータのリセット
+	--------------------------------------------------------------------------------*/
+	[MenuItem("SaveData/Reset SaveData")]
+	public static void ResetSaveData()
+	{
+		TaskScore task = new TaskScore();
+		StageScore[] stages = new StageScore[5];
+		for (int i = 0; i < stages.Length; i++)
+		{
+			stages[i].scores = new TaskScore[5];
+
+			for (int j = 0; j < stages[i].scores.Length; j++)
+			{
+				stages[i].scores[j] = task;
+			}
+		}
+		SaveData saveData = new SaveData(stages);
+
+		SaveDataLoader.ExportJson(saveData);
+	}
 }

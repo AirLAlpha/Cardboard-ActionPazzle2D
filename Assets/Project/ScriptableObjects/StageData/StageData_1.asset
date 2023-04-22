@@ -14,23 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 1
   tasks:
-  - scene:
-      m_SceneName: Stage_1
+  - stageFileName: Stage1_1.json
     usableBoxCount: 999
     targetBoxCount: 1
-  - scene:
-      m_SceneName: Stage_2
-    usableBoxCount: 3
+  - stageFileName: TestExport_01.json
+    usableBoxCount: 999
     targetBoxCount: 1
-  - scene:
-      m_SceneName: Stage_4
+  - stageFileName: TestExport_02.json
     usableBoxCount: 5
     targetBoxCount: 2
-  - scene:
-      m_SceneName: Stage_3
+  - stageFileName: TestExport_03.json
     usableBoxCount: 3
     targetBoxCount: 1
-  - scene:
-      m_SceneName: Stage_5
+  - stageFileName: 
     usableBoxCount: 5
     targetBoxCount: 1

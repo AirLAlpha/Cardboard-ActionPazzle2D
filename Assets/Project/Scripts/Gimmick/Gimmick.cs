@@ -65,7 +65,7 @@ public abstract class ReceiveGimmick : Gimmick
 	private SendGimmick sender;		//	イベントの登録先
 	public SendGimmick Sender { get { return this.sender; } set { this.sender = value; } }
 
-	private void Awake()
+	public void Initialize()
 	{
 		//	アクションの登録
 		AddAction();

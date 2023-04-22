@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : MonoBehaviour, IPoseable
 {
 	//	コンポーネント
 	[Header("コンポーネント")]
@@ -81,6 +81,9 @@ public class PlayerMove : MonoBehaviour
 	private float				currentAngle;
 	private bool				isRotate;               //	回転中
 	private int					rotateCount;
+
+	//	ポーズ
+	private Vector2				posedVelocity;
 
 	//	プロパティ
 	public float MoveSpeed			{ get { return moveSpeed; } set { moveSpeed = value; } }
@@ -295,6 +298,32 @@ public class PlayerMove : MonoBehaviour
 		anim.SetBool("Jump", isJumping);
 		//	自由落下フラグ
 		anim.SetBool("FreeFall", isFreeFall);
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ポーズ処理
+	--------------------------------------------------------------------------------*/
+	public  void Pose()
+	{
+		//	入力を無効化
+		DisableInput = true;
+		//CantMove = true;
+
+		posedVelocity = rb.velocity;
+		rb.isKinematic = true;
+		rb.velocity = Vector3.zero;
+	}
+	/*--------------------------------------------------------------------------------
+	|| 再開処理
+	--------------------------------------------------------------------------------*/	
+	public  void Resume()
+	{
+		//	入力を有効化
+		DisableInput = false;
+		//CantMove = false;
+
+		rb.isKinematic = false;
+		rb.velocity = posedVelocity;
 	}
 
 #if UNITY_EDITOR

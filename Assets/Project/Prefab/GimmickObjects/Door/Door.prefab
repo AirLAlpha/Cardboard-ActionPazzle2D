@@ -289,6 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d635353955305a942a7760c6bbbccc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
+  sender: {fileID: 0}
   doorRoot: {fileID: 8868662439276971671}
   openOffset: {x: 0, y: 2}
   openSpeed: 5

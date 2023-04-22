@@ -20,12 +20,16 @@ public enum ObjectType
 	TILE,           //	タイルマップ
 	GIMMICK,        //	ギミックオブジェクト
 	ENEMY,          //	敵
+	PLAYER,			//	プレイヤー
 }
 
 //	オブジェクト一つ分の構造体
 [System.Serializable]
 public struct StageObject
 {
+	[SerializeField]
+	private string		objectName;
+
 	public ObjectType	type;				//	オブジェクトタイプ
 	public Object		prefab;				//	もととなるオブジェクト
 }

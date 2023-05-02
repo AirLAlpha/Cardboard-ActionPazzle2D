@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMove))]
-public class PlayerBoxManager : MonoBehaviour, IPoseable
+public class PlayerBoxManager : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
 	private PlayerMove		playerMove;         //	PlayerMove
@@ -159,7 +159,7 @@ public class PlayerBoxManager : MonoBehaviour, IPoseable
 	/*--------------------------------------------------------------------------------
 	|| ポーズ処理
 	--------------------------------------------------------------------------------*/
-	public  void Pose()
+	public  void Pause()
 	{
 		//	入力を無効化
 		DisableInput = true;

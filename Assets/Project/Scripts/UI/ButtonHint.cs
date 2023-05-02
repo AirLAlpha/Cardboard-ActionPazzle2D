@@ -203,7 +203,7 @@ public class ButtonHint : MonoBehaviour
 	public void SetDisplayNameIndex(string inputName, int newIndex)
 	{
 		int i = dataBase.FindIndex(inputName);
-		if (i == -1)
+		if (i == -1 || i >= displayNameIndex.Length)
 			return;
 
 		displayNameIndex[i] = newIndex;

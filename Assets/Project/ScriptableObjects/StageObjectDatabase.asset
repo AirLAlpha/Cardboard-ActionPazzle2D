@@ -14,53 +14,126 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageObjects:
   - objectName: "\u30D7\u30EC\u30A4\u30E4\u30FC"
-    type: 0
+    type: -1
     prefab: {fileID: 1455866010489839843, guid: f338c21c4388614419df7eecd4e38b04, type: 3}
-  - objectName: "\u8DB3\u58341-L"
+    sprite: {fileID: 21300000, guid: a7c23aff21d81ab40988ceb0ba66934b, type: 3}
+  - objectName: "\u8DB3\u58341A-L"
     type: 1
     prefab: {fileID: 11400000, guid: 74816b810379aee4aa4ccac5b7d44e3d, type: 2}
-  - objectName: "\u8DB3\u58341-C"
+    sprite: {fileID: 717337434, guid: 025bad0cabb1843449ac445e057cd948, type: 3}
+  - objectName: "\u8DB3\u58341A-C"
     type: 1
     prefab: {fileID: 11400000, guid: d8ce7d27f9113d342a5febbc39f6b4d2, type: 2}
-  - objectName: "\u8DB3\u58341-R"
+    sprite: {fileID: -1992137762, guid: 025bad0cabb1843449ac445e057cd948, type: 3}
+  - objectName: "\u8DB3\u58341A-R"
     type: 1
     prefab: {fileID: 11400000, guid: deff077d4c914674db396b5a32979650, type: 2}
-  - objectName: "\u8DB3\u58342-L"
-    type: 1
-    prefab: {fileID: 11400000, guid: 4f2e189529a32ef45afa83a9f35cef00, type: 2}
-  - objectName: "\u8DB3\u58342-C"
-    type: 1
-    prefab: {fileID: 11400000, guid: 7ed0e16e59d21544d8572d30335dd033, type: 2}
-  - objectName: "\u8DB3\u58342-R"
-    type: 1
-    prefab: {fileID: 11400000, guid: 2bcf9bcf04f09ae44bcb8e953de0b89a, type: 2}
-  - objectName: "\u8DB3\u58341-L\uFF08\u56DE\u8EE2\uFF09"
-    type: 1
-    prefab: {fileID: 11400000, guid: 9cc0053f1ee0de447917a71895aac78e, type: 2}
-  - objectName: "\u8DB3\u58341-C\uFF08\u56DE\u8EE2\uFF09"
+    sprite: {fileID: 347381174, guid: 025bad0cabb1843449ac445e057cd948, type: 3}
+  - objectName: "\u8DB3\u58341A-L\uFF08\u56DE\u8EE2\uFF09"
     type: 1
     prefab: {fileID: 11400000, guid: 21501d14be2aab545bc2a7a6803128d0, type: 2}
-  - objectName: "\u8DB3\u58341-R\uFF08\u56DE\u8EE2\uFF09"
-    type: 1
-    prefab: {fileID: 11400000, guid: aacce8ed71ba3fc4b87ed08ed5b96a0f, type: 2}
-  - objectName: "\u8DB3\u58342-L\uFF08\u56DE\u8EE2\uFF09"
+    sprite: {fileID: 1273346571, guid: b2ce5574e3ea9514c871354d6f4490d5, type: 3}
+  - objectName: "\u8DB3\u58341A-C\uFF08\u56DE\u8EE2\uFF09"
     type: 1
     prefab: {fileID: 11400000, guid: fb397b76e9f6d0a46864edd50829689b, type: 2}
-  - objectName: "\u8DB3\u58342-C\uFF08\u56DE\u8EE2\uFF09"
-    type: 1
-    prefab: {fileID: 11400000, guid: 3f37c2c1ce89e9642a0fbb508cfef13c, type: 2}
-  - objectName: "\u8DB3\u58342-R\uFF08\u56DE\u8EE2\uFF09"
+    sprite: {fileID: 1087309210, guid: b2ce5574e3ea9514c871354d6f4490d5, type: 3}
+  - objectName: "\u8DB3\u58341A-R\uFF08\u56DE\u8EE2\uFF09"
     type: 1
     prefab: {fileID: 11400000, guid: 9c62c214f43a75b45861cd5705c5eb71, type: 2}
+    sprite: {fileID: -1316609956, guid: b2ce5574e3ea9514c871354d6f4490d5, type: 3}
+  - objectName: "\u8DB3\u58341B-L"
+    type: 1
+    prefab: {fileID: 11400000, guid: 4f2e189529a32ef45afa83a9f35cef00, type: 2}
+    sprite: {fileID: -1199328583, guid: 025bad0cabb1843449ac445e057cd948, type: 3}
+  - objectName: "\u8DB3\u58341B-C"
+    type: 1
+    prefab: {fileID: 11400000, guid: 7ed0e16e59d21544d8572d30335dd033, type: 2}
+    sprite: {fileID: 325939244, guid: 025bad0cabb1843449ac445e057cd948, type: 3}
+  - objectName: "\u8DB3\u58341B-R"
+    type: 1
+    prefab: {fileID: 11400000, guid: 2bcf9bcf04f09ae44bcb8e953de0b89a, type: 2}
+    sprite: {fileID: 1298914984, guid: 025bad0cabb1843449ac445e057cd948, type: 3}
+  - objectName: "\u8DB3\u58341B-L\uFF08\u56DE\u8EE2\uFF09"
+    type: 1
+    prefab: {fileID: 11400000, guid: 9cc0053f1ee0de447917a71895aac78e, type: 2}
+    sprite: {fileID: -1624762032, guid: b2ce5574e3ea9514c871354d6f4490d5, type: 3}
+  - objectName: "\u8DB3\u58341B-C\uFF08\u56DE\u8EE2\uFF09"
+    type: 1
+    prefab: {fileID: 11400000, guid: aacce8ed71ba3fc4b87ed08ed5b96a0f, type: 2}
+    sprite: {fileID: 1021325338, guid: b2ce5574e3ea9514c871354d6f4490d5, type: 3}
+  - objectName: "\u8DB3\u58341B-R\uFF08\u56DE\u8EE2\uFF09"
+    type: 1
+    prefab: {fileID: 11400000, guid: 3f37c2c1ce89e9642a0fbb508cfef13c, type: 2}
+    sprite: {fileID: 65677281, guid: b2ce5574e3ea9514c871354d6f4490d5, type: 3}
+  - objectName: "\u8DB3\u58346-\u7D30-L"
+    type: 1
+    prefab: {fileID: 11400000, guid: 789f0d17b8f104d45b40a2262c8e5b8e, type: 2}
+    sprite: {fileID: 1960386509, guid: 21c9b6ccf5a68f24091f7c9dc1c7ba45, type: 3}
+  - objectName: "\u8DB3\u58346-\u7D30-C"
+    type: 1
+    prefab: {fileID: 11400000, guid: c4a46ce58933e024eb8090c4aa30ec86, type: 2}
+    sprite: {fileID: -638304816, guid: 21c9b6ccf5a68f24091f7c9dc1c7ba45, type: 3}
+  - objectName: "\u8DB3\u58346-\u7D30-R"
+    type: 1
+    prefab: {fileID: 11400000, guid: eccadc9d1dce5d3438b3b12ac7210b58, type: 2}
+    sprite: {fileID: -1419869149, guid: 21c9b6ccf5a68f24091f7c9dc1c7ba45, type: 3}
   - objectName: "\u6728\u7BB1"
     type: 1
     prefab: {fileID: 11400000, guid: 58ceb8855c4bd9d4d99f78bc2845acc4, type: 2}
+    sprite: {fileID: 21300000, guid: 775233edccf46d445bb7dd567c4f8db7, type: 3}
   - objectName: "\u6575\uFF08\u708E\uFF09"
     type: 3
     prefab: {fileID: 2851119450428355671, guid: c7b674d265ff82948b07a9f62b987148, type: 3}
+    sprite: {fileID: 154966743, guid: 252c7698f44b36b42b84486838df51aa, type: 3}
   - objectName: "\u30DC\u30BF\u30F3"
     type: 2
     prefab: {fileID: 731594763672637491, guid: 9031786a6261ce64694d4a9dffc10a08, type: 3}
+    sprite: {fileID: -590442001, guid: 830f0bf12bbf37741a7c5a6deddbef9a, type: 3}
   - objectName: "\u30C9\u30A2"
     type: 2
     prefab: {fileID: 8868662440415585980, guid: e53d11fa662af054ab41bef389d2f5d8, type: 3}
+    sprite: {fileID: 1819215610, guid: 3e86e66262adcec488253ce559cc6682, type: 3}
+  - objectName: "\u30C9\u30A22"
+    type: 2
+    prefab: {fileID: 435059485177531649, guid: 5ed23aba7f9846d458f5fad402377b7c, type: 3}
+    sprite: {fileID: 1819215610, guid: 3e86e66262adcec488253ce559cc6682, type: 3}
+  - objectName: "\u30C8\u30B2"
+    type: 2
+    prefab: {fileID: 6747070368677086907, guid: 99135fea45d2a5149b48bc4d8c1027c8, type: 3}
+    sprite: {fileID: 21300000, guid: 946546d372003f84fa2c41d80dc8cda8, type: 3}
+  - objectName: "\u30D9\u30EB\u30C8\u30B3\u30F3\u30D9\u30A2\uFF08\u5E38\u306B\u7A3C\u50CD\uFF09"
+    type: 2
+    prefab: {fileID: 5396592866637239670, guid: 56aef72a8af5d7f499c39fbf80344b43, type: 3}
+    sprite: {fileID: 379137045, guid: 4bb7cc84440d86b41af4decb90f73f08, type: 3}
+  - objectName: "\u30D9\u30EB\u30C8\u30B3\u30F3\u30D9\u30A2"
+    type: 2
+    prefab: {fileID: 1688083189989159067, guid: d7038721f2d206646a1b2eb0aa034e8a, type: 3}
+    sprite: {fileID: 379137045, guid: 4bb7cc84440d86b41af4decb90f73f08, type: 3}
+  - objectName: "\u30D0\u30CD"
+    type: 2
+    prefab: {fileID: 1863416545500622158, guid: 972ac177b77301c4dac0cb5c31484561, type: 3}
+    sprite: {fileID: 0}
+  - objectName: "\u8DB3\u58346-L\uFF08\u56DE\u8EE2\uFF09"
+    type: 1
+    prefab: {fileID: 11400000, guid: 2c3f683a2751b124e8d165b0b99a3eed, type: 2}
+    sprite: {fileID: -1203344003, guid: 21c9b6ccf5a68f24091f7c9dc1c7ba45, type: 3}
+  - objectName: "\u8DB3\u58346-C\uFF08\u56DE\u8EE2\uFF09"
+    type: 1
+    prefab: {fileID: 11400000, guid: b03800ea087954b41a1c2b30077374ba, type: 2}
+    sprite: {fileID: -999040889, guid: 21c9b6ccf5a68f24091f7c9dc1c7ba45, type: 3}
+  - objectName: "\u8DB3\u58346-R\uFF08\u56DE\u8EE2\uFF09"
+    type: 1
+    prefab: {fileID: 11400000, guid: b1fe957baecaff748967fc31ac50102f, type: 2}
+    sprite: {fileID: -2084585231, guid: 21c9b6ccf5a68f24091f7c9dc1c7ba45, type: 3}
+  - objectName: "\u8DB3\u58342-L"
+    type: 1
+    prefab: {fileID: 11400000, guid: 8ece7d29996999e49b13bf65bf6c533b, type: 2}
+    sprite: {fileID: 1110110698, guid: c0ee72256093ef149ae79027249dbf0d, type: 3}
+  - objectName: "\u8DB3\u58342-C"
+    type: 1
+    prefab: {fileID: 11400000, guid: f361a67e69c79e048ba1a74afb6f4635, type: 2}
+    sprite: {fileID: 1156540535, guid: c0ee72256093ef149ae79027249dbf0d, type: 3}
+  - objectName: "\u8DB3\u58342-R"
+    type: 1
+    prefab: {fileID: 11400000, guid: d9e909a7794af134e836f8ee60b42f69, type: 2}
+    sprite: {fileID: -1437860669, guid: c0ee72256093ef149ae79027249dbf0d, type: 3}

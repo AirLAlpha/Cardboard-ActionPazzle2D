@@ -218,7 +218,7 @@ public class TitleManager : MonoBehaviour
 		{
 			//"StageBase",
 			//task.Scene.SceneName
-			SceneManager.GetActiveScene().name
+			"PlayScene"
 		};
 		//	シーン遷移の開始
 		Transition.Instance.StartTransition(scenes);

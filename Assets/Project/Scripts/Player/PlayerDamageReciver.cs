@@ -32,6 +32,8 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     //  生存
     private bool                isDead;                 //  死亡フラグ
 
+    public bool                 DontDeth { get; set; }  //  無敵フラグ
+
     //  イベント
     public UnityEvent           OnDead;                 //  死亡時処理
     private bool                executedEvent;          //  イベントの実行済みフラグ
@@ -85,6 +87,10 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     --------------------------------------------------------------------------------*/
 	public void Burn()
 	{
+        //  無敵の際は処理しない
+        if (DontDeth)
+            return;
+
         //  すでに死んでいるときは処理しない
         if (isDead)
             return;

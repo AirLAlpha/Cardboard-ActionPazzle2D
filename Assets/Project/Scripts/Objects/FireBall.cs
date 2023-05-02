@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class FireBall : MonoBehaviour, IPoseable
+public class FireBall : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
 	private Rigidbody2D rb;         //	Rigidbody2D
@@ -83,7 +83,7 @@ public class FireBall : MonoBehaviour, IPoseable
 		}
 	}
 
-	public void Pose()
+	public void Pause()
 	{
 		disableUpdate = true;
 
@@ -94,6 +94,9 @@ public class FireBall : MonoBehaviour, IPoseable
 
 	public void Resume()
 	{
+		if (this == null)
+			return;
+
 		disableUpdate = false;
 
 		rb.isKinematic = false;

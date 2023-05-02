@@ -13,13 +13,6 @@ using UnityEngine;
 
 public class GlassEnemy : Enemy, IPackable
 {
-	//	アニメーション
-	[Header("アニメーション")]
-	[SerializeField]
-	private Animator		anim;		//	アニメーター
-
-
-
 	//	実行前初期化処理
 	protected override void Awake()
 	{

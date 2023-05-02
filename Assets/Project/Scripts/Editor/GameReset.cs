@@ -28,7 +28,7 @@ public class GameReset
 	{
 		var task = AssetDatabase.LoadAssetAtPath<SelectedTaskData>(selectedTaskDataPath);
 
-		task.StageID = 0;
+		task.StageID = 1;
 		task.TaskIndex = 0;
 	}
 

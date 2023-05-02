@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1455866009813371979}
   - component: {fileID: 1455866009813371976}
   - component: {fileID: 1300957975}
+  - component: {fileID: 1941952071944967796}
   m_Layer: 0
   m_Name: player_cap
   m_TagString: Untagged
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 9b8699692bd7d3549be59f4b0ccc7abd, type: 3}
+  m_SortingOrder: 40
+  m_Sprite: {fileID: 21300000, guid: 767e1b463b37d594c9a15e981367c3e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,6 +101,21 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   burnSpeed: 3
   burnProgress: 0
+--- !u!114 &1941952071944967796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866009813371978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 3
+  burnProgress: 0
 --- !u!1 &1455866009983635766
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,6 +127,7 @@ GameObject:
   - component: {fileID: 1455866009983635767}
   - component: {fileID: 1455866009983635765}
   - component: {fileID: 1963932670}
+  - component: {fileID: 4327689968507440889}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -173,8 +190,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 99
-  m_Sprite: {fileID: 21300000, guid: 010c3e0067099094d9498099bc22842f, type: 3}
+  m_SortingOrder: 40
+  m_Sprite: {fileID: 21300000, guid: a7c23aff21d81ab40988ceb0ba66934b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -200,6 +217,21 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   burnSpeed: 3
   burnProgress: 0
+--- !u!114 &4327689968507440889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866009983635766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 3
+  burnProgress: 0
 --- !u!1 &1455866010489839843
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,10 +242,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1455866010489839871}
   - component: {fileID: 1455866010489839841}
+  - component: {fileID: 6970441342075613459}
   - component: {fileID: 1455866010489839868}
   - component: {fileID: 1455866010489839869}
-  - component: {fileID: 4369791879675407418}
   - component: {fileID: 8765415605556229797}
+  - component: {fileID: 6953774482578051068}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -255,9 +288,23 @@ Rigidbody2D:
   m_GravityScale: 4
   m_Material: {fileID: 6200000, guid: 93ffd0e64e3e0fe4b808c91459efb9fe, type: 2}
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &6970441342075613459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866010489839843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8682b890fccacae4b808bea346c8e06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridOffset: {x: 0, y: 0}
+  z: 0
 --- !u!114 &1455866010489839868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,22 +382,6 @@ MonoBehaviour:
   generatePos: {x: 0, y: 0}
   generateParent: {fileID: 1455866009813371979}
   putOffset: {x: 1.1, y: -1}
---- !u!58 &4369791879675407418
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455866010489839843}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &8765415605556229797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +426,32 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   blazingMat: {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
+--- !u!61 &6953774482578051068
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455866010489839843}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.75, y: 0.75}
+  m_EdgeRadius: 0.1
 --- !u!1 &1455866011123590184
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,12 +15,12 @@ using UnityEngine;
 //	ステージ上のオブジェクトタイプ
 public enum ObjectType
 {
-	NONE,           //	設定なし
+	PLAYER = -1,	//	プレイヤー
+	NONE = 0,       //	設定なし
 
 	TILE,           //	タイルマップ
 	GIMMICK,        //	ギミックオブジェクト
 	ENEMY,          //	敵
-	PLAYER,			//	プレイヤー
 }
 
 //	オブジェクト一つ分の構造体
@@ -31,16 +31,18 @@ public struct StageObject
 	private string		objectName;
 
 	public ObjectType	type;				//	オブジェクトタイプ
-	public Object		prefab;				//	もととなるオブジェクト
+	public Object		prefab;             //	もととなるオブジェクト
+
+	public Sprite		sprite;				//	表示用のスプライト
 }
 
-[CreateAssetMenu(fileName = "StageObjectDatabase", menuName = "Create StageObjectDatabase")]
+[CreateAssetMenu(fileName = "ObjectDatabase", menuName = "Create ObjectDatabase")]
 public class StageObjectDatabase : ScriptableObject
 {
 	[SerializeField]
 	private List<StageObject>		stageObjects;		//	ステージオブジェクトの配列 
 
-	public List<StageObject> StageObject { get { return stageObjects; } }       //	オブジェクトの配列を取得
+	public List<StageObject>		StageObject { get { return stageObjects; } }       //	オブジェクトの配列を取得
 
 	/*--------------------------------------------------------------------------------s
 	|| 指定のオブジェクトと同じものを検索する

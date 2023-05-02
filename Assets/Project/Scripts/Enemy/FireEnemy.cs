@@ -13,11 +13,6 @@ using UnityEngine;
 
 public class FireEnemy : Enemy, IPackable
 {
-	//	コンポーネント
-	[Header("コンポーネント")]
-	[SerializeField]
-	private Animator anim;          //	アニメーション
-
 	//	攻撃
 	[Header("攻撃")]
 	[SerializeField]

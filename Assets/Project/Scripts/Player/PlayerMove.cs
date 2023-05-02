@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMove : MonoBehaviour, IPoseable
+public class PlayerMove : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
 	[Header("コンポーネント")]
@@ -37,10 +37,12 @@ public class PlayerMove : MonoBehaviour, IPoseable
 	[SerializeField]
 	private float		speedChangeRate;            //	移動速度の適応速度
 
-	private float		velX;						//	移動ベクトルX
+	private float		velX;                       //	移動ベクトルX
 
 	public Direction	CurrentDir	{ get; private set; }       //	現在の方向
 	public bool			CantMove	{ get; set; }				//	移動不可能フラグ（true:移動不可）
+
+	public Vector2		SecondaryVelocity { get; set; }
 
 	//	ジャンプ
 	[Header("ジャンプ")]
@@ -84,6 +86,7 @@ public class PlayerMove : MonoBehaviour, IPoseable
 
 	//	ポーズ
 	private Vector2				posedVelocity;
+	private bool				disableAnimation;
 
 	//	プロパティ
 	public float MoveSpeed			{ get { return moveSpeed; } set { moveSpeed = value; } }
@@ -190,7 +193,7 @@ public class PlayerMove : MonoBehaviour, IPoseable
 		Vector2 moveVec = Vector2.right * velX + Vector2.up * velY;
 
 		//	移動の適応
-		rb.velocity = moveVec;
+		rb.velocity = moveVec + SecondaryVelocity;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -292,6 +295,9 @@ public class PlayerMove : MonoBehaviour, IPoseable
 	--------------------------------------------------------------------------------*/
 	private void AnimationUpdate()
 	{
+		if (disableAnimation)
+			return;
+
 		//	接地フラグ
 		anim.SetBool("OnGround", isGrounded);
 		//	ジャンプ中フラグ
@@ -303,28 +309,54 @@ public class PlayerMove : MonoBehaviour, IPoseable
 	/*--------------------------------------------------------------------------------
 	|| ポーズ処理
 	--------------------------------------------------------------------------------*/
-	public  void Pose()
+	public void Pause()
 	{
 		//	入力を無効化
 		DisableInput = true;
-		//CantMove = true;
+		inputVec = Vector2.zero;
+		inputJump = false;
 
+		CantMove = true;
+		disableAnimation = true;
+
+		SecondaryVelocity = Vector2.zero;
 		posedVelocity = rb.velocity;
+		rb.velocity = Vector3.zero;
 		rb.isKinematic = true;
 		rb.velocity = Vector3.zero;
+
+		//	アニメーションを停止
+		anim.SetFloat("AnimationSpeed", 0.0f);
 	}
 	/*--------------------------------------------------------------------------------
 	|| 再開処理
 	--------------------------------------------------------------------------------*/	
-	public  void Resume()
+	public void Resume()
 	{
 		//	入力を有効化
 		DisableInput = false;
-		//CantMove = false;
+		disableAnimation = false;
 
+		CantMove = false;
 		rb.isKinematic = false;
 		rb.velocity = posedVelocity;
+
+		//	アニメーションを再開
+		anim.SetFloat("AnimationSpeed", 1.0f);
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| ステージリセット時の処理
+	--------------------------------------------------------------------------------*/
+	public void OnStageReset()
+	{
+		if (!Application.isPlaying)
+			return;
+
+		rb.velocity = Vector2.zero;
+		anim.Play("Idle@Player");
+	}
+
 
 #if UNITY_EDITOR
 	/*--------------------------------------------------------------------------------

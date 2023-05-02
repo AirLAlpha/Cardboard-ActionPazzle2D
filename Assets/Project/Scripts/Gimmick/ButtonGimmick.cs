@@ -59,7 +59,7 @@ public class ButtonGimmick : SendGimmick
 	//	初期化処理
 	private void Start()
 	{
-		AddAction((bool b) => Debug.Log("ButtonState : " + b.ToString()));
+		//AddAction((bool b) => Debug.Log("ButtonState : " + b.ToString()));
 	}
 
 	//	更新処理
@@ -95,6 +95,21 @@ public class ButtonGimmick : SendGimmick
 			saveIsPressed = IsPressed;
 		}
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| ギミック固有の設定を設定する処理
+	--------------------------------------------------------------------------------*/
+	public override void SetExtraSetting(string json)
+	{
+	}
+	/*--------------------------------------------------------------------------------
+	|| ギミック固有の設定を取得する処理
+	--------------------------------------------------------------------------------*/
+	public override string GetExtraSetting()
+	{
+		return string.Empty;
+	}
+
 
 #if UNITY_EDITOR
 	/*--------------------------------------------------------------------------------

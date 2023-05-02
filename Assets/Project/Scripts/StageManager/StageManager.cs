@@ -22,15 +22,24 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	[SerializeField]
 	private SelectedTaskData	selectedStageData;
 
+	//	コンポーネント
+	[Header("コンポーネント")]
 	[SerializeField]
 	private StageLoader			stageLoader;
+	[SerializeField]
+	private BackgroundSetter	bgSetter;
 
 	public int StageID => selectedStageData.StageID;
 	public int TaskIndex => selectedStageData.TaskIndex;
 
 	//	段ボール
-	public int UsableBoxCount	{ get; set; }							//	使用可能なハコの数
-	public int TargetBoxCount	{ get; set; }							//	ゴールさせるべき箱の数
+	[SerializeField]
+	private int usableBoxCount;
+	[SerializeField]
+	private int targetBoxCount;
+
+	public int UsableBoxCount	{ get { return usableBoxCount; } set { usableBoxCount = value; } }	//	使用可能なハコの数
+	public int TargetBoxCount	{ get { return targetBoxCount; } set { targetBoxCount = value; } }	//	ゴールさせるべき箱の数
 	public int UsedBoxCount		{ get; set; }							//	使用した箱の数
 	public int CompleteBoxCount { get; set; }							//	ゴールさせた箱の数
 	public int RemainingBoxCount => UsableBoxCount - UsedBoxCount;      //	残り使用可能な箱の数
@@ -53,8 +62,14 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 
 	public float RestartProgress => Mathf.Clamp01(restartPressedTime / restartTime);
 
+	public bool DisableRestart { get; set; }
+
 	//	ステージクリア
-	public bool IsStageClear	{ get; private set; }					//	ステージクリアフラグ
+	public bool IsStageClear	{ get; private set; }                 //	ステージクリアフラグ
+
+	//	ステージの読み込み
+	[SerializeField]
+	private bool awakeLoadStage;		//	開始時にステージを読み込むフラグ
 
 	//	アクション
 	public UnityEvent OnChangedRemainingBoxCount;						//	残りの箱の数が更新されたときに呼び出される
@@ -66,8 +81,6 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	protected override void Awake()
 	{
 		base.Awake();
-
-		InitStage();        //	ステージの初期化を行う
 
 		//	フラグの初期化
 		TimeStopFlag = false;
@@ -109,7 +122,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	/*--------------------------------------------------------------------------------
 	|| ステージの初期化
 	--------------------------------------------------------------------------------*/
-	private void InitStage()
+	public void InitStage(int usableBoxCount, int targetBoxCount, int bgType)
 	{
 		//	ステージデータベースのNullチェック
 		if (stageDataBase == null)
@@ -118,19 +131,19 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			return;
 		}
 
-		//	タスクデータの取得
-		int stageId = selectedStageData.StageID;
-		int taskIndex = selectedStageData.TaskIndex;
-		TaskInfo task = stageDataBase.Stages[stageId].Tasks[taskIndex];
-
 		//	変数を保持
-		UsableBoxCount = task.UsableBoxCount;
-		TargetBoxCount = task.TargetBoxCount;
+		UsableBoxCount = usableBoxCount;
+		TargetBoxCount = targetBoxCount;
 		saveRemainingBoxCount = -1;
 		saveCompleteBoxCount = -1;
 
 		//	変数の初期化
+		UsedBoxCount = 0;
+		CompleteBoxCount = 0;
 		IsStageClear = false;
+
+		//	背景の設定
+		bgSetter.SetBackground(bgType);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -150,7 +163,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	private void RestartUpdate()
 	{
 		//	クリア済みのときは処理しない
-		if (IsStageClear)
+		if (IsStageClear || DisableRestart)
 			return;
 
 		if (Input.GetButton("Restart"))

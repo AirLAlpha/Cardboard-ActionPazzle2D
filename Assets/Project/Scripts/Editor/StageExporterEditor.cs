@@ -20,7 +20,7 @@ public class StageExporterEditor : Editor
 		if(GUILayout.Button("Export", GUILayout.Height(30)))
 		{
 			//	クリックされたときに書き出し処理を実行する
-			exporter.ExportStage();
+			exporter.ExportJson();
 		}
 	}
 }

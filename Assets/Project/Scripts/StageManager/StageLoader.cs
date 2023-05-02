@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
-using System;
-using UnityEngine.Rendering.VirtualTexturing;
-using UnityEngine.Rendering.UI;
+using System.Windows.Forms;
 
 public class StageLoader : MonoBehaviour
 {
@@ -22,7 +20,7 @@ public class StageLoader : MonoBehaviour
 	[SerializeField]	
 	private Transform	gimmickRoot;					//	ギミックの親
 	[SerializeField]		
-	private Tilemap		tilemap;						//	ステージのタイルを配置するタイルマップ
+	private Tilemap		tilemap;                        //	ステージのタイルを配置するタイルマップ
 
 	[Header("ステージ")]
 	[SerializeField]
@@ -35,13 +33,19 @@ public class StageLoader : MonoBehaviour
 	//	ステージのパス
 	private string		StagePath => Path.Combine(stageDirectory + stageFilename);
 
+	//	イベントを受け取るギミック
+	[SerializeField, HideInInspector]
+	private List<int>				senderIndex;                    //	メッセージを送るギミックの子番号
+	[SerializeField, HideInInspector]
+	private List<ReceiveGimmick>	receives;
+
 	//	有効化時処理
 	private void OnEnable()
 	{
 		//	アセットバンドルが読み込まれていないときは読み込む
 		if (stagedataBundle == null)
 		{
-			string path = Application.streamingAssetsPath;
+			string path = UnityEngine.Application.streamingAssetsPath;
 			path = path.Replace("/", "\\");
 			path = Path.Combine(path, stageBundleName);
 			stagedataBundle = AssetBundle.LoadFromFile(path);
@@ -59,20 +63,45 @@ public class StageLoader : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| Jsonファイルよりステージを読み込む処理
 	--------------------------------------------------------------------------------*/
-	public void LoadStageFromJson(string filePath = "")
+	public void LoadStageFromJson(string fileName = "", string fileDirectory = "", bool pauseEnable = false)
 	{
-		if (filePath == string.Empty)
-			filePath = StagePath;
+		//	フォルダの名前が指定されていないときは、デフォルトを指定
+		if(fileDirectory == string.Empty)
+		{
+			fileDirectory = stageDirectory;
+		}
+		//	ファイル名が指定されてないときは、設定済みの値を代入
+		if (fileName == string.Empty)
+		{
+			fileName = stageFilename;
+		}
 
-		string json = File.ReadAllText(filePath);
+		//	入力よりパスを作成
+		string path = Path.Combine(fileDirectory + fileName);
+		string json = "";
+		try
+		{
+			json = File.ReadAllText(path);
+		}
+		catch
+		{
+			if (!Directory.Exists(fileDirectory))
+				Directory.CreateDirectory(fileDirectory);
 
-		LoadStage(json);
+			//	ファイルの読み込みに失敗したら作成する
+			var file = File.Create(path);
+			file.Close();
+		}
+
+		LoadStage(json, pauseEnable);
+		//	ログに読み込み結果を出力
+		Debug.Log(path + " を読み込みました。");
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| アセットバンドルよりステージを読み込む処理
 	--------------------------------------------------------------------------------*/
-	public void LoadStageFromAssetBundle(string fileName = "")
+	public void LoadStageFromAssetBundle(string fileName = "", bool pauseEnable = false)
 	{
 		if(stagedataBundle == null)
 		{
@@ -82,37 +111,45 @@ public class StageLoader : MonoBehaviour
 
 		if (fileName == string.Empty)
 			fileName = stageFilename;
+		else
+			stageFilename = fileName;
 
 		var asset = stagedataBundle.LoadAsset<TextAsset>(fileName);
 		string json = asset.ToString();
 
-		LoadStage(json);
+		LoadStage(json, pauseEnable);
+		//	ログに読み込み結果を出力
+		Debug.Log("アセットバンドル（" + stageBundleName + ")より " + stageFilename + "を読み込みました。");
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| ステージの読み込み
 	--------------------------------------------------------------------------------*/
-	private void LoadStage(string json)
+	private void LoadStage(string json, bool pauseEnable)
 	{
+		//	ステージを一度リセットする
+		ResetStage(false);
+
+		if (json == string.Empty)
+			return;
+
 		var stageData = (StageData)JsonUtility.FromJson(json, typeof(StageData));
 
-		GenerateStage(stageData);
+		GenerateStage(stageData, pauseEnable);
+
+		//	目標の箱の数が0以下だったら1に設定
+		if (stageData.targetBoxCount <= 0)
+			stageData.targetBoxCount = 1;
+
+		//	使用可能な箱の数と目標の箱の数を設定
+		StageManager.Instance.InitStage(stageData.usableBoxCount, stageData.targetBoxCount, stageData.backgroundType);
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| ステージの生成処理
 	--------------------------------------------------------------------------------*/
-	private void GenerateStage(StageData data)
+	private void GenerateStage(StageData data, bool pauseEnable)
 	{
-		//	ステージを一度リセットする
-		ResetStage(false);
-
-		List<GimmickObjectData> receivesData = new List<GimmickObjectData>();
-		List<ReceiveGimmick> receives = new List<ReceiveGimmick>();     //	アクションを登録するオブジェクト
-
-
-		
-
 		//	リストにあるオブジェクトを１つずつ生成していく
 		foreach (var objData in data.objectDatas)
 		{
@@ -127,7 +164,7 @@ public class StageLoader : MonoBehaviour
 					break;
 
 				case ObjectType.ENEMY:				//	敵
-					SetEnemy(obj, objData.pos, objData.rot);
+					SetEnemy(obj, objData.pos, objData.rot, pauseEnable);
 					break;
 
 				case ObjectType.PLAYER:				//	プレイヤー
@@ -135,6 +172,7 @@ public class StageLoader : MonoBehaviour
 					GameObject player = GameObject.FindGameObjectWithTag("Player");
 					player.transform.position = objData.pos;
 					player.transform.rotation = objData.rot;
+					player.GetComponent<PlayerMove>().OnStageReset();
 					break;
 
 				default:							//	それ以外が指定されたら処理しない
@@ -147,29 +185,17 @@ public class StageLoader : MonoBehaviour
 			//	オブジェクトをデータベースより取得する
 			StageObject obj = objectDatabase.StageObject[gimmick.databaseIndex];
 
-			SetGimmick(obj, gimmick, out ReceiveGimmick receive);
+			//	ギミックを設置する
+			SetGimmick(obj, gimmick, pauseEnable, out ReceiveGimmick receive);
+			//	イベントを受け取るギミックのときはリストに追加する
 			if (receive != null)
 			{
-				receivesData.Add(gimmick);
+				senderIndex.Add(gimmick.targetIndex);
 				receives.Add(receive);
 			}
 		}
-		//	ギミックのアクションを設定
-		for (int i = 0; i < receives.Count; i ++)
-		{
-			int childIndex = receivesData[i].targetIndex;
-			if (childIndex == -1)
-				continue;
-
-			SendGimmick sender = gimmickRoot.GetChild(childIndex).GetComponent<SendGimmick>();
-			receives[i].Sender = sender;
-			//	ギミックの初期化（アクションの登録）を行う
-			receives[i].Initialize();
-		}
-
-
-		//	ログに読み込み結果を出力
-		Debug.Log(StagePath + " を読み込みました。");
+		//	ギミックの初期化を行う
+		InitReveiceGimmicks();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -191,7 +217,7 @@ public class StageLoader : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 敵オブジェクトの設置処理
 	--------------------------------------------------------------------------------*/
-	private void SetEnemy(StageObject obj, Vector3 pos, Quaternion rot)
+	private void SetEnemy(StageObject obj, Vector3 pos, Quaternion rot, bool pauseEnable)
 	{
 		if (objectRoot == null)
 			return;
@@ -199,13 +225,25 @@ public class StageLoader : MonoBehaviour
 			return;
 
 		//	オブジェクトの生成
-		Instantiate(obj.prefab, pos, rot, objectRoot);
+		var newEnemy = Instantiate(obj.prefab, pos, rot, objectRoot) as GameObject;
+		//	ポーズ状態の設定
+		if (newEnemy.TryGetComponent<IPauseable>(out IPauseable enemyPause))
+		{
+			if(pauseEnable)
+			{
+				enemyPause.Pause();
+			}
+			else
+			{
+				enemyPause.Resume();
+			}
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| ギミックオブジェクトの設置処理
 	--------------------------------------------------------------------------------*/
-	private void SetGimmick(StageObject obj, GimmickObjectData gimmickData, out ReceiveGimmick receive)
+	private void SetGimmick(StageObject obj, GimmickObjectData gimmickData, bool pauseEnable, out ReceiveGimmick receive)
 	{
 		receive = null;
 
@@ -218,17 +256,56 @@ public class StageLoader : MonoBehaviour
 
 		//	オブジェクトの設置
 		var newGimmick = Instantiate(obj.prefab, gimmickData.pos, gimmickData.rot, gimmickRoot) as GameObject;
+		//	ギミックの取得
+		Gimmick gimmickComponent = newGimmick.GetComponent<Gimmick>();
 		//	ギミックタイプを設定
-		newGimmick.GetComponent<Gimmick>().Type = gimmickData.type;
+		gimmickComponent.Type = gimmickData.type;
+		//	ギミック固有の設定を適応
+		gimmickComponent.SetExtraSetting(gimmickData.extraSetting);
 		//	受け取り側の場合は値を設定する
 		newGimmick.TryGetComponent<ReceiveGimmick>(out receive);
+
+		//	ポーズ状態の設定
+		if (newGimmick.TryGetComponent<IPauseable>(out IPauseable gimmickPause))
+		{ 
+			if(pauseEnable)
+			{
+				gimmickPause.Pause();
+			}
+			else
+			{
+				gimmickPause.Resume();
+			}
+		}
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| イベントを受け取るギミックの初期化
+	--------------------------------------------------------------------------------*/
+	public void InitReveiceGimmicks()
+	{
+		if (gimmickRoot.childCount <= 0)
+			return;
+
+		//	ギミックのアクションを設定
+		for (int i = 0; i < receives.Count; i++)
+		{
+			int childIndex = senderIndex[i];
+			if (childIndex == -1)
+				continue;
+
+			var a = gimmickRoot.GetChild(childIndex);
+			SendGimmick sender = a.GetComponent<SendGimmick>();
+			receives[i].Sender = sender;
+			//	ギミックの初期化（アクションの登録）を行う
+			receives[i].Initialize();
+		}
+	}
 
 	/*--------------------------------------------------------------------------------
 	|| ステージのリセット処理
 	--------------------------------------------------------------------------------*/
-	[ContextMenu("Reset stage")]
+	[UnityEngine.ContextMenu("Reset stage")]
 	public void ResetStage(bool resetAssetBundle)
 	{
 		//	フラグが有効な場合アセットバンドルを開放する
@@ -243,35 +320,59 @@ public class StageLoader : MonoBehaviour
 			return;
 
 		//	子オブジェクトにあるステージオブジェクトをすべて削除する
-		foreach (Transform item in objectRoot.transform)
+		while (objectRoot.childCount > 0)
 		{
-			DestroyImmediate(item.gameObject);
-		}
-		//	ひとつ残る場合があるため、残っていたら削除を実行する
-		if (objectRoot.childCount > 0)
 			DestroyImmediate(objectRoot.GetChild(0).gameObject);
+		}
 
 		//	子オブジェクトにあるステージオブジェクトをすべて削除する
-		foreach (Transform item in gimmickRoot.transform)
+		while (gimmickRoot.childCount > 0)
 		{
-			DestroyImmediate(item.gameObject);
-		}
-		//	ひとつ残る場合があるため、残っていたら削除を実行する
-		if (gimmickRoot.childCount > 0)
 			DestroyImmediate(gimmickRoot.GetChild(0).gameObject);
+		}
+
+		//	リストを初期化
+		senderIndex = new List<int>();
+		receives = new List<ReceiveGimmick>();
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 読み込み用ウィンドウを表示
+	--------------------------------------------------------------------------------*/
+	public void OpenLoadDialog()
+	{
+		UnityEngine.Cursor.visible = true;
+
+		//	ファイルを開くダイアログを表示
+		OpenFileDialog dialog = new OpenFileDialog();
+		dialog.InitialDirectory = stageDirectory;
+		dialog.Filter = "jsonファイル|*.json";
+		dialog.ShowDialog();
+
+		//	キャンセルを選択したときの処理
+		if (dialog.FileName == string.Empty)
+		{
+			Debug.Log("ロードをキャンセルしました。");
+			return;
+		}
+
+		//	ファイル名を取得してロード
+		string filename = Path.GetFileName(dialog.FileName);
+		string fileDir = dialog.FileName.Replace(filename, "");
+		LoadStageFromJson(filename, fileDir, true);
 	}
 
 #if UNITY_EDITOR
 	/*--------------------------------------------------------------------------------
 	|| アセットバンドルの読み込み処理（デバッグ用）
 	--------------------------------------------------------------------------------*/
-	[ContextMenu("Load AssetBundle")]
+	[UnityEngine.ContextMenu("Load AssetBundle")]
 	private void LoadAsestBundle()
 	{
 		//	アセットバンドルが読み込まれていないときは読み込む
 		if (stagedataBundle == null)
 		{
-			string path = Application.streamingAssetsPath;
+			string path = UnityEngine.Application.streamingAssetsPath;
 			path = path.Replace("/", "\\");
 			path = Path.Combine(path, stageBundleName);
 			stagedataBundle = AssetBundle.LoadFromFile(path);

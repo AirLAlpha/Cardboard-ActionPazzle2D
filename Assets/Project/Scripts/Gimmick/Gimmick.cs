@@ -9,6 +9,7 @@
  **********************************************/
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
 
 //	ギミックのタイプ
 public enum GimmickType
@@ -23,8 +24,16 @@ public abstract class Gimmick : MonoBehaviour
 {
 	[SerializeField]
 	private GimmickType type;
+	[SerializeField]
+	private bool		rotatable;
 
-	public GimmickType Type { get { return type; }  set { type = value; } }
+	public GimmickType	Type { get { return type; }  set { type = value; } }
+	public bool			Rotatable { get { return rotatable; } }
+
+	//	ギミック固有の設定を設定する処理
+	public abstract void SetExtraSetting(string json);
+	//	ギミック固有の設定を取得する処理
+	public abstract string GetExtraSetting();
 }
 
 //	メッセージを送る側
@@ -54,7 +63,7 @@ public abstract class SendGimmick : Gimmick
 	--------------------------------------------------------------------------------*/
 	protected void InvokeAction(bool value)
 	{
-		gimmickAction.Invoke(value);
+		gimmickAction?.Invoke(value);
 	}
 }
 
@@ -74,7 +83,7 @@ public abstract class ReceiveGimmick : Gimmick
 	private void OnDisable()
 	{
 		//	アクションの登録を解除
-		RemoveAction();
+		//RemoveAction();
 	}
 
 	protected abstract void AddAction();

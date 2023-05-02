@@ -14,7 +14,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BlazingShaderController))]
-public class CardboardBox : MonoBehaviour, IBurnable
+public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 {
 	//	コンポーネント
 	[SerializeField]
@@ -54,10 +54,10 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	[SerializeField]
 	private float			breakingVelocity;     //	破壊されてしまう高さ
 
-	private bool			inFreefall;
-	private bool			saveInFreefall;
-	private float			saveVel;            //	
-	private bool			isBreakable;
+	//	ポーズ
+	private Vector2			posedVelocity;
+	private float			posedAnglerVelocity;
+
 
 	//	実行前初期化処理
 	private void Awake()
@@ -78,43 +78,8 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	//	更新処理
 	private void Update()
 	{
-		switch (type)
-		{
-			case CardboardType.BREAKABLE:			//	割れ物注意
-				BreakableUpdate();
-				break;
-
-			case CardboardType.RIGHTSIDEUP:			//	天地無用
-				break;
-
-			default:								//	それ以外の状態は処理を行わない
-				break;
-		}
-
 		//	箱の移動処理
 		MoveUpdate();
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| 割れ物注意時の更新処理
-	--------------------------------------------------------------------------------*/
-	private void BreakableUpdate()
-	{
-		if (!inFreefall)
-			return;
-
-		float sqrMag = rb.velocity.sqrMagnitude;
-
-		if(Mathf.Abs(saveVel - sqrMag) > breakingVelocity)
-		{
-			isBreakable = true;
-		}
-		else
-		{
-			isBreakable = false;
-		}
-
-		saveVel = sqrMag;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -165,11 +130,6 @@ public class CardboardBox : MonoBehaviour, IBurnable
 			Packing(type);
 		}
 	}
-	private void OnCollisionExit2D(Collision2D collision)
-	{
-		if (type == CardboardType.BREAKABLE)
-			inFreefall = true;
-	}
 
 	/*--------------------------------------------------------------------------------
 	|| 梱包処理
@@ -196,12 +156,17 @@ public class CardboardBox : MonoBehaviour, IBurnable
 	public void Burn()
 	{
 		bsc.IsBurning = true;
+		if (rb != null)
+		{
+			rb.isKinematic = true;
+			rb.velocity = Vector2.zero;
+		}
 	}
 
-	/*--------------------------------------------------------------------------------
-	|| Rigidbodyのアクティブを設定
-	--------------------------------------------------------------------------------*/
-	public void SetRigidbodyActive(bool active)
+		/*--------------------------------------------------------------------------------
+		|| Rigidbodyのアクティブを設定
+		--------------------------------------------------------------------------------*/
+		public void SetRigidbodyActive(bool active)
 	{
 		rb.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
 		rb.simulated = active ? true : false;
@@ -215,7 +180,7 @@ public class CardboardBox : MonoBehaviour, IBurnable
 		//	確認する中心座標
 		Vector2 checkPos = transform.TransformPoint(localPos);
 		//	確認する範囲
-		Vector2 checkAreaSize = collider.size;
+		Vector2 checkAreaSize = Vector2.one;
 		//	設置先を確認
 		var checkResult = Physics2D.OverlapBox(checkPos, checkAreaSize, 0.0f, tryCheckMask);
 		if(checkResult != null)
@@ -244,5 +209,23 @@ public class CardboardBox : MonoBehaviour, IBurnable
 		return true;
 	}
 
+	public void Pause()
+	{
+		posedVelocity = rb.velocity;
+		posedAnglerVelocity = rb.angularVelocity;
 
+		this.rb.isKinematic = true;
+		rb.velocity = Vector2.zero;
+		rb.angularVelocity = 0.0f;
+	}
+
+	public void Resume()
+	{
+		if (this == null)
+			return;
+
+		this.rb.isKinematic = false;
+		rb.velocity = posedVelocity;
+		rb.angularVelocity = posedAnglerVelocity;
+	}
 }

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class Enemy : MonoBehaviour, IPoseable
+public abstract class Enemy : MonoBehaviour, IPauseable
 {
 	//	状態
 	public enum State
@@ -22,10 +22,14 @@ public abstract class Enemy : MonoBehaviour, IPoseable
 		ATTACK,         //	攻撃
 	}
 	//	状態
-	protected State			currentState;	//	現在の状態
+	protected State			currentState;  //	現在の状態
 
 	//	コンポーネント
-	protected Rigidbody2D	rb;				//	Rigidbody2D
+	[Header("コンポーネント")]
+	[SerializeField]
+	protected Animator		anim;			//	Animator
+
+	protected Rigidbody2D	rb;             //	Rigidbody2D
 
 	//	移動
 	protected Vector2		acce;			//	加速度
@@ -145,13 +149,16 @@ public abstract class Enemy : MonoBehaviour, IPoseable
 	/*--------------------------------------------------------------------------------
 	|| ポーズ時処理
 	--------------------------------------------------------------------------------*/
-	public void Pose()
+	public void Pause()
 	{
 		disableUpdate = true;
 
 		posedVelocity = rb.velocity;
 		rb.isKinematic = true;
 		rb.velocity = Vector2.zero;
+
+		//	アニメーションを停止
+		anim?.SetFloat("AnimationSpeed", 0.0f);
 	}
 	/*--------------------------------------------------------------------------------
 	|| 再開時処理
@@ -160,8 +167,11 @@ public abstract class Enemy : MonoBehaviour, IPoseable
 	{
 		disableUpdate = false;
 
-		rb.isKinematic = true;
+		rb.isKinematic = false;
 		rb.velocity = posedVelocity;
+
+		//	アニメーションを再開
+		anim?.SetFloat("AnimationSpeed", 1.0f);
 	}
 
 

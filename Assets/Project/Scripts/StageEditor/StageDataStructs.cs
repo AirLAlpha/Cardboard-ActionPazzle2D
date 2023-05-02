@@ -35,13 +35,15 @@ public class GimmickObjectData : StageObjectData
 {
 	public GimmickType		type;				//	ギミックタイプ
 	public int				targetIndex;        //	イベントの追加対象
+	public string			extraSetting;		//	ギミック固有の設定（JSON形式）
 
 	//	コンストラクタ
-	public GimmickObjectData(int databaseIndex, Vector3 pos, Quaternion rot, GimmickType type, int targetIndex) 
+	public GimmickObjectData(int databaseIndex, Vector3 pos, Quaternion rot, GimmickType type, int targetIndex, string extraSetting = "") 
 		: base(databaseIndex, pos, rot)
 	{
 		this.type = type;
 		this.targetIndex = targetIndex;
+		this.extraSetting = extraSetting;
 	}
 }
 
@@ -55,11 +57,22 @@ public struct StageData
 	public List<GimmickObjectData>	gimmickDatas;
 	public int GimmickCount => gimmickDatas.Count;
 
+	public int usableBoxCount;
+	public int targetBoxCount;
+	public int backgroundType;
+
 	//	コンストラクタ
-	public StageData(List<StageObjectData> objectDatas, List<GimmickObjectData> gimmickData) 
+	public StageData(List<StageObjectData> objectDatas, 
+		List<GimmickObjectData> gimmickData, 
+		int usableBoxCount, 
+		int targetBoxCount,
+		int backgroundType) 
 	{ 
 		this.objectDatas = objectDatas;
 		this.gimmickDatas = gimmickData;
+		this.usableBoxCount = usableBoxCount;
+		this.targetBoxCount = targetBoxCount;
+		this.backgroundType = backgroundType;
 	}
 
 }

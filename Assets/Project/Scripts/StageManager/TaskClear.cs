@@ -131,7 +131,6 @@ public class TaskClear : MonoBehaviour
 
 	//	アニメーション
 	private float				elapsedTime;			//	経過時間
-	private bool				isCleared;				//	クリア済みフラグ
 
 
 
@@ -384,9 +383,6 @@ public class TaskClear : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	public void OnTaskClear()
 	{
-		//	クリアフラグを有効化
-		isCleared = true;
-
 		//	カメラのコンポーネントを無効化
 		cameraZoom.enabled = false;
 		cameraShake.enabled = false;

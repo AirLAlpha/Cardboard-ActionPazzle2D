@@ -14,7 +14,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
+using System.Windows.Forms;
 
 public class StageExporter : MonoBehaviour
 {
@@ -29,26 +29,43 @@ public class StageExporter : MonoBehaviour
 	private Transform	gimmickRoot;
 	[SerializeField]
 	private Tilemap		tilemap;                //	出力するタイルマップ
+	[SerializeField]
+	private BackgroundSetter bgSetter;
+
 
 	[Header("出力")]
 	[SerializeField]
 	private string		exportDirectory;		//	書き出し先のディレクトリを指定
 	[SerializeField]
-	private string		exportName;             //	書き出しファイルの名前を指定
+	private string		exportFileName;         //	書き出しファイルの名前を指定
 
 	//	書き出し先のファイルパス
-	private string ExportPath => Path.Combine(exportDirectory + exportName);
+	private string ExportPath => Path.Combine(exportDirectory + exportFileName);
+
+	/*--------------------------------------------------------------------------------
+	|| Jsonの書き出し
+	--------------------------------------------------------------------------------*/
+	public void ExportJson(string fileName = "")
+	{
+		//	書き出し先を設定
+		if (fileName != string.Empty)
+			exportFileName = fileName;
+
+		ExportStage(ExportPath);
+	}
 
 	/*--------------------------------------------------------------------------------
 	|| ステージデータの書き出し
 	--------------------------------------------------------------------------------*/
-	//[ContextMenu("ExportStage")]
-	public void ExportStage()
+	public void ExportStage(string exportPath)
 	{
 		//	書き出し用の構造体を作成
 		var exportStruct = new StageData();
 		exportStruct.objectDatas = new List<StageObjectData>();
 		exportStruct.gimmickDatas = new List<GimmickObjectData>();
+		exportStruct.usableBoxCount = StageManager.Instance.UsableBoxCount;
+		exportStruct.targetBoxCount = StageManager.Instance.TargetBoxCount;
+		exportStruct.backgroundType = bgSetter.Index;
 
 		var playerData = ExportPlayer();
 		if(playerData == null)
@@ -75,14 +92,25 @@ public class StageExporter : MonoBehaviour
 		//	構造体をJsonにする
 		string json = JsonUtility.ToJson(exportStruct, true);
 		//	書き出し
-		File.WriteAllText(ExportPath, json);
+		try
+		{
+			File.WriteAllText(exportPath, json);
+		}
+		//	例外処理
+		catch
+		{
+			Directory.CreateDirectory(exportDirectory);
+			File.WriteAllText(exportPath, json);
+		}
 
+		//	ログに出力する
+		Debug.Log(exportPath + " にステージをエクスポートしました。");
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| プレイヤーの出力
 	--------------------------------------------------------------------------------*/
-	public StageObjectData ExportPlayer()
+	private StageObjectData ExportPlayer()
 	{
 		//	プレイヤーを検索する
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -114,7 +142,7 @@ public class StageExporter : MonoBehaviour
 			for (int x = tilemapSize.min.x; x < tilemapSize.max.x; x++)
 			{
 				//	タイルの取得
-				var tile = tilemap.GetTile(new Vector3Int(x, y));
+				var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
 				//	指定座標がnullなら処理しない
 				if (tile == null)
 					continue;
@@ -194,13 +222,54 @@ public class StageExporter : MonoBehaviour
 				}
 			}
 
+			//	ギミック固有の設定を取得
+			string exSetting = gimmick.GetExtraSetting();
+
 			//	新たなデータを作成し情報を格納
-			GimmickObjectData newObj = new GimmickObjectData(findIndex, child.position, child.rotation, gimmick.Type, gimmickTarget);
+			GimmickObjectData newObj = new GimmickObjectData(findIndex, child.position, child.rotation, gimmick.Type, gimmickTarget, exSetting);
 			//	戻り値のリストに追加する
 			ret.Add(newObj);
 		}
 
 		return ret;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ファイルを保存するダイアログを表示する
+	--------------------------------------------------------------------------------*/
+	public void OpenSaveDialog()
+	{
+		UnityEngine.Cursor.visible = true;
+
+		SaveFileDialog dialog = new SaveFileDialog();
+		dialog.InitialDirectory = exportDirectory;
+		dialog.AddExtension = true;
+		dialog.CreatePrompt = false;
+		dialog.Filter = "jsonファイル|*.json";
+		dialog.ShowDialog();
+
+		//	キャンセルを選択したときの処理
+		if (dialog.FileName == string.Empty)
+		{
+			Debug.Log("エクスポートをキャンセルしました。");
+			return;
+		}
+
+		ExportStage(dialog.FileName);
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ステージファイルの削除
+	--------------------------------------------------------------------------------*/
+	public void DeleteFile(string fileName, string directoryPath = "")
+	{
+		if (directoryPath == string.Empty)
+			directoryPath = exportDirectory;
+
+		string path = Path.Combine(directoryPath + fileName);
+		File.Delete(path);
+
+		Debug.Log(path + " を削除しました。");
 	}
 
 	/*--------------------------------------------------------------------------------

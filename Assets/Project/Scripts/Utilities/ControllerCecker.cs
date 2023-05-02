@@ -33,13 +33,6 @@ public class ControllerCecker : SingletonMonoBehaviour<ControllerCecker>
 	public int			ControllerCount		{ get { return controllerCount; } }
 	public bool			ControllerConnected { get { return controllerConnected; } }
 
-
-	//	実行前初期化処理
-	private void Awake()
-	{
-		CheckInstance();
-	}
-
 	//	初期化処理
 	private void Start()
 	{

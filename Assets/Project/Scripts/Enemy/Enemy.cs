@@ -98,6 +98,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 				AttackUpdate();
 				break;
 		}
+
+		AnimationUpdate();			//	アニメーションの更新処理
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -147,6 +149,11 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	protected abstract void AttackUpdate();
 
 	/*--------------------------------------------------------------------------------
+	|| アニメーションの更新処理
+	--------------------------------------------------------------------------------*/
+	protected abstract void AnimationUpdate();
+
+	/*--------------------------------------------------------------------------------
 	|| ポーズ時処理
 	--------------------------------------------------------------------------------*/
 	public void Pause()
@@ -158,7 +165,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 		rb.velocity = Vector2.zero;
 
 		//	アニメーションを停止
-		anim?.SetFloat("AnimationSpeed", 0.0f);
+		if (anim != null)
+			anim.SetFloat("AnimationSpeed", 0.0f);
 	}
 	/*--------------------------------------------------------------------------------
 	|| 再開時処理
@@ -171,7 +179,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 		rb.velocity = posedVelocity;
 
 		//	アニメーションを再開
-		anim?.SetFloat("AnimationSpeed", 1.0f);
+		if (anim != null)
+			anim.SetFloat("AnimationSpeed", 1.0f);
 	}
 
 

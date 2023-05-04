@@ -78,6 +78,9 @@ public class DoorGimmick : ReceiveGimmick
 	--------------------------------------------------------------------------------*/
 	protected override void AddAction()
 	{
+		if (Sender == null)
+			return;
+
 		Sender.AddAction(buttonEvent);
 	}
 	/*--------------------------------------------------------------------------------
@@ -85,6 +88,9 @@ public class DoorGimmick : ReceiveGimmick
 	--------------------------------------------------------------------------------*/
 	protected override void RemoveAction()
 	{
+		if (Sender == null)
+			return;
+
 		Sender.RemoveAction(buttonEvent);
 	}
 

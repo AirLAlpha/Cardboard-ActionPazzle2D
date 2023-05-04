@@ -1,0 +1,468 @@
+{
+    "objectDatas": [
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": -7.499999046325684,
+                "y": 2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -9.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -8.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -7.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 37,
+            "pos": {
+                "x": -6.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 39,
+            "pos": {
+                "x": -9.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 39,
+            "pos": {
+                "x": -8.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -7.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -6.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -5.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": -4.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 40,
+            "pos": {
+                "x": -3.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 35,
+            "pos": {
+                "x": 5.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": 6.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": 7.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 36,
+            "pos": {
+                "x": 8.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 17,
+            "pos": {
+                "x": 7.499999046325684,
+                "y": 3.499999523162842,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        }
+    ],
+    "gimmickDatas": [
+        {
+            "databaseIndex": 18,
+            "pos": {
+                "x": -4.5,
+                "y": 2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 1,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 34,
+            "pos": {
+                "x": 8.5,
+                "y": 5.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "type": 2,
+            "targetIndex": 0,
+            "extraSetting": "{\"speed\":1.0,\"rangeY\":11.0}"
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": 5.5,
+                "y": 3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": 5.5,
+                "y": 4.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": 5.5,
+                "y": 5.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": 5.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 22,
+            "pos": {
+                "x": 5.5,
+                "y": 2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": "{\"speedMod\":1.0,\"inverse\":true}"
+        },
+        {
+            "databaseIndex": 22,
+            "pos": {
+                "x": 7.5,
+                "y": 2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": "{\"speedMod\":1.0,\"inverse\":true}"
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -4.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -5.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -6.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -7.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -8.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        }
+    ],
+    "usableBoxCount": 30,
+    "targetBoxCount": 1,
+    "backgroundType": 4
+}

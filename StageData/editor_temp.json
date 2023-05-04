@@ -3,8 +3,36 @@
         {
             "databaseIndex": 0,
             "pos": {
-                "x": -7.500000953674316,
+                "x": -6.5,
                 "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 17,
+            "pos": {
+                "x": -2.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 17,
+            "pos": {
+                "x": -1.5,
+                "y": -2.5,
                 "z": 0.0
             },
             "rot": {
@@ -17,9 +45,111 @@
     ],
     "gimmickDatas": [
         {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -1.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": -0.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": 0.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": 1.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 21,
+            "pos": {
+                "x": 2.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 34,
+            "pos": {
+                "x": -2.5,
+                "y": 1.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 2,
+            "targetIndex": 6,
+            "extraSetting": "{\"speed\":1.0,\"rangeY\":4.0}"
+        },
+        {
             "databaseIndex": 18,
             "pos": {
-                "x": -4.5,
+                "x": -7.5,
                 "y": -3.5,
                 "z": 0.0
             },
@@ -32,26 +162,9 @@
             "type": 1,
             "targetIndex": -1,
             "extraSetting": ""
-        },
-        {
-            "databaseIndex": 19,
-            "pos": {
-                "x": 0.5,
-                "y": -2.5,
-                "z": 0.0
-            },
-            "rot": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0,
-                "w": 1.0
-            },
-            "type": 2,
-            "targetIndex": 0,
-            "extraSetting": "{\"openOffset\":{\"x\":0.0,\"y\":5.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
         }
     ],
-    "usableBoxCount": 10,
-    "targetBoxCount": 4,
-    "backgroundType": 1
+    "usableBoxCount": 30,
+    "targetBoxCount": 1,
+    "backgroundType": 4
 }

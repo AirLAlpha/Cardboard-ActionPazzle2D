@@ -83,7 +83,7 @@ public abstract class ReceiveGimmick : Gimmick
 	private void OnDisable()
 	{
 		//	アクションの登録を解除
-		//RemoveAction();
+		RemoveAction();
 	}
 
 	protected abstract void AddAction();

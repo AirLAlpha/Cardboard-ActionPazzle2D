@@ -22,29 +22,10 @@ public class FireEnemy : Enemy, IPackable
 
 	private float			attackIntervalCount;	//	攻撃間隔のカウンター
 
-
-	//	実行前初期化処理
-	protected override void Awake()
-	{
-		//	親クラスの処理を実行
-		base.Awake();
-	}
-
 	//	初期化処理
 	private void Start()
 	{
 		
-	}
-
-	//	更新処理
-	protected override void Update()
-	{
-		if (disableUpdate)
-			return;
-
-		base.Update();				//	親クラスの処理
-
-		AnimationUpdate();			//	アニメーションの更新処理
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -107,7 +88,7 @@ public class FireEnemy : Enemy, IPackable
 	/*--------------------------------------------------------------------------------
 	|| アニメーションの更新処理
 	--------------------------------------------------------------------------------*/
-	private void AnimationUpdate()
+	protected override void AnimationUpdate()
 	{
 		bool attention = currentState != State.IDLE;
 		anim.SetBool("Attention", attention);

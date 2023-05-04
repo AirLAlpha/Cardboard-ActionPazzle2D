@@ -15,4 +15,5 @@ public enum CardboardType
 	NORMAL,				//	通常
 	BREAKABLE,			//	割れ物注意
 	RIGHTSIDEUP,		//	天地無用
+	NONPACKABLE,		//	梱包不可
 }

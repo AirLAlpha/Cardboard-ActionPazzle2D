@@ -326,7 +326,7 @@ MonoBehaviour:
   groundCheckOffset: {x: 0, y: -0.53}
   groundMask:
     serializedVersion: 2
-    m_Bits: 897
+    m_Bits: 14209
   spriteRoot: {fileID: 1455866011123590185}
   cap: {fileID: 1455866009813371976}
   rotateCurve:
@@ -398,6 +398,7 @@ MonoBehaviour:
   - {fileID: 1455866009983635765}
   - {fileID: 1455866009813371976}
   anim: {fileID: 1455866011123590182}
+  dontDeth: 0
   OnDead:
     m_PersistentCalls:
       m_Calls:
@@ -426,6 +427,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   blazingMat: {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
+  mask:
+    serializedVersion: 2
+    m_Bits: 12439
 --- !u!61 &6953774482578051068
 BoxCollider2D:
   m_ObjectHideFlags: 0

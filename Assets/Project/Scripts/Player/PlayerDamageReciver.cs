@@ -32,7 +32,9 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     //  生存
     private bool                isDead;                 //  死亡フラグ
 
-    public bool                 DontDeth { get; set; }  //  無敵フラグ
+    [SerializeField]
+    private bool                dontDeth;               //  無敵フラグ
+    public bool                 DontDeth { get { return dontDeth; } set { dontDeth = value; } } 
 
     //  イベント
     public UnityEvent           OnDead;                 //  死亡時処理
@@ -42,6 +44,9 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     [Header("マテリアル")]
     [SerializeField]
     private Material            blazingMat;             //  炎上
+    [SerializeField]
+    private LayerMask           mask;
+
 
 	//  実行前初期化処理
 	private void Awake()
@@ -74,6 +79,11 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
             //  イベントを実行済みにする
             executedEvent = true;
 		}
+
+        //	内部に衝突したら潰されていると判定する
+        var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, mask);
+        if (hit != null)
+            Burn();
     }
 
 	//  終了時処理

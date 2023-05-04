@@ -136,6 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283a21fdbe64a3b4e96008b737da3fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 700
+  moveSpeed: 5
   lifeTime: 1.5
   hitTags: Untagged

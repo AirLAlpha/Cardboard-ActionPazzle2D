@@ -19,6 +19,8 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 	//	コンポーネント
 	[SerializeField]
 	private ParticleSystem	particle;
+	[SerializeField]
+	private ParticleSystem	burnEffect;
 
 	private SpriteRenderer			spriteRenderer;		//	SpriteRrender
 	private Rigidbody2D				rb;					//	Rigidbody2D
@@ -54,9 +56,16 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 	[SerializeField]
 	private float			breakingVelocity;     //	破壊されてしまう高さ
 
+	//	めり込み判定
+	[SerializeField]
+	private LayerMask		mask;
+
 	//	ポーズ
 	private Vector2			posedVelocity;
 	private float			posedAnglerVelocity;
+
+	//	破壊
+	private bool			isBruned;		//	破壊済みフラグ
 
 
 	//	実行前初期化処理
@@ -80,6 +89,14 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 	{
 		//	箱の移動処理
 		MoveUpdate();
+
+		if (putProgress < 1)
+			return;
+
+		//	箱の内部に衝突したら潰されていると判定する
+		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, mask);
+		if (hit != null)
+			Burn();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -94,8 +111,8 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 		if (putProgress >= 1.0f)
 			isMoving = false;
 
-		float x = Mathf.Lerp(startPos.x, targetPos.x, EaseX(putProgress));
-		float y = Mathf.Lerp(startPos.y, targetPos.y, putProgress);
+		float x = Mathf.Lerp(startPos.x, targetPos.x, putProgress);
+		float y = Mathf.Lerp(startPos.y, targetPos.y, EasingFunctions.EaseInExpo(putProgress));
 
 		transform.localPosition = new Vector2(x, y);
 		transform.localScale = Vector3.one;
@@ -136,6 +153,12 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 	--------------------------------------------------------------------------------*/
 	private void Packing(CardboardType type)
 	{
+		if(type == CardboardType.NONPACKABLE)
+		{
+			Burn();
+			return;
+		}
+
 		//	タイプを保持する
 		this.type = type;
 		//	対応する色に変化させる
@@ -155,18 +178,25 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 	--------------------------------------------------------------------------------*/
 	public void Burn()
 	{
+		if (isBruned)
+			return;
+
+		isBruned = true;
+
 		bsc.IsBurning = true;
 		if (rb != null)
 		{
 			rb.isKinematic = true;
 			rb.velocity = Vector2.zero;
 		}
+
+		Instantiate(burnEffect, transform.position, Quaternion.identity);
 	}
 
-		/*--------------------------------------------------------------------------------
-		|| Rigidbodyのアクティブを設定
-		--------------------------------------------------------------------------------*/
-		public void SetRigidbodyActive(bool active)
+	/*--------------------------------------------------------------------------------
+	|| Rigidbodyのアクティブを設定
+	--------------------------------------------------------------------------------*/
+	public void SetRigidbodyActive(bool active)
 	{
 		rb.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
 		rb.simulated = active ? true : false;
@@ -180,7 +210,7 @@ public class CardboardBox : MonoBehaviour, IPauseable, IBurnable
 		//	確認する中心座標
 		Vector2 checkPos = transform.TransformPoint(localPos);
 		//	確認する範囲
-		Vector2 checkAreaSize = Vector2.one;
+		Vector2 checkAreaSize = Vector2.one * 0.9f;
 		//	設置先を確認
 		var checkResult = Physics2D.OverlapBox(checkPos, checkAreaSize, 0.0f, tryCheckMask);
 		if(checkResult != null)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3998580539451953376}
   - component: {fileID: 3998580539451953383}
   - component: {fileID: 5950402571579590848}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SpriteRoot
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 5826926021461334246}
   - component: {fileID: 5215003402714498890}
   - component: {fileID: 1779917796}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Spike
   m_TagString: Gimmick
   m_Icon: {fileID: 0}

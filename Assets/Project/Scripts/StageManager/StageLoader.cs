@@ -320,15 +320,15 @@ public class StageLoader : MonoBehaviour
 			return;
 
 		//	子オブジェクトにあるステージオブジェクトをすべて削除する
-		while (objectRoot.childCount > 0)
-		{
-			DestroyImmediate(objectRoot.GetChild(0).gameObject);
-		}
-
-		//	子オブジェクトにあるステージオブジェクトをすべて削除する
 		while (gimmickRoot.childCount > 0)
 		{
 			DestroyImmediate(gimmickRoot.GetChild(0).gameObject);
+		}
+
+		//	子オブジェクトにあるステージオブジェクトをすべて削除する
+		while (objectRoot.childCount > 0)
+		{
+			DestroyImmediate(objectRoot.GetChild(0).gameObject);
 		}
 
 		//	リストを初期化

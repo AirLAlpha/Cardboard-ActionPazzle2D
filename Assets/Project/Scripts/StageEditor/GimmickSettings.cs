@@ -126,9 +126,11 @@ public class GimmickSettings : MonoBehaviour
 	//	設定のプレファブ
 	[Header("設定のプレファブ")]
 	[SerializeField]
-	private GimmickSetting doorSetting;     //	ドア
+	private GimmickSetting doorSetting;			//	ドア
 	[SerializeField]
 	private GimmickSetting conveyorSetting;     //	ベルトコンベア
+	[SerializeField]
+	private GimmickSetting craneSetting;		//	クレーン
 
 
 	//	実行前初期化処理
@@ -221,6 +223,7 @@ public class GimmickSettings : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	public void MenuActivate(Gimmick target)
 	{
+		//	ドア
 		if(target.TryGetComponent<DoorGimmick>(out var door))
 		{
 			windowTitleText.text = doorSetting.SettingName;
@@ -230,6 +233,7 @@ public class GimmickSettings : MonoBehaviour
 				targetSettings.SetTarget(door);
 			}
 		}
+		//	ベルトコンベア
 		else if(target.TryGetComponent<BeltConveyorGimmick>(out var conveyor))
 		{
 			windowTitleText.text = conveyorSetting.SettingName;
@@ -237,6 +241,16 @@ public class GimmickSettings : MonoBehaviour
 			if(obj.TryGetComponent<GimmickSettingBase>(out targetSettings))
 			{
 				targetSettings.SetTarget(conveyor);
+			}
+		}
+		//	クレーン
+		else if(target.TryGetComponent<CraneGimmick>(out var crane))
+		{
+			windowTitleText.text = craneSetting.SettingName;
+			var obj = Instantiate(craneSetting.ItemPrefab, windowRoot);
+			if(obj.TryGetComponent<GimmickSettingBase>(out targetSettings))
+			{
+				targetSettings.SetTarget(crane);
 			}
 		}
 		else

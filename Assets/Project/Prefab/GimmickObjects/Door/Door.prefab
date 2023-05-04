@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8868662439276971671}
   - component: {fileID: 8868662439276971752}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SpriteRoot
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8868662439284147149}
   - component: {fileID: 8868662439284147150}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sprite_2
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8868662439450964897}
   - component: {fileID: 8868662439450964898}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sprite
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 8868662440415585983}
   - component: {fileID: 8868662440415585982}
   - component: {fileID: 8868662440415585981}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8868662440427150431}
   - component: {fileID: 8868662440427150416}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sprite_1
   m_TagString: Gimmick
   m_Icon: {fileID: 0}

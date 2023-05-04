@@ -20,9 +20,10 @@ public class FireBall : MonoBehaviour, IPauseable
 	//	移動
 	[Header("移動")]
 	[SerializeField]
-	private float		moveSpeed;					//	移動速度
+	private float		moveSpeed;                  //	移動速度
 
-	public Vector2		Direction { get; set; }     //	移動方向ベクトル
+	private Vector2		direction;
+	public Vector2		Direction {set { direction = value; rb.velocity = direction * moveSpeed; } }     //	移動方向ベクトル
 
 	//	生存
 	[Header("生存")]
@@ -48,8 +49,6 @@ public class FireBall : MonoBehaviour, IPauseable
 	{
 		if (disableUpdate)
 			return;
-
-		rb.velocity = Direction * moveSpeed * Time.deltaTime;
 
 		//	生存時間以上が経過したら自身を削除する
 		alivedTime += Time.deltaTime;

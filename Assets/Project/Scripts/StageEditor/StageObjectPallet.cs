@@ -76,8 +76,17 @@ public class StageObjectPallet : MonoBehaviour
 	public bool					IsActive { get { return isActive; } set{ isActive = value; } }
 
 	//	入力
-	public bool					DisableInput { get; set; }		//	入力の無効化
+	public bool					DisableInput { get; set; }      //	入力の無効化
 
+	[SerializeField]
+	private int					skipMoveStep;
+	[SerializeField]
+	private int					skipStartCount;
+	[SerializeField]
+	private float				inputWait;
+
+	private int					consecutiveCount;               //	連続で入力された数
+	private float				inputWaitTime;
 
 	private int					index;					//	選択されているインデックス
 	private float				moveProgress;           //	移動の進行度
@@ -132,10 +141,53 @@ public class StageObjectPallet : MonoBehaviour
 			cardMoveDir != CardMoveDirection.NONE)
 			return;
 
+		//	入力を取得
+		int inputX = 0;
 		if (Input.GetButton("EditorPalletMinus") || Input.mouseScrollDelta.y > 0)
-			cardMoveDir = CardMoveDirection.RIGHT;
+			inputX++;
 		if (Input.GetButton("EditorPalletPlus") || Input.mouseScrollDelta.y < 0)
-			cardMoveDir = CardMoveDirection.LEFT;
+			inputX--;
+
+		//	入力がなくなったら連続入力を解除
+		if (inputX == 0)
+		{
+			consecutiveCount = 0;
+			inputWaitTime = 0;
+
+			return;
+		}
+
+		//	入力をカードの動きに適応
+		if (consecutiveCount < skipStartCount)
+		{
+			cardMoveDir = (CardMoveDirection)inputX;
+			consecutiveCount++;
+		}
+		//	上の条件に入らなかった時
+		else
+		{
+			//	入力待ちの時間に満たない時
+			if (inputWaitTime < inputWait)
+			{
+				inputWaitTime += Time.deltaTime;
+				return;
+			}
+
+			if (inputX > 0)
+			{
+				cardMoveDir = CardMoveDirection.RIGHT;
+
+				inputWaitTime = 0;
+			}
+			else if (inputX < 0)
+			{
+				cardMoveDir = CardMoveDirection.LEFT;
+
+				inputWaitTime = 0;
+			}
+
+			ResetCards();
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -144,7 +196,10 @@ public class StageObjectPallet : MonoBehaviour
 	private void CardsUpdate()
 	{
 		if (cardMoveDir == CardMoveDirection.NONE)
+		{
+			ResetCards();
 			return;
+		}
 
 		//	進行度を加算し、イージング関数を適応する
 		moveProgress += Time.deltaTime * cardMoveSpeed;
@@ -200,9 +255,6 @@ public class StageObjectPallet : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void ResetCards()
 	{
-		//	カード全体の位置を戻す
-		cardsRoot.localPosition = new Vector3(0, cardsRootPosY);
-
 		//	カードの大きさを元に戻す
 		cards[cards.Length - 2].localScale = Vector2.one * 1;
 		cards[cards.Length - 1].localScale = Vector2.one * 0;
@@ -225,7 +277,12 @@ public class StageObjectPallet : MonoBehaviour
 		//	インデックスを進める
 		if(cardMoveDir != CardMoveDirection.NONE)
 		{
-			index = (int)Mathf.Repeat(index - (int)cardMoveDir, palletDatabase.Count());
+			//	カード全体の位置を戻す
+			cardsRoot.localPosition = new Vector3(0, cardsRootPosY);
+
+			int indexMod = consecutiveCount >= skipStartCount ? skipMoveStep : 1;
+
+			index = (int)Mathf.Repeat(index - (int)cardMoveDir * indexMod, palletDatabase.Count());
 			SetCardImage();
 		}
 		cardMoveDir = CardMoveDirection.NONE;

@@ -272,9 +272,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 8691640963121956548}
+  burnEffect: {fileID: 4880230932744218059, guid: b7541d3817738794694d089da036c618, type: 3}
   tryCheckMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 4993
   putSpeed: 10
   stateColors:
   - {r: 0.7647059, g: 0.53333336, b: 0.32941177, a: 1}
@@ -283,6 +284,9 @@ MonoBehaviour:
   - {r: 0.101960786, g: 1, b: 0, a: 1}
   label: {fileID: 6286792556021150207}
   breakingVelocity: 14
+  mask:
+    serializedVersion: 2
+    m_Bits: 12439
 --- !u!61 &1378053522990162084
 BoxCollider2D:
   m_ObjectHideFlags: 0

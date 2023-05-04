@@ -71,7 +71,8 @@ public class StagePainter : MonoBehaviour
 	private Color			paintModeCursorColor;
 	[SerializeField]
 	private Color			gimmickModeCurosrColor;
-
+	[SerializeField]
+	private LayerMask		eraseMask;
 
 	private RectTransform	cursorTransform;    
 	private Vector3Int		selectedCell;       //	選択中のマス
@@ -387,7 +388,7 @@ public class StagePainter : MonoBehaviour
 	private void EraseObject()
 	{
 		//	削除するオブジェクトがあるか確認する
-		var obj = Physics2D.OverlapBox(selectedCellCenter, Vector2.one * 0.5f, 0);
+		var obj = Physics2D.OverlapBox(selectedCellCenter, Vector2.one * 0.5f, 0, eraseMask);
 		if (obj == null)
 			return;
 
@@ -396,6 +397,11 @@ public class StagePainter : MonoBehaviour
 			this.tilemap.SetTile(selectedCell, null);
 			return;
 		}
+
+		//	ルートオブジェクトのときは処理しない
+		if (obj.gameObject == enemyRoot.gameObject ||
+			obj.gameObject == gimmickRoot.gameObject)
+			return;
 
 		string tag = obj.transform.tag;
 		switch (tag)
@@ -521,7 +527,7 @@ public class StagePainter : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private Gimmick GetCursorHitGimmick()
 	{
-		var cursorHitObj = Physics2D.OverlapBox(selectedCellCenter, Vector2.one * 0.5f, 0);
+		var cursorHitObj = Physics2D.OverlapBox(selectedCellCenter, Vector2.one * 0.5f, 0, eraseMask);
 		if (cursorHitObj == null)
 			return null;
 		if (cursorHitObj.tag != "Gimmick")
@@ -563,7 +569,10 @@ public class StagePainter : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	public bool CheckConnectedGimmick()
 	{
-		GameObject[] gimmickObjects = GameObject.FindGameObjectsWithTag("Gimmick");
+		List<GameObject> gimmickObjects = new List<GameObject>();
+		gimmickObjects.AddRange(GameObject.FindGameObjectsWithTag("Gimmick"));
+		gimmickObjects.AddRange(GameObject.FindGameObjectsWithTag("GimmickEnemy"));
+
 		foreach (var obj in gimmickObjects)
 		{
 			if(obj.TryGetComponent<ReceiveGimmick>(out ReceiveGimmick gimmick))

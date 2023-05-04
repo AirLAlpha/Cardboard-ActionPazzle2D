@@ -150,6 +150,13 @@ public class StageLoader : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void GenerateStage(StageData data, bool pauseEnable)
 	{
+		//	プレイヤーを無敵にしておく
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		PlayerDamageReciver pdr = player.GetComponent<PlayerDamageReciver>();
+		pdr.DontDeath = true;
+
+		tilemap.ClearAllTiles();
+
 		//	リストにあるオブジェクトを１つずつ生成していく
 		foreach (var objData in data.objectDatas)
 		{
@@ -169,7 +176,6 @@ public class StageLoader : MonoBehaviour
 
 				case ObjectType.PLAYER:				//	プレイヤー
 					//	プレイヤーを移動させる
-					GameObject player = GameObject.FindGameObjectWithTag("Player");
 					player.transform.position = objData.pos;
 					player.transform.rotation = objData.rot;
 					player.GetComponent<PlayerMove>().OnStageReset();
@@ -196,6 +202,9 @@ public class StageLoader : MonoBehaviour
 		}
 		//	ギミックの初期化を行う
 		InitReveiceGimmicks();
+
+		//	プレイヤーの無敵を解除する
+		pdr.DontDeath = false;
 	}
 
 	/*--------------------------------------------------------------------------------

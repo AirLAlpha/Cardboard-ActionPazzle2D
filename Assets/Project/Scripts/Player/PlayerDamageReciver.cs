@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 
 public class PlayerDamageReciver : MonoBehaviour, IBurnable
 {
@@ -33,8 +34,8 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     private bool                isDead;                 //  死亡フラグ
 
     [SerializeField]
-    private bool                dontDeth;               //  無敵フラグ
-    public bool                 DontDeth { get { return dontDeth; } set { dontDeth = value; } } 
+    private bool                dontDeath;               //  無敵フラグ
+    public bool                 DontDeath { get { return dontDeath; } set { dontDeath = value; } } 
 
     //  イベント
     public UnityEvent           OnDead;                 //  死亡時処理
@@ -68,22 +69,24 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
 	}
 
     //  更新処理
-	private void Update()
+    private void Update()
     {
         //  死亡してイベントが実行されていないとき
-        if(isDead && !executedEvent)
-		{
+        if (isDead && !executedEvent)
+        {
             //  イベントを実行
             OnDead?.Invoke();
 
             //  イベントを実行済みにする
             executedEvent = true;
-		}
+        }
 
         //	内部に衝突したら潰されていると判定する
         var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, mask);
         if (hit != null)
+        {
             Burn();
+        }
     }
 
 	//  終了時処理
@@ -98,7 +101,7 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
 	public void Burn()
 	{
         //  無敵の際は処理しない
-        if (DontDeth)
+        if (DontDeath)
             return;
 
         //  すでに死んでいるときは処理しない

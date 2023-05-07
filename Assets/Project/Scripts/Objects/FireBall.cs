@@ -15,15 +15,25 @@ using UnityEngine;
 public class FireBall : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
+	[SerializeField]
+	private ParticleSystem			destroyEffect;
+
 	private Rigidbody2D rb;         //	Rigidbody2D
 
 	//	移動
 	[Header("移動")]
 	[SerializeField]
 	private float		moveSpeed;                  //	移動速度
+	[SerializeField]
+	private bool		applyRotate;				//	回転フラグ
 
 	private Vector2		direction;
 	public Vector2		Direction {set { direction = value; rb.velocity = direction * moveSpeed; } }     //	移動方向ベクトル
+
+	[Header("拡大")]
+	[SerializeField]
+	private float		sizeChangeRate;
+
 
 	//	生存
 	[Header("生存")]
@@ -42,6 +52,7 @@ public class FireBall : MonoBehaviour, IPauseable
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		transform.localScale = Vector3.zero;
 	}
 
 	//	更新処理
@@ -50,10 +61,28 @@ public class FireBall : MonoBehaviour, IPauseable
 		if (disableUpdate)
 			return;
 
+		if (applyRotate)
+		{
+			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
+		transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * 0.5f, Time.deltaTime * sizeChangeRate);
+
 		//	生存時間以上が経過したら自身を削除する
 		alivedTime += Time.deltaTime;
 		if (alivedTime >= lifeTime)
+		{
 			Destroy(gameObject);
+			GenerateEffect();
+		}
+	}
+
+	private void GenerateEffect()
+	{
+		if (destroyEffect == null)
+			return;
+
+		Instantiate(destroyEffect, transform.position, Quaternion.identity);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -64,6 +93,8 @@ public class FireBall : MonoBehaviour, IPauseable
 		//	衝突したオブジェクトにIBurnableが実装されていたら処理を行う
 		if (collision.TryGetComponent<IBurnable>(out var hit))
 		{
+			GenerateEffect();
+
 			//	相手を燃やす処理
 			hit.Burn();
 			//	自身を削除する
@@ -76,6 +107,8 @@ public class FireBall : MonoBehaviour, IPauseable
 		{
 			if(collision.tag == tag)
 			{
+				GenerateEffect();
+
 				Destroy(gameObject);
 				return;
 			}

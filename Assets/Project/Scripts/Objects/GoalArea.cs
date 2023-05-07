@@ -6,7 +6,7 @@ public class GoalArea : MonoBehaviour
 {
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.transform.TryGetComponent<CardboardBox>(out CardboardBox box))
+		if(collision.transform.TryGetComponent<CardboardBox.CardboardBox>(out CardboardBox.CardboardBox box))
 		{
 			if (box.IsPacked)
 				StageManager.Instance.CompleteBoxCount++;

@@ -224,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3866590518016526168}
-  attentionRange: 4
-  attackRange: 3
+  attentionRange: 7
+  attackRange: 5
   rangeOffset: {x: 0, y: 0.25}
   detectionLayer:
     serializedVersion: 2
@@ -234,7 +234,7 @@ MonoBehaviour:
   drawGizmos: 1
   spriteRenderer: {fileID: 3866590519529855347}
   targetProgress: 0
-  waterObj: {fileID: 6070002190379846683, guid: da8c98f3f33db2e4b95633d7f3ffc948, type: 3}
+  waterObj: {fileID: 1020100210346299360, guid: 40d7a7b5743ee544d93895896f959dd1, type: 3}
   attackObjCount: 3
   attackAngle: 0.785398
   attackObjInitOffset: {x: 0, y: 0.25, z: 0}

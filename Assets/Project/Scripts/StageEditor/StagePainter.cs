@@ -99,6 +99,8 @@ public class StagePainter : MonoBehaviour
 	[Header("ギミック")]
 	[SerializeField]
 	private GimmickSettings gimmickSettings;
+	[SerializeField]
+	private LayerMask		gimmickMask;
 
 	private Gimmick			firstGimmick;
 	private Gimmick			secondGimmick;
@@ -407,6 +409,7 @@ public class StagePainter : MonoBehaviour
 		switch (tag)
 		{
 			//	ギミック
+			case "GimmickEnemy":
 			case "Gimmick":
 				Destroy(obj.transform.parent.gameObject);
 				break;
@@ -527,7 +530,7 @@ public class StagePainter : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private Gimmick GetCursorHitGimmick()
 	{
-		var cursorHitObj = Physics2D.OverlapBox(selectedCellCenter, Vector2.one * 0.5f, 0, eraseMask);
+		var cursorHitObj = Physics2D.OverlapBox(selectedCellCenter, Vector2.one * 0.5f, 0, gimmickMask);
 		if (cursorHitObj == null)
 			return null;
 		if (cursorHitObj.tag != "Gimmick")

@@ -406,13 +406,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4925361400088381821}
-  attentionRange: 4
-  attackRange: 3
+  attentionRange: 7
+  attackRange: 5
   rangeOffset: {x: 0, y: 0}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 576
-  packedType: 1
+  packedType: 2
   drawGizmos: 1
   fireBall: {fileID: 6070002190379846683, guid: c96d20be233f21e4aad8182b8a29006d, type: 3}
   attackInterval: 1.5

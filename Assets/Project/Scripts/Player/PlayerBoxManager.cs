@@ -10,6 +10,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CardboardBox;
 
 [RequireComponent(typeof(PlayerMove))]
 public class PlayerBoxManager : MonoBehaviour, IPauseable
@@ -29,16 +30,16 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	//	生成
 	[Header("生成")]
 	[SerializeField]
-	private CardboardBox	boxOriginal;		//	生成するPrefabのオリジナル
+	private CardboardBox.CardboardBox	boxOriginal;		//	生成するPrefabのオリジナル
 	[SerializeField]
 	private Vector2			generatePos;        //	生成する座標（ローカル）
 	[SerializeField]
 	private Transform		generateParent;     //	生成時の親
 
 	//	管理
-	private CardboardBox	currentBox;         //	所持しているハコ
+	private CardboardBox.CardboardBox currentBox;         //	所持しているハコ
 
-	public CardboardBox CurrentBox { get { return currentBox; } }
+	public CardboardBox.CardboardBox CurrentBox { get { return currentBox; } }
 
 	//	設置
 	[Header("設置")]
@@ -139,6 +140,9 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		//	ハコを所持していないときは処理しない
 		if (currentBox == null)
 			return;
+
+
+		//	HACK : TryPutをPlayerBoxManagerで処理するよう修正
 
 		//	プレイヤーの現在の向きを取得
 		Direction dir = playerMove.CurrentDir;

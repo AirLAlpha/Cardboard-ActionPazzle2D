@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1037273823644062542}
   - component: {fileID: 1037273823644062543}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: blade_enemy_blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1037273824676487529}
   - component: {fileID: 1037273824676487531}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: SpriteRoot
   m_TagString: Gimmick
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c57ffb19fcf0aa8439b63b6178121d8b, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1037273825212215818}
   - component: {fileID: 934649365921715312}
   - component: {fileID: 906933334824459415}
-  - component: {fileID: 8269009084380377368}
+  - component: {fileID: -2146429626226472614}
   m_Layer: 0
   m_Name: BladeEnemy
   m_TagString: GimmickEnemy
@@ -168,6 +168,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1037273824676487529}
+  - {fileID: 8594332434298984524}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -213,8 +214,16 @@ MonoBehaviour:
     m_Bits: 576
   packedType: 1
   drawGizmos: 0
+  sparkEffect: {fileID: 7885232382446419736, guid: c4d8c6e5a8de9814fbb8c7b6cb6f7adb, type: 3}
+  particleOffset: {x: -0.206, y: -0.362}
+  checkGroundRange: {x: 0.68, y: 0.11}
+  checkGroundOffset: {x: 0, y: -0.48}
+  checkGroundMask:
+    serializedVersion: 2
+    m_Bits: 8832
+  body: {fileID: 1037273825472902410}
   blade: {fileID: 1037273823644062542}
-  rotateSpeed: 1000
+  rotateSpeed: -1000
   packable: 0
 --- !u!114 &934649365921715312
 MonoBehaviour:
@@ -246,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridOffset: {x: 0, y: 0}
   z: 0
---- !u!58 &8269009084380377368
+--- !u!58 &-2146429626226472614
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,12 +265,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49
+  m_Radius: 0.5
 --- !u!1 &1037273825472902409
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1037273825472902410}
   - component: {fileID: 1037273825472902411}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: blade_enemy_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,3 +355,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3623963230823679174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8594332434298984524}
+  - component: {fileID: 1231481232880819192}
+  m_Layer: 8
+  m_Name: EnemyCollider
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8594332434298984524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623963230823679174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1037273825212215816}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1231481232880819192
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623963230823679174}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49

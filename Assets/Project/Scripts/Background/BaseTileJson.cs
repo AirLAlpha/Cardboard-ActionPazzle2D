@@ -61,6 +61,9 @@ public class BaseTileJson : MonoBehaviour
 				newTileData.m01 = (int)mat.m01;
 				newTileData.m10 = (int)mat.m10;
 				newTileData.m11 = (int)mat.m11;
+				//	タイルデータに反転を設定
+				newTileData.flipX = Mathf.Sign(mat.m00) < 0;
+				newTileData.flipY = Mathf.Sign(mat.m11) < 0;
 
 				//	書き出し対象に追加する
 				tilemapData.tiledatas.Add(newTileData);

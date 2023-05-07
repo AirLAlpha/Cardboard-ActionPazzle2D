@@ -192,7 +192,7 @@ public class StageDetailMenu : MonoBehaviour
 			case DetailMenuItem.BACKGROUND_TYPE:
 				BackgroundType += inputX;
 				BackgroundType = Mathf.Clamp(BackgroundType, 0, bgDatabase.DataCount - 1);
-				counterNum = BackgroundType;
+				counterNum = BackgroundType + 1;
 				break;
 
 			case DetailMenuItem.USABLE_BOX_COUNT:

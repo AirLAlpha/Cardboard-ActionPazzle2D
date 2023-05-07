@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283a21fdbe64a3b4e96008b737da3fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyEffect: {fileID: 2976459336271847165, guid: f565eaf8938cae64ca3f20086b967a69, type: 3}
   moveSpeed: 9
   lifeTime: 1.5
   hitTags: Untagged

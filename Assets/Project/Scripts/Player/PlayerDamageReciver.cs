@@ -28,7 +28,7 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     private PlayerMove                  playerMove;
     private PlayerBoxManager            playerBoxManager;
 
-    private CardboardBox                playerGrabBox;              //  プレイヤーが持っているハコ
+    private CardboardBox.CardboardBox playerGrabBox;              //  プレイヤーが持っているハコ
 
     //  生存
     private bool                isDead;                 //  死亡フラグ
@@ -135,7 +135,8 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
         {
             blazingControllers[i].IsBurning = true;
         }
-        playerGrabBox?.Burn();
+        if (playerGrabBox != null)
+            playerGrabBox.Burn();
     }
 
 }

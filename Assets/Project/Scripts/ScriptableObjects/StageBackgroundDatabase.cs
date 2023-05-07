@@ -24,6 +24,9 @@ public struct TileData
 	public int m01;
 	public int m10;
 	public int m11;
+	//	反転フラグ
+	public bool flipX;
+	public bool flipY;
 }
 
 [System.Serializable]

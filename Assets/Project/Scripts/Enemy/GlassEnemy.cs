@@ -11,12 +11,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlassEnemy : Enemy, IPackable
+public class GlassEnemy : Enemy, IPackable, IBurnable
 {
+	[Header("ガラス")]
+	[SerializeField]
+	private float			breakingVelocity;		//	破壊されてしまう速度
+	[SerializeField]
+	private ParticleSystem	breakEffect;            //	破壊時のエフェクト
+
+	private Transform		effectRoot;				//	エフェクトの親オブジェクト
+
 	//	初期化処理
 	private void Start()
 	{
-		
+		//	エフェクトの親を検索
+		effectRoot = GameObject.Find("EffectRoot").transform;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -24,7 +33,6 @@ public class GlassEnemy : Enemy, IPackable
 	--------------------------------------------------------------------------------*/
 	protected override void IdleUpdate()
 	{
-		//throw new System.NotImplementedException();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -32,7 +40,6 @@ public class GlassEnemy : Enemy, IPackable
 	--------------------------------------------------------------------------------*/
 	protected override void AttentionUpdate()
 	{
-		//throw new System.NotImplementedException();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -40,7 +47,6 @@ public class GlassEnemy : Enemy, IPackable
 	--------------------------------------------------------------------------------*/
 	protected override void AttackUpdate()
 	{
-		//throw new System.NotImplementedException();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -48,11 +54,7 @@ public class GlassEnemy : Enemy, IPackable
 	--------------------------------------------------------------------------------*/
 	protected override void AnimationUpdate()
 	{
-		bool attention = currentState != State.IDLE;
-		anim.SetBool("Attention", attention);
 
-		bool open = currentState == State.ATTACK;
-		anim.SetBool("Open", open);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -64,5 +66,43 @@ public class GlassEnemy : Enemy, IPackable
 		Destroy(gameObject);
 
 		return this.packedType;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 衝突判定
+	--------------------------------------------------------------------------------*/
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		Vector2 hitVel = collision.relativeVelocity;
+
+		//	プレイヤーのときのみの処理
+		if (collision.transform.tag == "Player")
+		{
+			const float IGNORE_RAD = 45.0f;     //	無視するとする角度
+
+			//	プレイヤーとの角度を求める
+			Vector2 dir = (collision.transform.position - transform.position).normalized;
+			float rad = Mathf.Abs(Mathf.Atan2(dir.y, dir.x));
+
+			//	プレイヤーとの角度が一定の範囲でなければ処理しない
+			if (rad < Mathf.Deg2Rad * IGNORE_RAD ||
+				rad > Mathf.Deg2Rad * (180.0f - IGNORE_RAD))
+				return;
+		}
+
+		float hitVelMag = hitVel.sqrMagnitude;
+		if (hitVelMag >= breakingVelocity * breakingVelocity)
+			Burn();
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 破壊処理
+	--------------------------------------------------------------------------------*/
+	public void Burn()
+	{
+		var effect = Instantiate(breakEffect, transform.position, Quaternion.identity, effectRoot);
+		effect.Play();
+
+		Destroy(gameObject);
 	}
 }

@@ -51,7 +51,10 @@ public class BladeEnemy : Enemy, IPackable
 	//	初期化処理
 	private void Start()
 	{
-		haveEffect = Instantiate(sparkEffect, transform.position, Quaternion.identity) as ParticleSystem;
+		//	エフェクトルートの検索
+		Transform effectRoot = GameObject.Find("EffectRoot").transform;
+		//	エフェクトの作成
+		haveEffect = Instantiate(sparkEffect, transform.position, Quaternion.identity, effectRoot) as ParticleSystem;
 		haveEffect.Stop();
 	}
 

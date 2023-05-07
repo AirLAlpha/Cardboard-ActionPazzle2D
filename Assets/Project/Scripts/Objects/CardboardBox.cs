@@ -89,7 +89,7 @@ namespace CardboardBox
 
 			//	ステートの初期化
 			nonPackedBox = new NonPackedBox(nonPackedBox, this);
-			defaultBox = new DefaultBox(this);
+			defaultBox = new DefaultBox(defaultBox, this);
 			breakableBox = new BreakableBox(breakableBox, this);
 
 			//	現在のステートを初期化

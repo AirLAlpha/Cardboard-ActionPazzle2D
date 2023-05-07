@@ -9,8 +9,13 @@
  **********************************************/
 using UnityEngine;
 
+[System.Serializable]
 public abstract class CardboardBoxState
 {
+	[SerializeField]
+	protected Color stateColor;		//	状態の色
+
+
 	private CardboardBox.CardboardBox parent;
 	protected CardboardBox.CardboardBox Parent { get { return parent; } }
 

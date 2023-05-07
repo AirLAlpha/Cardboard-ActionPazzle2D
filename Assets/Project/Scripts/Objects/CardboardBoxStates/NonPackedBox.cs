@@ -33,6 +33,7 @@ namespace CardboardBox
 		public NonPackedBox(NonPackedBox nonPacked, CardboardBox parent) :
 			base(parent)
 		{
+			this.stateColor = nonPacked.stateColor;
 			this.packedEffect = nonPacked.packedEffect;
 			this.label = nonPacked.label;
 
@@ -52,6 +53,8 @@ namespace CardboardBox
 		--------------------------------------------------------------------------------*/
 		public override void OnEnterState()
 		{
+			//	状態の色を変更する
+			spriteRenderer.color = stateColor;
 		}
 
 		/*--------------------------------------------------------------------------------

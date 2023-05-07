@@ -8,9 +8,10 @@ namespace CardboardBox
 	public class DefaultBox : CardboardBoxState
 	{
 		//	コンストラクタ
-		public DefaultBox(CardboardBox parent) :
+		public DefaultBox(DefaultBox defaultBox, CardboardBox parent) :
 			base(parent)
 		{
+			this.stateColor = defaultBox.stateColor;
 		}
 
 		/*--------------------------------------------------------------------------------
@@ -25,6 +26,8 @@ namespace CardboardBox
 		--------------------------------------------------------------------------------*/
 		public override void OnEnterState()
 		{
+			//	状態の色を変更する
+			Parent.SpriteRenderer.color = stateColor;
 		}
 
 		/*--------------------------------------------------------------------------------

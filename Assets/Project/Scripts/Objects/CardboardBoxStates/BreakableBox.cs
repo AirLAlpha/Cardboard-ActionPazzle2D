@@ -14,6 +14,7 @@ namespace CardboardBox
 		public BreakableBox(BreakableBox breakable, CardboardBox parent) :
 			base(parent)
 		{
+			this.stateColor = breakable.stateColor;
 			this.breakingVelocity = breakable.breakingVelocity;
 		}
 
@@ -29,6 +30,8 @@ namespace CardboardBox
 		--------------------------------------------------------------------------------*/
 		public override void OnEnterState()
 		{
+			//	状態の色を変更する
+			Parent.SpriteRenderer.color = stateColor;
 		}
 
 		/*--------------------------------------------------------------------------------

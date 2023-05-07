@@ -412,7 +412,7 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 576
-  packedType: 2
+  packedType: 1
   drawGizmos: 1
   fireBall: {fileID: 6070002190379846683, guid: c96d20be233f21e4aad8182b8a29006d, type: 3}
   attackInterval: 1.5

@@ -14,18 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 1
   tasks:
-  - stageFileName: Stage1_1.json
-    usableBoxCount: 3
-    targetBoxCount: 1
+  - stageFileName: Stage1_noro.json
   - stageFileName: Stage1_2.json
-    usableBoxCount: 3
-    targetBoxCount: 1
   - stageFileName: Stage1_3.json
-    usableBoxCount: 5
-    targetBoxCount: 1
   - stageFileName: Stage1_4.json
-    usableBoxCount: 3
-    targetBoxCount: 2
   - stageFileName: Stage1_5.json
-    usableBoxCount: 5
-    targetBoxCount: 1

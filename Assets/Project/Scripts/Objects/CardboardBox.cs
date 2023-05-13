@@ -25,11 +25,11 @@ namespace CardboardBox
 		private ParticleSystem burnEffect;
 
 		private SpriteRenderer spriteRenderer;      //	SpriteRrender
-		private Rigidbody2D rb;                 //	Rigidbody2D
-		private new BoxCollider2D collider;           //	BoxCollider2D
-		private BlazingShaderController bsc;                //	BlazingShaderController
+		private Rigidbody2D rb;						//	Rigidbody2D
+		private BlazingShaderController bsc;        //	BlazingShaderController
 
-		public SpriteRenderer SpriteRenderer { get { return spriteRenderer; } }
+		public SpriteRenderer	SpriteRenderer	{ get { return spriteRenderer; } }
+		public Rigidbody2D		Rigidbody2D		{ get { return rb; } }
 
 		//	ステート
 		[SerializeField]
@@ -37,27 +37,27 @@ namespace CardboardBox
 		[SerializeField]
 		private DefaultBox		defaultBox;         //	通常のハコ
 		[SerializeField]
-		private BreakableBox	breakableBox;		//	割れ物注意のハコ
+		private BreakableBox	breakableBox;       //	割れ物注意のハコ
+		[SerializeField]
+		private RightSideUpBox	rightSideUpBox;		//	天地無用のハコ
+
 
 		private CardboardBoxState currentState;	//	現在のステート
 
-		public DefaultBox DefaultBox		{ get{ return defaultBox; } }
-		public BreakableBox BreakableBox	{ get { return breakableBox; } }
+		public DefaultBox		DefaultBox		{ get{ return defaultBox; } }
+		public BreakableBox		BreakableBox	{ get { return breakableBox; } }
+		public RightSideUpBox	RightSideUpBox	{ get { return rightSideUpBox; } }
+
+		//	マテリアル
+		[Header("デフォルトマテリアル")]
+		[SerializeField]
+		private Material	burnMaterial;
+
 
 		//	設置判定
 		[Header("設置")]
 		[SerializeField]
 		private LayerMask tryCheckMask;       //	設置前判定用レイヤーマスク
-		[SerializeField]
-		private float putSpeed;         //	設置速度
-
-		private bool isMoving;
-		private float putProgress;
-		private Vector2 startPos;           //	設置の開始座標
-		private Vector2 targetPos;          //	設置先の座標
-
-		public Vector2 StartPos		{ get { return startPos; } }
-		public Vector2 TargetPos	{ get { return targetPos; } }
 
 		//	梱包
 		[Header("梱包")]
@@ -68,7 +68,7 @@ namespace CardboardBox
 
 		//	めり込み判定
 		[SerializeField]
-		private LayerMask mask;
+		private LayerMask destroyMask;
 
 		//	ポーズ
 		private Vector2 posedVelocity;
@@ -77,13 +77,11 @@ namespace CardboardBox
 		//	破壊
 		private bool isBruned;      //	破壊済みフラグ
 
-
 		//	実行前初期化処理
 		private void Awake()
 		{
 			//	コンポーネントの取得
 			rb = GetComponent<Rigidbody2D>();
-			collider = GetComponent<BoxCollider2D>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
 			bsc = GetComponent<BlazingShaderController>();
 
@@ -91,6 +89,7 @@ namespace CardboardBox
 			nonPackedBox = new NonPackedBox(nonPackedBox, this);
 			defaultBox = new DefaultBox(defaultBox, this);
 			breakableBox = new BreakableBox(breakableBox, this);
+			rightSideUpBox = new RightSideUpBox(rightSideUpBox, this);
 
 			//	現在のステートを初期化
 			currentState = nonPackedBox;
@@ -104,39 +103,20 @@ namespace CardboardBox
 		//	更新処理
 		private void Update()
 		{
-			//	箱の移動処理
-			MoveUpdate();
-
 			//	現在のステートを更新
 			if (currentState != null)
 				currentState.StateUpdate();
+		}
 
-			if (putProgress >= 1.0f)
+		private void FixedUpdate()
+		{
+			if (rb.simulated == true)
 			{
 				//	箱の内部に衝突したら潰されていると判定する
-				var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, mask);
+				var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, destroyMask);
 				if (hit != null)
 					Burn();
 			}
-		}
-
-		//*--------------------------------------------------------------------------------
-		//|| 箱の移動処理
-		//--------------------------------------------------------------------------------*/
-		private void MoveUpdate()
-		{
-			if (!isMoving)
-				return;
-
-			putProgress = Mathf.Clamp01(putProgress + Time.deltaTime * putSpeed);
-			if (putProgress >= 1.0f)
-				isMoving = false;
-
-			float x = Mathf.Lerp(startPos.x, targetPos.x, putProgress);
-			float y = Mathf.Lerp(startPos.y, targetPos.y, EasingFunctions.EaseInExpo(putProgress));
-
-			transform.localPosition = new Vector2(x, y);
-			transform.localScale = Vector3.one;
 		}
 
 		/*--------------------------------------------------------------------------------
@@ -159,6 +139,9 @@ namespace CardboardBox
 
 			isBruned = true;
 
+			//	マテリアルの変更
+			spriteRenderer.material = burnMaterial;
+
 			bsc.IsBurning = true;
 			if (rb != null)
 			{
@@ -179,39 +162,12 @@ namespace CardboardBox
 		}
 
 		/*--------------------------------------------------------------------------------
-		|| ハコの設置を試みる
+		|| 梱包処理
 		--------------------------------------------------------------------------------*/
-		public bool TryPut(Vector2 localPos)
+		public void Packing(CardboardType type)
 		{
-			//	確認する中心座標
-			Vector2 checkPos = transform.TransformPoint(localPos);
-			//	確認する範囲
-			Vector2 checkAreaSize = Vector2.one * 0.9f;
-			//	設置先を確認
-			var checkResult = Physics2D.OverlapBox(checkPos, checkAreaSize, 0.0f, tryCheckMask);
-			if (checkResult != null)
-			{
-				//	敵がいた場合は梱包を行う
-				if (checkResult.TryGetComponent<IPackable>(out var hit))
-				{
-					//	相手の梱包処理を行う
-					CardboardType type = hit.Packing();
-					//	自身の梱包時処理を実行
-					nonPackedBox.Packing(type);
-				}
-				//	それ以外は設置不能として処理
-				else
-				{
-					return false;
-				}
-			}
-
-			isMoving = true;
-			//	座標の更新
-			startPos = transform.position;
-			targetPos = transform.TransformPoint(localPos);
-			//	正常に完了
-			return true;
+			if (currentState == nonPackedBox)
+				nonPackedBox.Packing(type);
 		}
 
 		public void Pause()

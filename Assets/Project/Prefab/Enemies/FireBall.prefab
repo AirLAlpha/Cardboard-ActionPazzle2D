@@ -226,4 +226,4 @@ MonoBehaviour:
   applyRotate: 1
   sizeChangeRate: 15
   lifeTime: 1.5
-  hitTags: Untagged
+  hitTags: Untagged Gimmick

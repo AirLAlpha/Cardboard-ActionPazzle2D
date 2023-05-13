@@ -415,7 +415,7 @@ MonoBehaviour:
   packedType: 1
   drawGizmos: 1
   fireBall: {fileID: 6070002190379846683, guid: c96d20be233f21e4aad8182b8a29006d, type: 3}
-  attackInterval: 1.5
+  attackInterval: 2
 --- !u!58 &2851119450428355664
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.475
+  m_Radius: 0.43
 --- !u!114 &4216637654579477197
 MonoBehaviour:
   m_ObjectHideFlags: 0

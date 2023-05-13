@@ -138,5 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyEffect: {fileID: 2976459336271847165, guid: f565eaf8938cae64ca3f20086b967a69, type: 3}
   moveSpeed: 9
+  applyRotate: 0
+  sizeChangeRate: 0
   lifeTime: 1.5
-  hitTags: Untagged
+  hitTags: Untagged Gimmick

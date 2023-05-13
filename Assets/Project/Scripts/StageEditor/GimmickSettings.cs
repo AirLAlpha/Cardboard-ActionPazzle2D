@@ -50,7 +50,8 @@ public abstract class GimmickSettingBase : MonoBehaviour
 	public virtual void ValueChangeUpdate(float inputX)
 	{
 		values[currentSelect] += (int)inputX;
-		valueTexts[currentSelect].text = values[currentSelect].ToString("D2");
+
+		ApplyTextAll();
 	}
 
 	/*--------------------------------------------------------------------------------

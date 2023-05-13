@@ -18,6 +18,8 @@ public class TitleStageBox : MonoBehaviour
 	[SerializeField]
 	private Animator		stageClearStatusAnim;
 	[SerializeField]
+	private Animator		boxAnim;
+	[SerializeField]
 	private TitleManager	titleManager;
 
 	//	ステージ情報
@@ -35,7 +37,15 @@ public class TitleStageBox : MonoBehaviour
 	//	選択中とする範囲の中心座標
 	private Vector3 SelectAreaCenter => new Vector3(selectArea.x, selectArea.y) + transform.position;
 
-	private bool			inRange;		//	範囲内フラグ
+	private bool			inRange;        //	範囲内フラグ
+
+	//	ハコの開閉
+	[Header("開閉")]
+	[SerializeField]
+	private float			openSpeed;		//	ハコの開閉速度
+	
+	private float			openProgress;
+
 
 #if UNITY_EDITOR
 	[Header("デバッグ")]
@@ -49,6 +59,7 @@ public class TitleStageBox : MonoBehaviour
 	{
 		CheckArea();
 		SelectUpdate();
+		BoxOpenUpdate();
 
 		//	クリア状況のアニメーションパラメータを変更
 		stageClearStatusAnim.SetBool("Enable", inRange);
@@ -82,6 +93,17 @@ public class TitleStageBox : MonoBehaviour
 		}
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| ハコの開閉処理
+	--------------------------------------------------------------------------------*/
+	private void BoxOpenUpdate()
+	{
+		int progressDir = inRange ? 1 : -1;
+		openProgress += Time.deltaTime * openSpeed * progressDir;
+		openProgress = Mathf.Clamp01(openProgress);
+
+		boxAnim.SetFloat("OpenProgress", EasingFunctions.EaseInOutCubic(openProgress));
+	}
 
 #if UNITY_EDITOR
 	/*--------------------------------------------------------------------------------

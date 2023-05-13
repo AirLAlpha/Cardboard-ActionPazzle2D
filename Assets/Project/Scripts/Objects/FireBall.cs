@@ -44,6 +44,8 @@ public class FireBall : MonoBehaviour, IPauseable
 
 	private float alivedTime;       //	経過した時間
 
+	public Transform Parent { get; set; }		//	親オブジェクト
+
 	//	ポーズ
 	private bool	disableUpdate;
 	private Vector2 posedVelocity;
@@ -68,9 +70,10 @@ public class FireBall : MonoBehaviour, IPauseable
 		}
 		transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * 0.5f, Time.deltaTime * sizeChangeRate);
 
-		//	生存時間以上が経過したら自身を削除する
+		//	生存時間以上が経過するか親がいなくなった時点で自身を削除する
 		alivedTime += Time.deltaTime;
-		if (alivedTime >= lifeTime)
+		if (alivedTime >= lifeTime ||
+			Parent == null)
 		{
 			Destroy(gameObject);
 			GenerateEffect();

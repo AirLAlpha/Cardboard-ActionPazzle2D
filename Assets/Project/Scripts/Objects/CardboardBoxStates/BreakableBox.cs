@@ -66,8 +66,6 @@ namespace CardboardBox
 			float hitVelMag = hitVel.sqrMagnitude;
 			if (hitVelMag >= breakingVelocity * breakingVelocity)
 				Parent.Burn();
-
-			Debug.Log(collision.relativeVelocity);
 		}
 	}
 }

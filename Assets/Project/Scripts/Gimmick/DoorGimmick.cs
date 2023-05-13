@@ -53,14 +53,23 @@ public class DoorGimmick : ReceiveGimmick
 	[SerializeField]
 	private Vector2 size;
 
+	[Header("乗っているオブジェクト")]
+	[SerializeField]
+	private LayerMask checkObjectMask;
+
 	System.Action<bool> buttonEvent => (bool press) => { isOpen = press; };
 
-	private float openProgress;
+	private float	openProgress;
+	private Vector3 savePos;        //	前回処理時の座標（移動量取得用）
 
 	//	更新処理
 	private void Update()
 	{
-		if(isOpen)
+		//	座標を保持しておく
+		savePos = doorRoot.localPosition;
+
+		//	ドアの開閉状態によって進行度を更新する
+		if (isOpen)
 		{
 			openProgress += Time.deltaTime * openSpeed;
 		}
@@ -68,9 +77,15 @@ public class DoorGimmick : ReceiveGimmick
 		{
 			openProgress -= Time.deltaTime * closeSpeed;
 		}
-
 		openProgress = Mathf.Clamp01(openProgress);
+		//	進行度から座標を算出する（進行度にはイージングを適応）
 		doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+
+		//var b = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+		//var a = transform.TransformPoint(b);
+		//doorRootRb.MovePosition(a);
+
+		CheckOnRodeObject();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -122,6 +137,44 @@ public class DoorGimmick : ReceiveGimmick
 
 		return ret;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| 上に乗っているオブジェクトに移動量を適応する処理
+	--------------------------------------------------------------------------------*/
+	private void CheckOnRodeObject()
+	{
+		const float DOWN_OFFSET = 0.05f;		//	下向きに動くときのオフセット
+
+		Vector2 diff = doorRoot.localPosition - savePos;
+		Vector3 moveDir = transform.TransformDirection(diff.normalized);
+		float mag = diff.magnitude;
+
+		float dot = Vector2.Dot(Vector2.right, moveDir.normalized);
+
+		Vector3 startPos = doorRoot.position;
+		Vector3 checkDir = moveDir;
+		float distance = mag;
+		if (mag > 0.001f &&
+			moveDir.y < 0 &&
+			Mathf.Abs(dot) <= Mathf.Cos(Mathf.PI / 4))
+		{
+			checkDir *= -1;
+			distance += DOWN_OFFSET;
+			//startPos = transform.TransformPoint(savePos);
+
+			print("aaa");
+		}
+
+		var a = Physics2D.BoxCastAll(startPos, new Vector2(1, 3), transform.localEulerAngles.z, checkDir, distance, checkObjectMask);
+		foreach (var item in a)
+		{
+			print(item.transform.name);
+			item.transform.position += moveDir * mag;
+		}
+		//print(mag);
+		Debug.DrawRay(startPos, checkDir * mag + checkDir, Color.red);
+	}
+
 
 #if UNITY_EDITOR
 	private void OnDrawGizmosSelected()

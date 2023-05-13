@@ -9,6 +9,7 @@ TagManager:
   - CardboardBox
   - Gimmick
   - GimmickEnemy
+  - StageCardboardBox
   layers:
   - Default
   - TransparentFX

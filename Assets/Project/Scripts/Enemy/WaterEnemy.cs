@@ -186,6 +186,8 @@ public class WaterEnemy : Enemy, IPackable
 
 			var newFireBall = Instantiate(waterObj, anim.transform.position + attackObjInitOffset, Quaternion.identity);
 			newFireBall.Direction = new Vector2(x, y);
+			//	親を設定
+			newFireBall.Parent = transform;
 
 			//	一つの弾分の時間待機させる（攻撃の総時間 / 攻撃回数）
 			yield return new WaitForSeconds((ATTACKING_FRAME / 60.0f) / (attackObjCount + 1));

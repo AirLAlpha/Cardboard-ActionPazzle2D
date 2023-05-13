@@ -63,13 +63,13 @@ public struct StageData
 
 	//	コンストラクタ
 	public StageData(List<StageObjectData> objectDatas, 
-		List<GimmickObjectData> gimmickData, 
+		List<GimmickObjectData> gimmickDatas, 
 		int usableBoxCount, 
 		int targetBoxCount,
 		int backgroundType) 
 	{ 
 		this.objectDatas = objectDatas;
-		this.gimmickDatas = gimmickData;
+		this.gimmickDatas = gimmickDatas;
 		this.usableBoxCount = usableBoxCount;
 		this.targetBoxCount = targetBoxCount;
 		this.backgroundType = backgroundType;

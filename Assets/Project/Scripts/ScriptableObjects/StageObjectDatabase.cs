@@ -21,6 +21,7 @@ public enum ObjectType
 	TILE,           //	タイルマップ
 	GIMMICK,        //	ギミックオブジェクト
 	ENEMY,          //	敵
+	BOX,			//	段ボール
 }
 
 //	オブジェクト一つ分の構造体

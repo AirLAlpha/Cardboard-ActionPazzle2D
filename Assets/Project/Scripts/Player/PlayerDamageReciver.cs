@@ -80,14 +80,17 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
             //  イベントを実行済みにする
             executedEvent = true;
         }
-
-        //	内部に衝突したら潰されていると判定する
-        var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, mask);
-        if (hit != null)
-        {
-            Burn();
-        }
     }
+
+	private void FixedUpdate()
+	{
+		//	内部に衝突したら潰されていると判定する
+		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, mask);
+		if (hit != null)
+		{
+			Burn();
+		}
+	}
 
 	//  終了時処理
 	private void OnDisable()

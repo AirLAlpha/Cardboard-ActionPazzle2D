@@ -16,7 +16,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class CameraZoom : MonoBehaviour
 {
 	//	コンポーネント
-	private new Camera			camera;                 //	自身のカメラ
+	private Camera			cam;  //	自身のカメラ
 	private PixelPerfectCamera	pixelPerfectCamera;
 
 	//	ズーム
@@ -50,11 +50,11 @@ public class CameraZoom : MonoBehaviour
 	private void Awake()
 	{
 		//	コンポーネントの取得
-		camera = GetComponent<Camera>();
+		cam = GetComponent<Camera>();
 		pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
 
 		//	開始時のサイズを取得
-		startDiameter = camera.orthographicSize;
+		startDiameter = cam.orthographicSize;
 		//	開始時の座標を取得
 		startPos = transform.position;
 	}
@@ -92,7 +92,7 @@ public class CameraZoom : MonoBehaviour
 
 		//	カメラのサイズを変更する
 		float dia = Mathf.Lerp(startDiameter, zoomDiameter, t);
-		camera.orthographicSize = dia;
+		cam.orthographicSize = dia;
 
 		//	カメラの座標を変更する
 		Vector3 pos = 
@@ -106,8 +106,8 @@ public class CameraZoom : MonoBehaviour
 	private void ZoomClump()
 	{
 		//	画面の左下と右上のワールド座標を取得
-		Vector3 p1 = camera.ViewportToWorldPoint(Vector2.zero);
-		Vector3 p2 = camera.ViewportToWorldPoint(Vector2.one);
+		Vector3 p1 = cam.ViewportToWorldPoint(Vector2.zero);
+		Vector3 p2 = cam.ViewportToWorldPoint(Vector2.one);
 		//	現在の座標
 		Vector3 pos = transform.position;
 

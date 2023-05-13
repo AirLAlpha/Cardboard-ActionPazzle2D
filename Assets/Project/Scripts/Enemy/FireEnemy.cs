@@ -83,6 +83,8 @@ public class FireEnemy : Enemy, IPackable
 		var toTargetVec = (target.position - transform.position).normalized;
 		//	ベクトルを設定
 		newFireBall.Direction = toTargetVec;
+		//	親を自身に設定
+		newFireBall.Parent = transform;
 	}
 
 	/*--------------------------------------------------------------------------------

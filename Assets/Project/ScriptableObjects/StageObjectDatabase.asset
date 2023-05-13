@@ -205,3 +205,7 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 2794215665451090904, guid: 9a5abf39bcab07346ad6d8dae5d57757, type: 3}
     sprite: {fileID: 0}
+  - objectName: "\u30B9\u30C6\u30FC\u30B8\u4E0A\u306E\u6BB5\u30DC\u30FC\u30EB"
+    type: 4
+    prefab: {fileID: 6618288810680988599, guid: 893c10d18ddc28849a1ec1522476d464, type: 3}
+    sprite: {fileID: 21300000, guid: 176d9ce5e7b4a6d4e839be9ce96c68d0, type: 3}

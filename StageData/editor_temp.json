@@ -4,7 +4,11 @@
             "databaseIndex": 0,
             "pos": {
                 "x": -3.5,
+<<<<<<< HEAD
                 "y": 3.5,
+=======
+                "y": 0.5,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -15,6 +19,7 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 11,
             "pos": {
                 "x": -9.0,
@@ -75,6 +80,12 @@
             "pos": {
                 "x": -5.0,
                 "y": -4.0,
+=======
+            "databaseIndex": 42,
+            "pos": {
+                "x": -5.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -85,10 +96,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 12,
             "pos": {
                 "x": -4.0,
                 "y": -4.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": -4.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -99,10 +117,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 11,
             "pos": {
                 "x": -9.0,
                 "y": -3.0,
+=======
+            "databaseIndex": 44,
+            "pos": {
+                "x": -3.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -113,10 +138,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 11,
             "pos": {
                 "x": -8.0,
                 "y": -3.0,
+=======
+            "databaseIndex": 42,
+            "pos": {
+                "x": 1.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -127,10 +159,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 11,
             "pos": {
                 "x": -7.0,
                 "y": -3.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": 2.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -141,6 +180,7 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 11,
             "pos": {
                 "x": -6.0,
@@ -271,6 +311,12 @@
             "pos": {
                 "x": 3.0,
                 "y": -2.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": 3.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -281,10 +327,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 8,
             "pos": {
                 "x": 4.0,
                 "y": -2.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": 4.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -295,10 +348,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 8,
             "pos": {
                 "x": 5.0,
                 "y": -2.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": 5.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -309,10 +369,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 8,
             "pos": {
                 "x": 6.0,
                 "y": -2.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": 6.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -323,10 +390,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 8,
             "pos": {
                 "x": 7.0,
                 "y": -2.0,
+=======
+            "databaseIndex": 43,
+            "pos": {
+                "x": 7.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -337,10 +411,17 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 9,
             "pos": {
                 "x": 8.0,
                 "y": -2.0,
+=======
+            "databaseIndex": 44,
+            "pos": {
+                "x": 8.0,
+                "y": -1.0,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -351,6 +432,7 @@
             }
         },
         {
+<<<<<<< HEAD
             "databaseIndex": 11,
             "pos": {
                 "x": -9.0,
@@ -649,6 +731,12 @@
             "pos": {
                 "x": 2.5,
                 "y": 3.5,
+=======
+            "databaseIndex": 48,
+            "pos": {
+                "x": -3.5,
+                "y": -2.500000238418579,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -661,6 +749,7 @@
     ],
     "gimmickDatas": [
         {
+<<<<<<< HEAD
             "databaseIndex": 33,
             "pos": {
                 "x": -1.5,
@@ -987,12 +1076,18 @@
             "databaseIndex": 20,
             "pos": {
                 "x": 5.5,
+=======
+            "databaseIndex": 19,
+            "pos": {
+                "x": -6.5,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "y": -2.5,
                 "z": 0.0
             },
             "rot": {
                 "x": 0.0,
                 "y": 0.0,
+<<<<<<< HEAD
                 "z": 0.7071068286895752,
                 "w": 0.7071068286895752
             },
@@ -1016,12 +1111,25 @@
             "type": 2,
             "targetIndex": 27,
             "extraSetting": "{\"openOffset\":{\"x\":3.0,\"y\":0.0},\"openSpeed\":1.0,\"closeSpeed\":1.0}"
+=======
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 2,
+            "targetIndex": 2,
+            "extraSetting": "{\"openOffset\":{\"x\":10.0,\"y\":0.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
         },
         {
             "databaseIndex": 22,
             "pos": {
+<<<<<<< HEAD
                 "x": -2.5,
                 "y": -3.5,
+=======
+                "x": -6.5,
+                "y": -0.5,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -1032,6 +1140,7 @@
             },
             "type": 0,
             "targetIndex": -1,
+<<<<<<< HEAD
             "extraSetting": "{\"speedMod\":1.0,\"inverse\":false}"
         },
         {
@@ -1118,12 +1227,19 @@
             "type": 0,
             "targetIndex": -1,
             "extraSetting": "{\"speedMod\":1.0,\"inverse\":false}"
+=======
+            "extraSetting": "{\"speedMod\":0.5,\"inverse\":true}"
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
         },
         {
             "databaseIndex": 18,
             "pos": {
                 "x": -8.5,
+<<<<<<< HEAD
                 "y": 3.5,
+=======
+                "y": -3.5,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -1139,6 +1255,7 @@
         {
             "databaseIndex": 18,
             "pos": {
+<<<<<<< HEAD
                 "x": -7.5,
                 "y": 2.5,
                 "z": 0.0
@@ -1158,6 +1275,10 @@
             "pos": {
                 "x": -6.5,
                 "y": 1.5,
+=======
+                "x": 2.5,
+                "y": 0.5,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -1173,8 +1294,13 @@
         {
             "databaseIndex": 19,
             "pos": {
+<<<<<<< HEAD
                 "x": -1.5,
                 "y": -0.5,
+=======
+                "x": 6.5,
+                "y": 3.5,
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
                 "z": 0.0
             },
             "rot": {
@@ -1184,8 +1310,13 @@
                 "w": 0.7071068286895752
             },
             "type": 2,
+<<<<<<< HEAD
             "targetIndex": 28,
             "extraSetting": "{\"openOffset\":{\"x\":-3.0,\"y\":0.0},\"openSpeed\":1.0,\"closeSpeed\":1.0}"
+=======
+            "targetIndex": 3,
+            "extraSetting": "{\"openOffset\":{\"x\":-6.0,\"y\":0.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
         }
     ],
     "usableBoxCount": 5,

@@ -36,6 +36,8 @@ public class DoorGimmick : ReceiveGimmick
 	[SerializeField]
 	private Transform		doorRoot;
 	[SerializeField]
+	private Rigidbody2D		doorRootRb;
+	[SerializeField]
 	private Vector2			openOffset;
 	[SerializeField]
 	private float			openSpeed;		//	開く速さ
@@ -66,7 +68,11 @@ public class DoorGimmick : ReceiveGimmick
 	private void Update()
 	{
 		//	座標を保持しておく
+<<<<<<< HEAD
 		savePos = doorRoot.localPosition;
+=======
+		//savePos = doorRoot.localPosition;
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
 
 		//	ドアの開閉状態によって進行度を更新する
 		if (isOpen)
@@ -79,6 +85,7 @@ public class DoorGimmick : ReceiveGimmick
 		}
 		openProgress = Mathf.Clamp01(openProgress);
 		//	進行度から座標を算出する（進行度にはイージングを適応）
+<<<<<<< HEAD
 		doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
 
 		//var b = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
@@ -86,6 +93,13 @@ public class DoorGimmick : ReceiveGimmick
 		//doorRootRb.MovePosition(a);
 
 		CheckOnRodeObject();
+=======
+		//doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+
+		var b = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+		var a = transform.TransformPoint(b);
+		doorRootRb.MovePosition(a);
+>>>>>>> 61bb0e1f8d4cd31ec5078bfe6af5c9e89e009668
 	}
 
 	/*--------------------------------------------------------------------------------

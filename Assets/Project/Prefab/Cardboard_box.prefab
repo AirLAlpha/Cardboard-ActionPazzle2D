@@ -282,18 +282,24 @@ MonoBehaviour:
   breakableBox:
     stateColor: {r: 1, g: 0, b: 0.7137255, a: 1}
     breakingVelocity: 13.5
+  rightSideUpBox:
+    stateColor: {r: 0.101960786, g: 1, b: 0, a: 1}
+    breakAngle: 15
+    material: {fileID: 2100000, guid: 9e2d28f08e3d7694888ce3ab52e8b1ca, type: 2}
+    safeColor: {r: 0, g: 0.6509804, b: 0.023529412, a: 1}
+    attentionColor: {r: 1, g: 0.18422444, b: 0, a: 1}
+  burnMaterial: {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
   tryCheckMask:
     serializedVersion: 2
     m_Bits: 29569
-  putSpeed: 10
   stateColors:
   - {r: 0.7647059, g: 0.53333336, b: 0.32941177, a: 1}
   - {r: 0.7647059, g: 0.53333336, b: 0.32941177, a: 1}
   - {r: 1, g: 0, b: 0.7137255, a: 1}
   - {r: 0.101960786, g: 1, b: 0, a: 1}
-  mask:
+  destroyMask:
     serializedVersion: 2
-    m_Bits: 12439
+    m_Bits: 12417
 --- !u!61 &1378053522990162084
 BoxCollider2D:
   m_ObjectHideFlags: 0

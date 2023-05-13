@@ -16,11 +16,13 @@ public class StageLoader : MonoBehaviour
 
 	[Header("ルートオブジェクト")]
 	[SerializeField]
-	private Transform	objectRoot;                     //	敵のオブジェクトの親
+	private Transform	enemyRoot;						//	敵のオブジェクトの親
 	[SerializeField]	
 	private Transform	gimmickRoot;					//	ギミックの親
 	[SerializeField]		
 	private Tilemap		tilemap;                        //	ステージのタイルを配置するタイルマップ
+	[SerializeField]
+	private Transform	cardboardRoot;					//	ハコの親
 
 	[Header("ステージ")]
 	[SerializeField]
@@ -170,8 +172,8 @@ public class StageLoader : MonoBehaviour
 					SetTile(obj, objData.pos);
 					break;
 
-				case ObjectType.ENEMY:				//	敵
-					SetEnemy(obj, objData.pos, objData.rot, pauseEnable);
+				case ObjectType.ENEMY:              //	敵
+					SetObject(enemyRoot, obj, objData.pos, objData.rot, pauseEnable);
 					break;
 
 				case ObjectType.PLAYER:				//	プレイヤー
@@ -179,6 +181,10 @@ public class StageLoader : MonoBehaviour
 					player.transform.position = objData.pos;
 					player.transform.rotation = objData.rot;
 					player.GetComponent<PlayerMove>().OnStageReset();
+					break;
+
+				case ObjectType.BOX:                //	ハコ
+					SetObject(cardboardRoot, obj, objData.pos, objData.rot, pauseEnable);
 					break;
 
 				default:							//	それ以外が指定されたら処理しない
@@ -226,15 +232,16 @@ public class StageLoader : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 敵オブジェクトの設置処理
 	--------------------------------------------------------------------------------*/
-	private void SetEnemy(StageObject obj, Vector3 pos, Quaternion rot, bool pauseEnable)
+	private void SetObject(Transform parent, StageObject obj, Vector3 pos, Quaternion rot, bool pauseEnable)
 	{
-		if (objectRoot == null)
+		if (enemyRoot == null)
 			return;
-		if (obj.type != ObjectType.ENEMY)
+		if (obj.type != ObjectType.ENEMY &&
+			obj.type != ObjectType.BOX)
 			return;
 
 		//	オブジェクトの生成
-		var newEnemy = Instantiate(obj.prefab, pos, rot, objectRoot) as GameObject;
+		var newEnemy = Instantiate(obj.prefab, pos, rot, parent) as GameObject;
 		//	ポーズ状態の設定
 		if (newEnemy.TryGetComponent<IPauseable>(out IPauseable enemyPause))
 		{
@@ -252,25 +259,25 @@ public class StageLoader : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| ギミックオブジェクトの設置処理
 	--------------------------------------------------------------------------------*/
-	private void SetGimmick(StageObject obj, GimmickObjectData gimmickData, bool pauseEnable, out ReceiveGimmick receive)
+	private void SetGimmick(StageObject obj, GimmickObjectData gimmickDatas, bool pauseEnable, out ReceiveGimmick receive)
 	{
 		receive = null;
 
 		//	オブジェクトが割り当てられていないときは処理しない
-		if (objectRoot == null)
+		if (enemyRoot == null)
 			return;
 		//	ギミック以外のものは処理しない
 		if (obj.type != ObjectType.GIMMICK)
 			return;
 
 		//	オブジェクトの設置
-		var newGimmick = Instantiate(obj.prefab, gimmickData.pos, gimmickData.rot, gimmickRoot) as GameObject;
+		var newGimmick = Instantiate(obj.prefab, gimmickDatas.pos, gimmickDatas.rot, gimmickRoot) as GameObject;
 		//	ギミックの取得
 		Gimmick gimmickComponent = newGimmick.GetComponent<Gimmick>();
 		//	ギミックタイプを設定
-		gimmickComponent.Type = gimmickData.type;
+		gimmickComponent.Type = gimmickDatas.type;
 		//	ギミック固有の設定を適応
-		gimmickComponent.SetExtraSetting(gimmickData.extraSetting);
+		gimmickComponent.SetExtraSetting(gimmickDatas.extraSetting);
 		//	受け取り側の場合は値を設定する
 		newGimmick.TryGetComponent<ReceiveGimmick>(out receive);
 
@@ -325,7 +332,7 @@ public class StageLoader : MonoBehaviour
 		tilemap?.ClearAllTiles();
 
 		//	オブジェクトルートが設定されていないときは処理しない
-		if (objectRoot == null)
+		if (enemyRoot == null)
 			return;
 
 		//	子オブジェクトにあるステージオブジェクトをすべて削除する
@@ -333,12 +340,17 @@ public class StageLoader : MonoBehaviour
 		{
 			DestroyImmediate(gimmickRoot.GetChild(0).gameObject);
 		}
-
 		//	子オブジェクトにあるステージオブジェクトをすべて削除する
-		while (objectRoot.childCount > 0)
+		while (enemyRoot.childCount > 0)
 		{
-			DestroyImmediate(objectRoot.GetChild(0).gameObject);
+			DestroyImmediate(enemyRoot.GetChild(0).gameObject);
 		}
+		//	段ボールを削除
+		while(cardboardRoot.childCount > 0)
+		{
+			DestroyImmediate(cardboardRoot.GetChild(0).gameObject);
+		}
+
 
 		//	リストを初期化
 		senderIndex = new List<int>();

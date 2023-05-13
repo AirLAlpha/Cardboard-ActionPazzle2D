@@ -89,13 +89,6 @@ namespace CardboardBox
 				return;
 			}
 
-			//	スケールの初期化
-			Parent.transform.localScale = Vector3.one;
-			//	ラベルの有効化
-			label.gameObject.SetActive(true);
-			//	パーティクルの再生
-			packedEffect.Play();
-
 			//	ステートの切り替え
 			CardboardBoxState nextState = null;
 			switch (type)
@@ -109,7 +102,7 @@ namespace CardboardBox
 					break;
 
 				case CardboardType.RIGHTSIDEUP:
-					//nextState = Parent.RightSideUpBox;
+					nextState = Parent.RightSideUpBox;
 					break;
 
 				default:
@@ -118,6 +111,13 @@ namespace CardboardBox
 			//	ステートが割り当てられなかったときは処理しない
 			if (nextState == null)
 				return;
+
+			//	スケールの初期化
+			Parent.transform.localScale = Vector3.one;
+			//	ラベルの有効化
+			label.gameObject.SetActive(true);
+			//	パーティクルの再生
+			packedEffect.Play();
 
 			//	ステートの更新
 			Parent.SetState(nextState);

@@ -24,9 +24,11 @@ public class StageExporter : MonoBehaviour
 
 	[Header("ターゲット")]
 	[SerializeField]
-	private Transform	objectRoot;             //	敵オブジェクトの親
+	private Transform	enemyRoot;				//	敵オブジェクトの親
 	[SerializeField]
-	private Transform	gimmickRoot;
+	private Transform	gimmickRoot;			//	ギミックの親
+	[SerializeField]
+	private Transform	cardboardRoot;			//	段ボールの親
 	[SerializeField]
 	private Tilemap		tilemap;                //	出力するタイルマップ
 	[SerializeField]
@@ -82,11 +84,14 @@ public class StageExporter : MonoBehaviour
 			var tilemapList = TilemapToTileList(tilemap);
 			exportStruct.objectDatas.AddRange(tilemapList);
 		}
-		//	オブジェクトのリストを書き出し用に追加する
-		exportStruct.objectDatas.AddRange(EnemyToEnemyList(objectRoot));
+		//	敵のリストを書き出し用に追加する
+		exportStruct.objectDatas.AddRange(ObjectToObjectList(enemyRoot));
 
 		//	ギミックを設定する
 		exportStruct.gimmickDatas.AddRange(GimmickToGimmickList(gimmickRoot));
+
+		//	ステージ上の段ボールを書き出し用に追加する
+		exportStruct.objectDatas.AddRange(ObjectToObjectList(cardboardRoot));
 
 
 		//	構造体をJsonにする
@@ -166,7 +171,7 @@ public class StageExporter : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| ステージ上の敵の出力処理
 	--------------------------------------------------------------------------------*/
-	public List<StageObjectData> EnemyToEnemyList(Transform root)
+	public List<StageObjectData> ObjectToObjectList(Transform root)
 	{
 		List<StageObjectData> ret = new List<StageObjectData>();
 

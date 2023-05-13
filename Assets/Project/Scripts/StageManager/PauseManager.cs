@@ -15,18 +15,12 @@ public class PauseManager : MonoBehaviour
 	//	ポーズ
 	[Header("ポーズ")]
 	[SerializeField]
-	private string[]	poseTargetTags;		//	ポーズの対象になるタグの配列
+	private string[]	pauseTargetTags;		//	ポーズの対象になるタグの配列
 
 	//	ポーズ中フラグ
 	public bool			IsPose { get; private set; }
 
 	private IPauseable[]	poseTargets;        //	ポーズの対象になるオブジェクト配列
-
-	//	初期化処理
-	private void Start()
-	{
-
-	}
 
 	/*--------------------------------------------------------------------------------
 	|| 対象オブジェクトの検索
@@ -36,7 +30,7 @@ public class PauseManager : MonoBehaviour
 	{
 		List<GameObject> findObjects = new List<GameObject>();
 
-		foreach (var tag in poseTargetTags)
+		foreach (var tag in pauseTargetTags)
 		{
 			GameObject[] results = GameObject.FindGameObjectsWithTag(tag);
 			findObjects.AddRange(results);

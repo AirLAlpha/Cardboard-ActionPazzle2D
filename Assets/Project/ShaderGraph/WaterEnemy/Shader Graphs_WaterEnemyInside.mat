@@ -62,6 +62,8 @@ Material:
     - _SineWaveSize: 0.05
     - _TimeScale: 1
     m_Colors:
+    - _InsideColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutsideColor: {r: 1, g: 1, b: 1, a: 0}
     - _PositionOffset: {r: 0, g: -0.5, b: 0, a: 0}
     - _RootPosition: {r: 0, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

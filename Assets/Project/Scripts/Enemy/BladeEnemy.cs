@@ -48,6 +48,10 @@ public class BladeEnemy : Enemy, IPackable
 
 	public bool Packable { get { return packable; } set { packable = value; } }
 
+	[Header("ポーズ")]
+	[SerializeField]
+	private Collider2D[] colliders;		//	ポーズ時に無効化するコライダー
+
 	//	初期化処理
 	private void Start()
 	{
@@ -158,8 +162,37 @@ public class BladeEnemy : Enemy, IPackable
 		}
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| ポーズ処理
+	--------------------------------------------------------------------------------*/
+	public override void Pause()
+	{
+		base.Pause();
+
+		//	コライダーの切り替え
+		foreach (var col in colliders)
+		{
+			col.enabled = false;
+		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 再開処理
+	--------------------------------------------------------------------------------*/
+	public override void Resume()
+	{
+		base.Resume();
+
+		//	コライダーの切り替え
+		foreach (var col in colliders)
+		{
+			col.enabled = true;
+		}
+	}
+
+
 #if UNITY_EDITOR
-	private void OnDrawGizmosSelected()
+	private new void OnDrawGizmosSelected()
 	{
 		Gizmos.color = new Color(1, 0, 0, 0.5f);
 

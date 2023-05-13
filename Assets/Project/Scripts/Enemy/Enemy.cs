@@ -156,7 +156,7 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	/*--------------------------------------------------------------------------------
 	|| ポーズ時処理
 	--------------------------------------------------------------------------------*/
-	public void Pause()
+	public virtual void Pause()
 	{
 		disableUpdate = true;
 
@@ -171,7 +171,7 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	/*--------------------------------------------------------------------------------
 	|| 再開時処理
 	--------------------------------------------------------------------------------*/
-	public void Resume()
+	public virtual void Resume()
 	{
 		disableUpdate = false;
 

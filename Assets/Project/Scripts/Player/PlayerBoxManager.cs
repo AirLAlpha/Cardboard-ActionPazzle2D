@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CardboardBox;
+using System.Transactions;
 
 [RequireComponent(typeof(PlayerMove))]
 public class PlayerBoxManager : MonoBehaviour, IPauseable
@@ -44,7 +45,26 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	//	設置
 	[Header("設置")]
 	[SerializeField]
+	private float			putSpeed;			//	箱を設置する速度
+	[SerializeField]
 	private Vector2			putOffset;          //	設置の際のオフセット
+	[SerializeField]
+	private Vector2			putCheckRange;      //	箱を設置する際の確認範囲
+	[SerializeField]
+	private LayerMask		putCheckLayer;		//	設置確認用レイヤー
+
+	private bool			isPuting;           //	設置中フラグ
+	private Vector2			putStartPos;		//	設置の開始座標
+	private Vector2			putTargetPos;       //	箱の設置先座標
+	private float			putProgress;        //	設置の進行度
+
+	//	投げる
+	[Header("投げ")]
+	[SerializeField]
+	private Vector2			throwPower;         //	投げる力
+	[SerializeField]
+	private float			throwingVelocityX;	//	投げになる速度（X)
+
 
 	//	実行前初期化処理
 	private void Awake()
@@ -55,9 +75,6 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		//	Nullチェック
 		if (boxOriginal == null)
 			Debug.LogError("ハコのPrefabが設定されていません。");
-
-		//	アクションの登録
-
 	}
 
 	//	初期化処理
@@ -75,7 +92,20 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 			GenerateBox();
 
 		if (inputPut)
-			PutBox();
+		{
+			if (Mathf.Abs(playerMove.Rigidbody2D.velocity.x) < throwingVelocityX)
+			{
+				TryPut();
+			}
+			else
+			{
+				TryThrow();
+			}
+		}
+
+		//	箱の設置処理
+		if (isPuting && currentBox != null)
+			PutingBoxUpdate();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -113,16 +143,16 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 			return;
 
 		//	新しいハコの生成
-		var newObj = Instantiate(
+		var newBox = Instantiate(
 			boxOriginal, 
 			generateParent.TransformPoint(generatePos),
 			Quaternion.identity, 
 			generateParent);
 
 		//	Rigidbodyを無効化
-		newObj.SetRigidbodyActive(false);
+		newBox.SetRigidbodyActive(false);
 		//	所持しているハコに設定
-		currentBox = newObj;
+		currentBox = newBox;
 
 		//	ハコ使用数を加算
 		StageManager.Instance.UsedBoxCount++;
@@ -132,32 +162,166 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	}
 
 	/*--------------------------------------------------------------------------------
+	|| 箱の設置前確認処理
+	--------------------------------------------------------------------------------*/
+	private bool TryPut()
+	{
+		//	箱を持っていないときは処理しない
+		if (currentBox == null)
+			return false;
+
+		//	プレイヤーの向きを取得
+		Direction dir = playerMove.CurrentDir;
+		//	置こうとしているオフセット（ローカル）を作成
+		Vector3 offset = new Vector3(putOffset.x * (int)dir, putOffset.y);
+		//	置こうとしている場所にオブジェクトがあるか確認する
+		var hit = Physics2D.OverlapBox(currentBox.transform.position + offset, putCheckRange, 0, putCheckLayer);
+
+		if(hit != null)
+		{
+			//	梱包可能オブジェクトがあった時
+			if (hit.TryGetComponent<IPackable>(out IPackable packable))
+			{
+				//	梱包を行う
+				CardboardType type = packable.Packing();
+				currentBox.Packing(type);
+
+				//	敵の座標に設置する際は以下のコメントを解除する	//
+				//var pos = generateParent.InverseTransformPoint(hit.transform.position);
+				//PutBox(pos);        //	設置
+				//return true;
+			}
+			//	それ以外の時
+			else
+			{
+				return false;
+			}
+		}
+
+		PutBox(offset);     //	設置
+		return true;
+	}
+
+	/*--------------------------------------------------------------------------------
 	|| 設置処理
 	--------------------------------------------------------------------------------*/
-	[ContextMenu("PutBox")]
-	private void PutBox()
+	private void PutBox(Vector2 putPos)
 	{
 		//	ハコを所持していないときは処理しない
 		if (currentBox == null)
 			return;
 
+		//	設置の進行度をリセット
+		putProgress = 0.0f;
 
-		//	HACK : TryPutをPlayerBoxManagerで処理するよう修正
+		//	箱を設置中に設定
+		isPuting = true;
 
-		//	プレイヤーの現在の向きを取得
-		Direction dir = playerMove.CurrentDir;
-		//	ハコのローカル座標を設定
-		if (!currentBox.TryPut(new Vector2(putOffset.x * (int)dir, putOffset.y)))
-			return;
-		//	Rigidbodyを有効化
-		currentBox.SetRigidbodyActive(true);
-		//	ハコの親子関係を削除
-		currentBox.transform.parent = null;
-		//	手持ちから解除
-		currentBox = null;
+		//	地上にいる時
+		if (playerMove.IsGrounded)
+		{
+			//	設置の開始座標を設定
+			this.putStartPos = this.generatePos;
+			//	設置先座標を設定
+			this.putTargetPos = putPos;
+		}
+		//	空中にいる時
+		else
+		{
+			//	設置の開始座標（ワールド）を設定
+			this.putStartPos = generateParent.TransformPoint(generatePos);
+			//	設置先座標（ワールド）を設定
+			this.putTargetPos = generateParent.TransformPoint(putPos);
+			//	箱にベクトルを加算
+			currentBox.Rigidbody2D.velocity = Vector2.down * putSpeed * 0.5f;
+			//	親子関係を解除
+			currentBox.transform.parent = null;
+		}
 
 		//	アクションの表示名を変更
 		buttonHint.SetDisplayNameIndex("Fire1", 0);
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 箱を投げる前の確認処理
+	--------------------------------------------------------------------------------*/
+	private bool TryThrow()
+	{
+		var hit = Physics2D.OverlapBox(currentBox.transform.position, Vector2.one, 0.0f);
+		if(hit)
+		{
+			return false;
+		}
+
+		ThrowBox();
+		return true;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 箱を投げる処理
+	--------------------------------------------------------------------------------*/
+	private void ThrowBox()
+	{
+		const float PLAYER_VELOCITY_MOD = 3.0f;		//	プレイヤーのVelocityに乗算する値
+
+		//	親子関係を解除
+		currentBox.transform.parent = null;
+
+		//	力を加える
+		currentBox.SetRigidbodyActive(true);
+		Vector2 throwVel = new Vector2(throwPower.x * (int)playerMove.CurrentDir, throwPower.y);
+		throwVel += Vector2.right * playerMove.Rigidbody2D.velocity.x * PLAYER_VELOCITY_MOD;
+		currentBox.Rigidbody2D.AddForce(throwVel, ForceMode2D.Impulse);
+		currentBox.Rigidbody2D.angularVelocity = 0;
+
+		//	形を戻す
+		currentBox.transform.localScale = Vector3.one;
+		//	持っている箱を解除
+		currentBox = null;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 箱を設置する更新処理
+	--------------------------------------------------------------------------------*/
+	private void PutingBoxUpdate()
+	{
+		//	設置中でない or 箱を持っていないときは処理しない
+		if (!isPuting ||
+			currentBox == null)
+			return;
+
+		//	設置の進行度を進行させる
+		putProgress = Mathf.Clamp01(putProgress + Time.deltaTime * putSpeed);
+
+		//	進行度が 1.0 を超えたら設置完了とする
+		if (putProgress >= 1.0f)
+		{
+			//	設置中を解除する
+			isPuting = false;
+
+			//	座標を設定
+			currentBox.transform.localPosition = putTargetPos;
+			//	進行度をリセット
+			putProgress = 0.0f;
+
+			//	箱のRigidbodyを有効化
+			currentBox.SetRigidbodyActive(true);
+			//	ハコの親子関係を削除
+			currentBox.transform.parent = null;
+			//	スケールを初期化
+			currentBox.transform.localScale = Vector3.one;
+			//	手持ちから解除
+			currentBox = null;
+
+			return;
+		}
+
+		//	進行度で座標を補完する
+		float x = Mathf.Lerp(putStartPos.x, putTargetPos.x, putProgress);
+		float y = Mathf.Lerp(putStartPos.y, putTargetPos.y, EasingFunctions.EaseInExpo(putProgress));
+		//	座標を更新する
+		currentBox.transform.localPosition = new Vector3(x, y);
+		currentBox.transform.localScale = Vector3.one;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -177,4 +341,21 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		DisableInput = false;
 	}
 
+#if UNITY_EDITOR
+	private void OnDrawGizmos()
+	{
+		if (currentBox == null)
+			return;
+
+		var col = Color.yellow;
+		col.a = 0.5f;
+		Gizmos.color = col;
+
+		//	プレイヤーの向きを取得
+		Direction dir = playerMove.CurrentDir;
+		//	置こうとしているオフセット（ローカル）を作成
+		Vector3 offset = new Vector3(putOffset.x * (int)dir, putOffset.y);
+		Gizmos.DrawCube(currentBox.transform.position + offset, putCheckRange);
+	}
+#endif
 }

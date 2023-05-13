@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 153297951
+CRC: 261631785
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7ac9ebd37f6487e8e68af4064ced9776
+    Hash: 1b4aeb1e00c8455ab37ff37d6bffbbe5
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -15,4 +15,7 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Project/StageData/stage1_1.json
 - Assets/Project/StageData/stage1_2.json
+- Assets/Project/StageData/stage2_noro.json
+- Assets/Project/StageData/editor_temp.json
+- Assets/Project/StageData/stage1_noro.json
 Dependencies: []

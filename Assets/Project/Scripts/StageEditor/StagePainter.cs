@@ -51,6 +51,8 @@ public class StagePainter : MonoBehaviour
 	private Transform		enemyRoot;			//	敵のルートオブジェクト
 	[SerializeField]
 	private Transform		gimmickRoot;        //	ギミックのルートオブジェクト
+	[SerializeField]
+	private Transform		cardboardRoot;		//	ハコの親
 
 	[Header("編集")]
 	[SerializeField]
@@ -208,7 +210,7 @@ public class StagePainter : MonoBehaviour
 			//	ギミックがなければ設置処理へ
 			else
 			{
-				SetObject(pallet.SelectedIndex);
+				PaintObject(pallet.SelectedIndex);
 			}
 		}
 		//	クリックを解除したら初期化
@@ -325,7 +327,7 @@ public class StagePainter : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| オブジェクトの配置処理
 	--------------------------------------------------------------------------------*/
-	private void SetObject(int dbIndex)
+	private void PaintObject(int dbIndex)
 	{
 		//	カーソルが編集可能範囲外にあれば処理しない
 		if (editableArea.x > selectedCell.x || selectedCell.x > editableArea.width - Mathf.Abs(editableArea.x) ||
@@ -355,24 +357,32 @@ public class StagePainter : MonoBehaviour
 		switch (obj.type)
 		{
 			case ObjectType.GIMMICK:
-				GameObject newGimmick = Instantiate(obj.prefab, selectedCellCenter, Quaternion.identity, gimmickRoot) as GameObject;
-				if(newGimmick.TryGetComponent<IPauseable>(out IPauseable gimmickPause))
-				{
-					gimmickPause.Pause();
-				}
+				SetObject(gimmickRoot, obj.prefab);
 				break;
 
 			case ObjectType.ENEMY:
-				GameObject newEnemy = Instantiate(obj.prefab, selectedCellCenter, Quaternion.identity, enemyRoot) as GameObject;
-				if (newEnemy.TryGetComponent<IPauseable>(out IPauseable enemyPause))
-				{
-					enemyPause.Pause();
-				}
+				SetObject(enemyRoot, obj.prefab);
 				break;
 
 			case ObjectType.PLAYER:
 				player.transform.position = new Vector3(selectedCellCenter.x, selectedCellCenter.y);
 				break;
+
+			case ObjectType.BOX:
+				SetObject(cardboardRoot, obj.prefab);
+				break;
+		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| オブジェクト単体の接地処理
+	--------------------------------------------------------------------------------*/
+	private void SetObject(Transform root, Object prefab)
+	{
+		GameObject newObj = Instantiate(prefab, selectedCellCenter, Quaternion.identity, root) as GameObject;
+		if (newObj.TryGetComponent<IPauseable>(out IPauseable enemyPause))
+		{
+			enemyPause.Pause();
 		}
 	}
 
@@ -416,6 +426,7 @@ public class StagePainter : MonoBehaviour
 
 			//	敵
 			case "Enemy":
+			case "StageCardboardBox":
 				Destroy(obj.transform.gameObject);
 				break;
 

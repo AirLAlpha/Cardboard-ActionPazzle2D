@@ -406,7 +406,7 @@ public class TaskManager : MonoBehaviour
 		//	クリアスタンプの設定
 		for (int i = 0; i < invoicies.Length; i++)
 		{
-			TaskScore score = data.stageScores[selectedTask.StageID].scores[i];
+			TaskScore score = data.stageScores[selectedTask.StageID - 1].scores[i];
 
 			//	クリア時間が0以下のときは”未クリア”として処理
 			if(score.clearTime <= 0.0f)

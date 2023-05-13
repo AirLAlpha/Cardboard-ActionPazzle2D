@@ -36,6 +36,8 @@ public class DoorGimmick : ReceiveGimmick
 	[SerializeField]
 	private Transform		doorRoot;
 	[SerializeField]
+	private Rigidbody2D		doorRootRb;
+	[SerializeField]
 	private Vector2			openOffset;
 	[SerializeField]
 	private float			openSpeed;		//	開く速さ
@@ -55,12 +57,17 @@ public class DoorGimmick : ReceiveGimmick
 
 	System.Action<bool> buttonEvent => (bool press) => { isOpen = press; };
 
-	private float openProgress;
+	private float	openProgress;
+	private Vector3 savePos;        //	前回処理時の座標（移動量取得用）
 
 	//	更新処理
 	private void Update()
 	{
-		if(isOpen)
+		//	座標を保持しておく
+		//savePos = doorRoot.localPosition;
+
+		//	ドアの開閉状態によって進行度を更新する
+		if (isOpen)
 		{
 			openProgress += Time.deltaTime * openSpeed;
 		}
@@ -68,9 +75,13 @@ public class DoorGimmick : ReceiveGimmick
 		{
 			openProgress -= Time.deltaTime * closeSpeed;
 		}
-
 		openProgress = Mathf.Clamp01(openProgress);
-		doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+		//	進行度から座標を算出する（進行度にはイージングを適応）
+		//doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+
+		var b = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+		var a = transform.TransformPoint(b);
+		doorRootRb.MovePosition(a);
 	}
 
 	/*--------------------------------------------------------------------------------

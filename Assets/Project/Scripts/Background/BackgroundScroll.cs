@@ -14,7 +14,7 @@ using UnityEngine;
 public class BackgroundScroll : MonoBehaviour
 {
 	//	コンポーネント
-	private new Camera camera;
+	private Camera cam;
 
 	//	スクロール
 	[Header("スクロール")]
@@ -38,21 +38,21 @@ public class BackgroundScroll : MonoBehaviour
 	private void Awake()
 	{
 		//	メインカメラの取得
-		camera = Camera.main;
+		cam = Camera.main;
 	}
 
 	//	初期化処理
 	private void Start()
 	{
 		//	カメラ座標の初期化
-		saveCameraPos = camera.transform.position;
+		saveCameraPos = cam.transform.position;
 	}
 
 	//	更新処理
 	private void Update()
 	{
 		//	カメラの座標を取得する
-		Vector3 pos = camera.transform.position;
+		Vector3 pos = cam.transform.position;
 		if (ignoreY)
 			pos.y = 0.0f;
 		//	自身をカメラの座標と重ねる

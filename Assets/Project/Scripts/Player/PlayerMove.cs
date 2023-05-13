@@ -10,6 +10,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour, IPauseable
@@ -23,12 +24,13 @@ public class PlayerMove : MonoBehaviour, IPauseable
 
 	private Rigidbody2D		rb;             //	Rigidbody2D
 
+	public Rigidbody2D Rigidbody2D { get { return rb; } }
+
 	//	入力
 	public bool		DisableInput { get; set; }
 
 	private Vector2 inputVec;               //	移動入力
 	private bool	inputJump;				//	ジャンプ入力	
-
 
 	//	移動
 	[Header("移動")]
@@ -65,6 +67,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	private Vector2		GroundCheckCenter => new Vector2(transform.position.x, transform.position.y) + groundCheckOffset;
 
 	private bool		isGrounded;             //	接地フラグ
+	public bool			IsGrounded { get { return isGrounded; } }
 
 	//	移動アニメーション
 	[Header("回転アニメーション")]
@@ -117,7 +120,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		InputUpdate();			//	入力処理
 		CheckGround();          //	接地確認処理
 
-		DirectionUpdate();		//	向きの更新処理
+		DirectionUpdate();      //	向きの更新処理
 		JumpUpdate();			//	ジャンプの更新処理
 		RotateUpdate();         //	回転処理
 
@@ -227,6 +230,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 			0.0f,									//	回転角度
 			groundMask								//	レイヤーマスク
 			);
+
 
 		if (hitResult == null)
 		{
@@ -356,6 +360,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		rb.velocity = Vector2.zero;
 		anim.Play("Idle@Player");
 	}
+
 
 
 #if UNITY_EDITOR

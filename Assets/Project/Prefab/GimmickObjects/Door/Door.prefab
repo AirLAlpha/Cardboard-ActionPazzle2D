@@ -314,7 +314,9 @@ MonoBehaviour:
   type: 2
   rotatable: 1
   sender: {fileID: 0}
+  doorCollider: {fileID: 8868662439276971752}
   doorRoot: {fileID: 8868662439276971671}
+  doorRootRb: {fileID: 6104049820498683216}
   openOffset: {x: 0, y: 2}
   openSpeed: 5
   closeSpeed: 5

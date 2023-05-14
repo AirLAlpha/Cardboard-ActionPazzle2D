@@ -4,7 +4,7 @@
             "databaseIndex": 0,
             "pos": {
                 "x": 2.5,
-                "y": 0.48997747898101809,
+                "y": 1.500000238418579,
                 "z": 0.0
             },
             "rot": {
@@ -15,7 +15,7 @@
             }
         },
         {
-            "databaseIndex": 3,
+            "databaseIndex": 1,
             "pos": {
                 "x": -5.0,
                 "y": -1.0,
@@ -247,7 +247,7 @@
             },
             "type": 2,
             "targetIndex": 3,
-            "extraSetting": "{\"openOffset\":{\"x\":3.0,\"y\":0.0},\"openSpeed\":5.0,\"closeSpeed\":1.0}"
+            "extraSetting": "{\"openOffset\":{\"x\":-5.0,\"y\":0.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
         },
         {
             "databaseIndex": 18,

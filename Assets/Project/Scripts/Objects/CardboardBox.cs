@@ -106,10 +106,7 @@ namespace CardboardBox
 			//	現在のステートを更新
 			if (currentState != null)
 				currentState.StateUpdate();
-		}
 
-		private void FixedUpdate()
-		{
 			if (rb.simulated == true)
 			{
 				//	箱の内部に衝突したら潰されていると判定する
@@ -117,6 +114,10 @@ namespace CardboardBox
 				if (hit != null)
 					Burn();
 			}
+		}
+
+		private void FixedUpdate()
+		{
 		}
 
 		/*--------------------------------------------------------------------------------

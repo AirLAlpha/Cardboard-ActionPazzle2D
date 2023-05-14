@@ -9,6 +9,7 @@
  **********************************************/
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -30,6 +31,11 @@ public class DoorGimmick : ReceiveGimmick
 			this.closeSpeed = closeSpeed;
 		}
 	}
+
+	//	コンポーネント
+	[Header("コンポーネント")]
+	[SerializeField]
+	private BoxCollider2D	doorCollider;
 
 	//	開閉
 	[Header("開閉")]
@@ -63,13 +69,13 @@ public class DoorGimmick : ReceiveGimmick
 
 	private float	openProgress;
 	private Vector3 savePos;        //	前回処理時の座標（移動量取得用）
+	private float saveDiffMagnitude;
 
-	//	更新処理
-	private void Update()
+	//	更新処理（Physics2Dと合わせるためにFixedUpdateを使用）
+	private void FixedUpdate()
 	{
 		//	座標を保持しておく
-		savePos = doorRoot.localPosition;
-
+		savePos = doorRoot.position;
 
 		//	ドアの開閉状態によって進行度を更新する
 		if (isOpen)
@@ -83,10 +89,6 @@ public class DoorGimmick : ReceiveGimmick
 		openProgress = Mathf.Clamp01(openProgress);
 		//	進行度から座標を算出する（進行度にはイージングを適応）
 		doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
-
-		//var b = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
-		//var a = transform.TransformPoint(b);
-		//doorRootRb.MovePosition(a);
 
 		CheckOnRodeObject();
 	}
@@ -146,44 +148,43 @@ public class DoorGimmick : ReceiveGimmick
 	--------------------------------------------------------------------------------*/
 	private void CheckOnRodeObject()
 	{
-		const float DOWN_OFFSET = 0.05f;		//	下向きに動くときのオフセット
+		Vector2 diff = doorRoot.position - savePos;							//	移動した差分（移動量）を求める
+		float mag = diff.magnitude;											//	移動量の大きさを取得
+		Vector3 moveDir = diff.normalized;									//	移動した方向をワールド空間で求める
 
-		Vector2 diff = doorRoot.localPosition - savePos;
-		Vector3 moveDir = transform.TransformDirection(diff.normalized);
-		float mag = diff.magnitude;
+		float dot = Vector2.Dot(Vector2.right, moveDir);					//	移動した方向と右ベクトルの内積を求める
 
-		float dot = Vector2.Dot(Vector2.right, moveDir.normalized);
-
-		Vector3 startPos = doorRoot.position;
-		Vector3 checkDir = moveDir;
-		float distance = mag;
-		if (mag > 0.001f &&
-			moveDir.y < 0 &&
+		Vector3 startPos = savePos;											//	BoxCastの開始座標
+		Vector3 checkDir = moveDir;											//	BoxCastの射出方向
+		float distance = mag;                                               //	BoxCastの最大距離
+		float moveValue = mag;
+		//	下向きに移動している時
+		if (moveDir.y < 0 &&
 			Mathf.Abs(dot) <= Mathf.Cos(Mathf.PI / 4))
 		{
-			checkDir *= -1;
-			distance += DOWN_OFFSET;
-			//startPos = transform.TransformPoint(savePos);
+			checkDir *= -1;             //	確認方向を上に向ける
 
-			print("aaa");
+			//	移動開始時と終了時に浮くのが気になるときは以下のコメントアウトを解除する
+			//	前回処理時の座標を使用するために前回の差分を距離に加算
+			//if (Mathf.Approximately(saveDiffMagnitude, 0.0f))
+			//	saveDiffMagnitude = mag;
+			//distance += saveDiffMagnitude;
+
+			moveValue = saveDiffMagnitude;
 		}
 
-		var a = Physics2D.BoxCastAll(startPos, new Vector2(1, 3), transform.localEulerAngles.z, checkDir, distance, checkObjectMask);
-		foreach (var item in a)
+		//	BoxCastを行いすべてのオブジェクトを取得
+		var hitResult = Physics2D.BoxCastAll(startPos, doorCollider.size * 0.9f, transform.localEulerAngles.z, checkDir, distance, checkObjectMask);
+		//	すべてのオブジェクトに移動量を加算する
+		foreach (var item in hitResult)
 		{
-			print(item.transform.name);
-			item.transform.position += moveDir * mag;
+			item.transform.position += moveDir * moveValue;
 		}
-		//print(mag);
-		Debug.DrawRay(startPos, checkDir * mag + checkDir, Color.red);
-	}
 
+		//	今回の差分を保持しておく
+		saveDiffMagnitude = mag;
 
-#if UNITY_EDITOR
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = new Color(1, 0, 0, 0.5f);
-		Gizmos.DrawCube(transform.position, Vector2.up * size.y + Vector2.right * size.x);
+		Debug.DrawRay(startPos, checkDir * distance, Color.red);
+		Debug.DrawLine(startPos + checkDir * distance + new Vector3(-1.5f, 0.5f), startPos + checkDir * distance + new Vector3(1.5f, 0.5f));
 	}
-#endif
 }

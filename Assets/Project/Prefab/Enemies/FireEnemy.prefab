@@ -413,6 +413,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   packedType: 1
+  labelSprite: {fileID: 154966743, guid: 252c7698f44b36b42b84486838df51aa, type: 3}
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 12416
+  deadEffect: {fileID: -3356184293391584074, guid: c214449cd8da23548baa75ad71a766ef, type: 3}
   drawGizmos: 1
   fireBall: {fileID: 6070002190379846683, guid: c96d20be233f21e4aad8182b8a29006d, type: 3}
   attackInterval: 2

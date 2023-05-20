@@ -197,7 +197,7 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 			{
 				//	梱包を行う
 				CardboardType type = packable.Packing();
-				currentBox.Packing(type);
+				currentBox.Packing(type, packable);
 
 				//	敵の座標に設置する際は以下のコメントを解除する	//
 				//var pos = generateParent.InverseTransformPoint(hit.transform.position);

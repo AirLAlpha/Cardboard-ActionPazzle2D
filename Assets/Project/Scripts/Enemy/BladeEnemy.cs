@@ -50,7 +50,10 @@ public class BladeEnemy : Enemy, IPackable
 
 	[Header("ポーズ")]
 	[SerializeField]
-	private Collider2D[] colliders;		//	ポーズ時に無効化するコライダー
+	private Collider2D[] colliders;     //	ポーズ時に無効化するコライダー
+
+	public Sprite LabelSprite { get { return labelSprite; } }
+
 
 	//	初期化処理
 	private void Start()

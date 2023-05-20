@@ -16,7 +16,12 @@ namespace CardboardBox
 		[SerializeField]
 		private Color		safeColor;      //	安全なときの色
 		[SerializeField]
-		private Color		attentionColor;	//	危険時の色
+		private Color		safeLabelColor;	//	安全時のラベルの色
+		[SerializeField]
+		private Color		attentionColor; //	危険時の色
+
+		[SerializeField]
+		private float		breakableTime;	//	傾いて壊れるまでの時間
 
 		MaterialPropertyBlock propertyBlock;	//	マテリアルプロパティブロック
 
@@ -24,6 +29,7 @@ namespace CardboardBox
 		private float	startRot;       //	最初の角度（90度刻み）
 
 		private float angleProgress;
+		private float breakableTimer;
 
 		public RightSideUpBox(RightSideUpBox rightSideUpBox, CardboardBox parent) : 
 			base(parent)
@@ -31,8 +37,10 @@ namespace CardboardBox
 			this.stateColor = rightSideUpBox.stateColor;
 			this.breakAngle = rightSideUpBox.breakAngle;
 			this.safeColor = rightSideUpBox.safeColor;
+			this.safeLabelColor = rightSideUpBox.safeLabelColor;
 			this.attentionColor = rightSideUpBox.attentionColor;
 			this.material = rightSideUpBox.material;
+			this.breakableTime = rightSideUpBox.breakableTime;
 
 			propertyBlock = new MaterialPropertyBlock();
 		}
@@ -48,6 +56,8 @@ namespace CardboardBox
 			//	状態の色を変更する
 			Parent.SpriteRenderer.color = stateColor;
 			Parent.SpriteRenderer.material = material;
+			Parent.LabelSprites[0].material = material;
+			Parent.LabelSprites[1].material = material;
 
 			//	角度を取得
 			float angle = ConvertToRadian(Parent.transform.localEulerAngles.z);
@@ -97,7 +107,18 @@ namespace CardboardBox
 			//	差が一定未満になったときに破壊する
 			if (Mathf.Abs(minusDelta) < breakAngle ||
 				Mathf.Abs(plusDelta) < breakAngle)
-				Parent.Burn();
+			{
+				if (breakableTimer >= breakableTime)
+					Parent.Burn();
+				else
+				{
+					breakableTimer += Time.deltaTime;
+				}
+			}
+			else
+			{
+				breakableTimer = 0.0f;
+			}
 
 			//	角度から割合を計算
 			float a = Mathf.InverseLerp(90.0f, breakAngle, Mathf.Abs(plusDelta));
@@ -114,22 +135,23 @@ namespace CardboardBox
 			//	プロパティの取得
 			Parent.SpriteRenderer.GetPropertyBlock(propertyBlock);
 
-			//	各色のHSV値を取得
-			Color.RGBToHSV(safeColor, out float safeH, out float safeS, out float safeV);
-			Color.RGBToHSV(attentionColor, out float attentionH, out float attentionS, out float attentionV);
-
-			//	HSVの値を補間する
-			float h = Mathf.Lerp(safeH, attentionH, angleProgress);
-			float s = Mathf.Lerp(safeS, attentionS, angleProgress);
-			float v = Mathf.Lerp(safeV, attentionV, angleProgress);
-			//	色の設定
-			Color newColor = Color.HSVToRGB(h, s, v);
+			Color newColor = HSVLerp(safeColor, attentionColor, angleProgress);
 			propertyBlock.SetColor("_InsideColor", newColor);
 
 			//	座標の設定
 			propertyBlock.SetVector("_RootPosition", Parent.transform.position);
 
 			Parent.SpriteRenderer.SetPropertyBlock(propertyBlock);
+
+			Color labelColor = HSVLerp(safeLabelColor, attentionColor, angleProgress);
+			for (int i = 0; i < Parent.LabelSprites.Length; i++)
+			{
+				Parent.LabelSprites[i].GetPropertyBlock(propertyBlock);
+				propertyBlock.SetColor("_OutsideColor", Color.white);
+				propertyBlock.SetColor("_InsideColor", labelColor);
+				propertyBlock.SetVector("_RootPosition", Parent.transform.position);
+				Parent.LabelSprites[i].SetPropertyBlock(propertyBlock);
+			}
 		}
 
 		float ConvertToRadian(float dig)
@@ -141,6 +163,20 @@ namespace CardboardBox
 			}
 
 			return angle;
+		}
+
+		Color HSVLerp(Color a, Color b, float t)
+		{
+			//	各色のHSV値を取得
+			Color.RGBToHSV(a, out float aH, out float aS, out float aV);
+			Color.RGBToHSV(b, out float bH, out float bS, out float bV);
+
+			//	HSVの値を補間する
+			float h = Mathf.Lerp(aH, bH, t);
+			float s = Mathf.Lerp(aS, bS, t);
+			float v = Mathf.Lerp(aV, bV, t);
+			//	色の設定
+			return Color.HSVToRGB(h, s, v);
 		}
 	}
 }

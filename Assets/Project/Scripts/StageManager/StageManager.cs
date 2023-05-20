@@ -137,7 +137,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		UsableBoxCount = usableBoxCount;
 		TargetBoxCount = targetBoxCount;
 		saveRemainingBoxCount = -1;
-		saveCompleteBoxCount = -1;
+		saveCompleteBoxCount = 0;
 
 		//	変数の初期化
 		UsedBoxCount = 0;

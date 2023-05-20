@@ -48,7 +48,11 @@ public class UsableBoxCounter : MonoBehaviour
 	[SerializeField]
 	private float	animSpeed;          //	アニメーション速度
 	[SerializeField]
-	private float	amplitudeSpeed;		//	エラー時の振幅速度
+	private Vector3 amplitudeBasePosition;
+	[SerializeField]
+	private float	amplitudeSpeed;     //	エラー時の振幅速度
+	[SerializeField]
+	private float	amplitudePower;		//	エラー時の振れ幅
 
 	private bool	isChangeCountAnim;		//	数値変更のアニメーションフラグ
 	private bool	isRemainingAnim;		//	残数がなかったときのアニメーションフラグ
@@ -153,9 +157,9 @@ public class UsableBoxCounter : MonoBehaviour
 		//	進行度を更新する
 		remainingProgress = Mathf.Clamp01(remainingProgress + Time.deltaTime * amplitudeSpeed);
 		//	座標を計算
-		float x = Mathf.Sin(remainingProgress * Mathf.PI * 2 * 5) * 30 * (1.0f - remainingProgress);
+		float x = Mathf.Sin(remainingProgress * Mathf.PI * 2 * 5) * amplitudePower * (1.0f - remainingProgress);
 		//	座標を更新
-		rootRect.localPosition = new Vector2(-456, 417) + Vector2.right * x;
+		rootRect.localPosition = amplitudeBasePosition + Vector3.right * x;
 
 		//	文字色を変更
 		currentCount.Color = Color.Lerp(Color.red, Color.white, remainingProgress);

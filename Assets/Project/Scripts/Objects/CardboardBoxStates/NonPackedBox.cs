@@ -21,13 +21,7 @@ namespace CardboardBox
 
 		[Header("梱包時のエフェクト")]
 		[SerializeField]
-		private ParticleSystem packedEffect;		//	梱包時エフェクト
-
-		//	ラベル
-		[Header("ラベル")]
-		[SerializeField]
-		private Transform label;					//	ラベル
-
+		private ParticleSystem packedEffect;        //	梱包時エフェクト
 
 		//	コンストラクタ
 		public NonPackedBox(NonPackedBox nonPacked, CardboardBox parent) :
@@ -35,7 +29,6 @@ namespace CardboardBox
 		{
 			this.stateColor = nonPacked.stateColor;
 			this.packedEffect = nonPacked.packedEffect;
-			this.label = nonPacked.label;
 
 			//	コンポーネントの取得
 			this.spriteRenderer = Parent.SpriteRenderer;
@@ -74,14 +67,14 @@ namespace CardboardBox
 				//	相手の梱包処理を実行
 				CardboardType type = hit.Packing();
 				//	自身の梱包時処理を実行
-				Packing(type);
+				Packing(type, hit);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------
 		|| 梱包処理
 		--------------------------------------------------------------------------------*/
-		public void Packing(CardboardType type)
+		public void Packing(CardboardType type, IPackable packable)
 		{
 			if (type == CardboardType.NONPACKABLE)
 			{
@@ -115,7 +108,8 @@ namespace CardboardBox
 			//	スケールの初期化
 			Parent.transform.localScale = Vector3.one;
 			//	ラベルの有効化
-			//label.gameObject.SetActive(true);
+			Parent.LabelSprites[0].gameObject.SetActive(true);
+			Parent.LabelSprites[1].sprite = packable.LabelSprite;
 			//	パーティクルの再生
 			packedEffect.Play();
 

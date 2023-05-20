@@ -20,7 +20,9 @@ public class FireEnemy : Enemy, IPackable
 	[SerializeField]
 	private float			attackInterval;		//	攻撃間隔
 
-	private float			attackIntervalCount;	//	攻撃間隔のカウンター
+	private float			attackIntervalCount;    //	攻撃間隔のカウンター
+
+	public Sprite LabelSprite { get { return labelSprite; } }
 
 	//	初期化処理
 	private void Start()

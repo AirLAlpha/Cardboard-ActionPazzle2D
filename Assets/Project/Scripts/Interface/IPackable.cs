@@ -7,8 +7,10 @@
  *  制作日：2023/04/17
  * 
  **********************************************/
+using UnityEngine;
 
 public interface IPackable
 {
+	public Sprite LabelSprite { get; }
 	public abstract CardboardType Packing();		//	梱包時の処理を記述
 }

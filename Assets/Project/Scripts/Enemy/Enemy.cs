@@ -55,6 +55,18 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	[Header("梱包")]
 	[SerializeField]
 	protected CardboardType		packedType;         //	梱包後のダンボールタイプ
+	[SerializeField]
+	protected Sprite			labelSprite;
+
+	[Header("めり込み")]
+	[SerializeField]
+	protected LayerMask overlapMask;
+
+	[Header("エフェクト")]
+	[SerializeField]
+	protected ParticleSystem	deadEffect;         //	押しつぶされ死亡したときのエフェクト
+
+	protected Transform			effectRoot;			//	エフェクトの親オブジェクト
 
 	//	ポーズ
 	protected bool				disableUpdate;      //	アップデートの無効化
@@ -100,7 +112,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 				break;
 		}
 
-		AnimationUpdate();			//	アニメーションの更新処理
+		AnimationUpdate();          //	アニメーションの更新処理
+		CheckOverlap();				//	めり込みの判定
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -153,6 +166,30 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	|| アニメーションの更新処理
 	--------------------------------------------------------------------------------*/
 	protected abstract void AnimationUpdate();
+
+	/*--------------------------------------------------------------------------------
+	|| めり込み判定
+	--------------------------------------------------------------------------------*/
+	protected void CheckOverlap()
+	{
+		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, overlapMask);
+		if (hit != null)
+		{
+			Dead();
+		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 破壊処理
+	--------------------------------------------------------------------------------*/
+	public void Dead()
+	{
+		Transform effectRoot = GameObject.Find("EffectRoot").transform;
+		var effect = Instantiate(deadEffect, transform.position, Quaternion.identity, effectRoot);
+		effect.Play();
+
+		Destroy(gameObject);
+	}
 
 	/*--------------------------------------------------------------------------------
 	|| ポーズ時処理

@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlassEnemy : Enemy, IPackable, IBurnable
+public class GlassEnemy : Enemy, IPackable
 {
 	[Header("ガラス")]
 	[SerializeField]
@@ -19,26 +19,8 @@ public class GlassEnemy : Enemy, IPackable, IBurnable
 	[SerializeField]
 	private ParticleSystem	breakEffect;            //	破壊時のエフェクト
 
-	private Transform		effectRoot;             //	エフェクトの親オブジェクト
+	public Sprite LabelSprite { get { return labelSprite; } }
 
-	[Header("めり込み")]
-	[SerializeField]
-	private LayerMask overlapMask;
-
-	//	初期化処理
-	private void Start()
-	{
-		//	エフェクトの親を検索
-		effectRoot = GameObject.Find("EffectRoot").transform;
-	}
-
-	//	更新処理
-	protected override void Update()
-	{
-		base.Update();
-
-		CheckOverlap();
-	}
 
 	/*--------------------------------------------------------------------------------
 	|| 待機中の更新処理
@@ -104,29 +86,6 @@ public class GlassEnemy : Enemy, IPackable, IBurnable
 
 		float hitVelMag = hitVel.sqrMagnitude;
 		if (hitVelMag >= breakingVelocity * breakingVelocity)
-			Burn();
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| 破壊処理
-	--------------------------------------------------------------------------------*/
-	public void Burn()
-	{
-		var effect = Instantiate(breakEffect, transform.position, Quaternion.identity, effectRoot);
-		effect.Play();
-
-		Destroy(gameObject);
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| めり込み判定
-	--------------------------------------------------------------------------------*/
-	private void CheckOverlap()
-	{
-		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, overlapMask);
-		if (hit != null)
-		{
-			Burn();
-		}
+			Dead();
 	}
 }

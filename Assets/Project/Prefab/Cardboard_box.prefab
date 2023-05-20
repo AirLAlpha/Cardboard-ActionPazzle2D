@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2469688252884908257}
   - component: {fileID: 2747526504233830104}
+  - component: {fileID: 8723319587919373913}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: LabelInside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4966671221164769858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.037, z: 0}
+  m_LocalPosition: {x: 0, y: -0.094, z: 0}
   m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,18 +73,33 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7960785, g: 0, b: 0, a: 1}
+  m_SortingOrder: 11
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8723319587919373913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966671221164769858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 4
+  burnProgress: 0
 --- !u!1 &6022378596412423000
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6286792556021150207}
   - component: {fileID: 1990743852014140395}
+  - component: {fileID: 1863270910970786952}
   m_Layer: 0
   m_Name: box_label
   m_TagString: Untagged
@@ -169,6 +186,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1863270910970786952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022378596412423000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f21f235189b55140be85f5d60a46a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  burnSpeed: 4
+  burnProgress: 0
 --- !u!1 &6208725194538461517
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,10 +305,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 8691640963121956548}
   burnEffect: {fileID: 4880230932744218059, guid: b7541d3817738794694d089da036c618, type: 3}
+  labelSprites:
+  - {fileID: 1990743852014140395}
+  - {fileID: 2747526504233830104}
+  burnShaderController:
+  - {fileID: 1606037705150847436}
+  - {fileID: 1863270910970786952}
+  - {fileID: 8723319587919373913}
   nonPackedBox:
     stateColor: {r: 0.7647059, g: 0.53333336, b: 0.32941177, a: 1}
     packedEffect: {fileID: 8691640963121956548}
-    label: {fileID: 6286792556021150207}
   defaultBox:
     stateColor: {r: 0.7647059, g: 0.53333336, b: 0.32941177, a: 1}
   breakableBox:
@@ -287,7 +325,9 @@ MonoBehaviour:
     breakAngle: 15
     material: {fileID: 2100000, guid: 9e2d28f08e3d7694888ce3ab52e8b1ca, type: 2}
     safeColor: {r: 0, g: 0.6509804, b: 0.023529412, a: 1}
+    safeLabelColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
     attentionColor: {r: 1, g: 0.18422444, b: 0, a: 1}
+    breakableTime: 0.1
   burnMaterial: {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
   tryCheckMask:
     serializedVersion: 2

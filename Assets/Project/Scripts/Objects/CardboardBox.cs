@@ -23,13 +23,17 @@ namespace CardboardBox
 		private ParticleSystem particle;
 		[SerializeField]
 		private ParticleSystem burnEffect;
+		[SerializeField]
+		private SpriteRenderer[] labelSprites;
+		[SerializeField]
+		private BlazingShaderController[] burnShaderController;        //	BlazingShaderController
 
 		private SpriteRenderer spriteRenderer;      //	SpriteRrender
 		private Rigidbody2D rb;						//	Rigidbody2D
-		private BlazingShaderController bsc;        //	BlazingShaderController
 
 		public SpriteRenderer	SpriteRenderer	{ get { return spriteRenderer; } }
 		public Rigidbody2D		Rigidbody2D		{ get { return rb; } }
+		public SpriteRenderer[] LabelSprites	{ get { return labelSprites; } }
 
 		//	ステート
 		[SerializeField]
@@ -83,7 +87,6 @@ namespace CardboardBox
 			//	コンポーネントの取得
 			rb = GetComponent<Rigidbody2D>();
 			spriteRenderer = GetComponent<SpriteRenderer>();
-			bsc = GetComponent<BlazingShaderController>();
 
 			//	ステートの初期化
 			nonPackedBox = new NonPackedBox(nonPackedBox, this);
@@ -142,8 +145,17 @@ namespace CardboardBox
 
 			//	マテリアルの変更
 			spriteRenderer.material = burnMaterial;
+			foreach (var item in labelSprites)
+			{
+				item.material = burnMaterial;
+			}
 
-			bsc.IsBurning = true;
+
+			foreach (var bsc in burnShaderController)
+			{
+				bsc.IsBurning = true;
+			}
+
 			if (rb != null)
 			{
 				rb.isKinematic = true;
@@ -165,10 +177,10 @@ namespace CardboardBox
 		/*--------------------------------------------------------------------------------
 		|| 梱包処理
 		--------------------------------------------------------------------------------*/
-		public void Packing(CardboardType type)
+		public void Packing(CardboardType type, IPackable packable)
 		{
 			if (currentState == nonPackedBox)
-				nonPackedBox.Packing(type);
+				nonPackedBox.Packing(type, packable);
 		}
 
 		public void Pause()

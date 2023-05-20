@@ -212,6 +212,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   packedType: 1
+  labelSprite: {fileID: -1093686966, guid: c5d0e99b2add0d944bd0f2c15b56ae0b, type: 3}
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 12416
+  deadEffect: {fileID: -3356184293391584074, guid: c214449cd8da23548baa75ad71a766ef, type: 3}
   drawGizmos: 0
   sparkEffect: {fileID: 7885232382446419736, guid: c4d8c6e5a8de9814fbb8c7b6cb6f7adb, type: 3}
   particleOffset: {x: -0.206, y: -0.362}

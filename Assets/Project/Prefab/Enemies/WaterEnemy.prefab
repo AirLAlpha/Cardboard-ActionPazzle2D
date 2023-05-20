@@ -231,6 +231,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   packedType: 3
+  labelSprite: {fileID: 1776413281, guid: 5ada4b48a2cbe46469e6727ffdf2d52b, type: 3}
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 12438
+  deadEffect: {fileID: 2976459336271847165, guid: f565eaf8938cae64ca3f20086b967a69, type: 3}
   drawGizmos: 1
   spriteRenderer: {fileID: 3866590519529855347}
   targetProgress: 0

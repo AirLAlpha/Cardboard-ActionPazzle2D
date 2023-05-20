@@ -15,37 +15,39 @@ public class WaterEnemy : Enemy, IPackable
 {
 	[Header("コンポーネント")]
 	[SerializeField]
-	private SpriteRenderer				spriteRenderer;     //	スプライトレンダー
+	private SpriteRenderer spriteRenderer;     //	スプライトレンダー
 
-	private MaterialPropertyBlock		propertyBlock;      //	プロパティブロック
+	private MaterialPropertyBlock propertyBlock;      //	プロパティブロック
 
 	[Header("シェーダー")]
-	[SerializeField, Range(0,1)]
-	private float		targetProgress;       //	進行度
+	[SerializeField, Range(0, 1)]
+	private float targetProgress;       //	進行度
 
-	private float		progress;
+	private float progress;
 
 	[Header("攻撃")]
 	[SerializeField]
-	private FireBall	waterObj;
+	private FireBall waterObj;
 	[SerializeField]
-	private int			attackObjCount;
+	private int attackObjCount;
 	[SerializeField]
-	private float		attackAngle;
+	private float attackAngle;
 	[SerializeField]
-	private Vector3		attackObjInitOffset;//	攻撃オブジェクトの生成オフセット
+	private Vector3 attackObjInitOffset;//	攻撃オブジェクトの生成オフセット
 	[SerializeField]
-	private float		attackInterval;		//	攻撃間隔
+	private float attackInterval;       //	攻撃間隔
 	[SerializeField]
-	private int			attackableCount;    //	攻撃可能回数
+	private int attackableCount;    //	攻撃可能回数
 	[SerializeField]
-	private float		rechargeSpeed;      //	リチャージ速度
+	private float rechargeSpeed;      //	リチャージ速度
 
-	private float	attackTimeCount;		//	攻撃してからの経過時間
-	private bool	isRecharging;           //	リチャージ中フラグ
-	private bool	isAttacking;			//	攻撃中フラグ
-	private bool	attackFlag;				//	攻撃フラグ（トリガーのためすぐfalseにする）
-	private int		attackCount;			//	現在の攻撃回数
+	private float attackTimeCount;      //	攻撃してからの経過時間
+	private bool isRecharging;           //	リチャージ中フラグ
+	private bool isAttacking;           //	攻撃中フラグ
+	private bool attackFlag;                //	攻撃フラグ（トリガーのためすぐfalseにする）
+	private int attackCount;            //	現在の攻撃回数
+
+	public Sprite LabelSprite { get { return labelSprite; } }
 
 
 	//	初期化処理
@@ -87,7 +89,7 @@ public class WaterEnemy : Enemy, IPackable
 		}
 
 		AnimationUpdate();          //	アニメーションの更新処理
-
+		CheckOverlap();
 
 	}
 

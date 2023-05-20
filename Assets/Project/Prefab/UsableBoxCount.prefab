@@ -655,7 +655,9 @@ MonoBehaviour:
   countBeforeText: 
   countAfterText: 
   animSpeed: 1
+  amplitudeBasePosition: {x: 798, y: 420, z: 0}
   amplitudeSpeed: 2
+  amplitudePower: 30
 --- !u!225 &7095824400544272409
 CanvasGroup:
   m_ObjectHideFlags: 0

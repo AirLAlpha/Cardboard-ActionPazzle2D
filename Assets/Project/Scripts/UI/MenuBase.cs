@@ -6,6 +6,13 @@ using UnityEngine.UI;
 [System.Serializable]
 public abstract class MenuBase : MonoBehaviour
 {
+	//	キャンバス
+	[Header("キャンバス")]
+	[SerializeField]
+	private Canvas	menuItemsCanvas;
+	[SerializeField]
+	private Canvas	selectedItemCanvas;
+
 	//	入力
 	[Header("入力")]
 	[SerializeField]
@@ -51,7 +58,17 @@ public abstract class MenuBase : MonoBehaviour
 	[SerializeField]
 	private Sprite			nonselectedSprite;	//	非選択中のスプライト
 	[SerializeField]
-	private Image[]			menuItem;			//	メニュー項目
+	private Image[]			menuItem;           //	メニュー項目
+	[SerializeField]
+	private float			selectedScale;      //	選択中の大きさ
+	[SerializeField]
+	private float			nonselectedScale;   //	非選択中の大きさ
+	[SerializeField]
+	private float			scaleChangeRate;    //	大きさの変更速度
+	[SerializeField]
+	private float			selectedRot;        //	選択中の角度
+	[SerializeField]
+	private float			nonselectedRot;		//	非選択中の角度
 
 	public int		MaxIndex => menuItem.Length;
 
@@ -157,11 +174,24 @@ public abstract class MenuBase : MonoBehaviour
 		currentIndex -= (int)inputVec.y;								//	上下入力を加算
 		currentIndex = (int)Mathf.Repeat(currentIndex, MaxIndex);       //	リピートする
 
-		//	選択している項目のスプライトを切り替える
 		for (int i = 0; i < menuItem.Length; i++)
 		{
-			Sprite sprite = currentIndex == i ? selectedSprite : nonselectedSprite;
+			bool isSeleceted = currentIndex == i;
+
+			//	スプライトを切り替える
+			Sprite sprite = isSeleceted ? selectedSprite : nonselectedSprite;
 			menuItem[i].sprite = sprite;
+
+			//	親を切り替える（表示順が切り替わる）
+			Transform parent = isSeleceted ? selectedItemCanvas.transform : menuItemsCanvas.transform;
+			menuItem[i].transform.SetParent(parent);
+			//	大きさを変更する
+			float targetScale = isSeleceted ? selectedScale : nonselectedScale;
+			menuItem[i].transform.localScale = Vector3.Lerp(menuItem[i].transform.localScale, Vector3.one * targetScale, Time.deltaTime * scaleChangeRate);
+			//	角度を変更する
+			float targetRot = isSeleceted ? selectedRot : nonselectedRot;
+			menuItem[i].transform.localEulerAngles = Vector3.Lerp(menuItem[i].transform.localEulerAngles, Vector3.forward * targetRot, Time.deltaTime * scaleChangeRate);
+
 		}
 
 		//	カーソルの座標を更新

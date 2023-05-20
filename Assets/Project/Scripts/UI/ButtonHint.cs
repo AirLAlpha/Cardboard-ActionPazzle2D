@@ -12,8 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-//	TODO : リファクタリング
+using System.Diagnostics.CodeAnalysis;
 
 public class ButtonHint : MonoBehaviour
 {
@@ -21,7 +20,7 @@ public class ButtonHint : MonoBehaviour
 	[System.Serializable]
 	public struct HintItem
 	{
-		public TextMeshProUGUI	text;
+		public Image			text;
 		public Image			image;
 		public Image			negativeImage;
 	};
@@ -34,11 +33,15 @@ public class ButtonHint : MonoBehaviour
 	//	表示
 	[Header("表示")]
 	[SerializeField]
-	private HorizontalLayoutGroup	layout;
+	private Vector2					buttonBasePosition;		//	ボタン全体のズレ
 	[SerializeField]
-	private float					menuButtonHeight;
+	private float					buttonsOffsetX;			//	ボタン（メニューを除く）の間隔
 	[SerializeField]
-	private int[]					displayNameIndex;
+	private float					menuButtonHeight;		//	ボタン画像の高さ
+	[SerializeField]
+	private float					textSpriteHeight;		//	文字画像の高さ
+	[SerializeField]
+	private int[]					displayNameIndex;		//	文字画像の番号
 
 	//	操作UI
 	[Header("操作UI")]
@@ -46,16 +49,6 @@ public class ButtonHint : MonoBehaviour
 	private HintItem[] controlHints;	//	コントロール
 	[SerializeField]
 	private HintItem menuHint;          //	メニュー
-
-	static readonly string[] CONTROL_NAMES =
-	{
-		"Horizontal",
-		"Vertical",
-		"Jump",
-		"Fire1",
-		"Restart",
-	};
-	static readonly string MENU_NAME = "Menu";
 
 	//	実行前初期化処理
 	private void Awake()
@@ -69,7 +62,9 @@ public class ButtonHint : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		ControlButtons(ControllerCecker.Instance.ControllerConnected);
+		bool controllerConnected = ControllerCecker.Instance.ControllerConnected;
+		ControlButtons(controllerConnected);
+		MenuButton(controllerConnected);
 		DisplayNameUpdate();
 	}
 
@@ -123,66 +118,69 @@ public class ButtonHint : MonoBehaviour
 				}
 			}
 
-
-			//	ネガティブボタンが存在する場合は配置を整える
-			if(controlHints[i].negativeImage != null)
-			{
-				//	ネガティブボタンの画像のアクティブ状態を取得
-				bool negativeActive = controlHints[i].negativeImage.gameObject.activeSelf;
-
-				//	親（画像やテキストをまとめる）のRectTransformを取得
-				RectTransform parentRectTransform = controlHints[i].negativeImage.transform.parent as RectTransform;
-
-				//	アクティブなとき
-				if(negativeActive)
-				{
-					//	横幅を 2010 に設定
-					parentRectTransform.sizeDelta = new Vector2(2010, parentRectTransform.sizeDelta.y);
-
-					//	ポジティブボタンの画像をずらす
-					controlHints[i].image.rectTransform.anchoredPosition = new Vector3(213, -1000);
-					//	テキストをずらす
-					controlHints[i].text.rectTransform.anchoredPosition = new Vector3(309, -1015);
-				}
-				//	非アクティブなとき
-				else
-				{
-					//	横幅を 2010 に設定
-					parentRectTransform.sizeDelta = new Vector2(1920, parentRectTransform.sizeDelta.y);
-
-					//	ポジティブボタンの画像をずらす
-					controlHints[i].image.rectTransform.anchoredPosition = new Vector3(123, -1000);
-					//	テキストをずらす
-					controlHints[i].text.rectTransform.anchoredPosition = new Vector3(229, -1015);
-				}
-
-				//	LyaoutGroupの再計算
-				LayoutRebuilder.MarkLayoutForRebuild(parentRectTransform);
-			}
+			//	整列させる
+			AlignmentButtons();
+			//	文字の更新
+			DisplayNameUpdate();
 		}
-
-		//	文字の更新
-		DisplayNameUpdate();
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| ボタンを整列させる
+	--------------------------------------------------------------------------------*/
+	[ContextMenu("AlignmentButtons")]
+	public void AlignmentButtons()
+	{
+		int nonActiveCount = 0;
+		float negativeOffsetX = 0.0f;
+
+		for (int i = 0; i < controlHints.Length; i++)
+		{
+			//	親のアクティブを取得
+			bool buttonActive = controlHints[i].text.transform.parent.gameObject.activeSelf;
+			//	親がアクティブでなければカウンターを更新して次へ
+			if (!buttonActive)
+			{
+				nonActiveCount++;
+				continue;
+			}
+
+			//	親のRectTransformを取得
+			RectTransform rt = controlHints[i].text.transform.parent as RectTransform;
+
+			//	ボタンの位置を更新する
+			rt.anchoredPosition = (Vector2.right * buttonsOffsetX * (i - nonActiveCount)) + (Vector2.left * negativeOffsetX);
+
+			//	ネガティブボタンが存在して、アクティブでないときは左へずらす
+			if (controlHints[i].negativeImage != null &&
+				!controlHints[i].negativeImage.gameObject.activeSelf)
+			{
+				//	オフセットを計算
+				float offset = controlHints[i].negativeImage.rectTransform.sizeDelta.x;
+				//	次以降のオフセットを加算
+				negativeOffsetX += offset;
+				rt.anchoredPosition += Vector2.left * offset;
+			}
+		}
+	}
 
 	/*--------------------------------------------------------------------------------
 	|| メニューキーの表示
 	--------------------------------------------------------------------------------*/
 	public void MenuButton(bool isConnected)
 	{
-		int index = dataBase.FindIndex(MENU_NAME);
+		var menuButtonData = dataBase.Buttons[dataBase.Buttons.Count - 1];
 
 		Sprite newSprite = null;
 		if(isConnected)
 		{
 			//	画像の差し替え
-			newSprite =  dataBase.Buttons[index].controllerSprite;
+			newSprite = menuButtonData.controllerSprite;
 		}
 		else
 		{
 			//	画像の差し替え
-			newSprite = dataBase.Buttons[index].positiveKeySprite;
+			newSprite = menuButtonData.positiveKeySprite;
 		}
 
 		if (newSprite == null)
@@ -190,11 +188,13 @@ public class ButtonHint : MonoBehaviour
 
 		menuHint.image.sprite = newSprite;
 		//	画像から比率を取得し、描画のサイズを変更
-		float w = newSprite.rect.width;
-		float h = newSprite.rect.height;
-
+		//	ボタン画像の大きさを変更
 		RectTransform rt = menuHint.image.transform as RectTransform;
-		rt.sizeDelta = new Vector2(w * (menuButtonHeight / h), menuButtonHeight);
+		rt.sizeDelta = new Vector2(newSprite.rect.width * (menuButtonHeight / newSprite.rect.height), menuButtonHeight);
+
+		//	テキスト画像の比率を計算
+		Rect menuButtonTextRect = menuHint.text.sprite.rect;
+		menuHint.text.rectTransform.sizeDelta = new Vector2(menuButtonTextRect.width * (textSpriteHeight / menuButtonTextRect.height), textSpriteHeight);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -221,7 +221,12 @@ public class ButtonHint : MonoBehaviour
 				return;
 
 			int nameIndex = displayNameIndex[i];
-			controlHints[i].text.text = dataBase.Buttons[i].displayNames[nameIndex];
+			Sprite newTextSprite = dataBase.Buttons[i].displayNames[nameIndex];
+			controlHints[i].text.sprite = newTextSprite;
+
+			RectTransform rt = controlHints[i].text.rectTransform;
+			Rect size = newTextSprite.rect;
+			rt.sizeDelta = new Vector2(size.width * textSpriteHeight / size.height, textSpriteHeight);
 		}
 	}
 
@@ -235,8 +240,15 @@ public class ButtonHint : MonoBehaviour
 			return;
 
 		if (controlHints.Length == i)
+		{
 			menuHint.image.transform.parent.gameObject.SetActive(active);
+		}
 		else
+		{
 			controlHints[i].image.transform.parent.gameObject.SetActive(active);
+		}
+
+		//	整列させる
+		AlignmentButtons();
 	}
 }

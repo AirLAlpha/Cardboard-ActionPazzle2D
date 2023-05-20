@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1688083189780977144, guid: d7038721f2d206646a1b2eb0aa034e8a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 955393670, guid: 4bb7cc84440d86b41af4decb90f73f08, type: 3}
     - target: {fileID: 1688083189989159067, guid: d7038721f2d206646a1b2eb0aa034e8a, type: 3}
       propertyPath: m_Name
       value: BeltConveyorAlways
@@ -63,6 +67,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1688083191084697056, guid: d7038721f2d206646a1b2eb0aa034e8a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 379137045, guid: 4bb7cc84440d86b41af4decb90f73f08, type: 3}
+    - target: {fileID: 1688083191265694657, guid: d7038721f2d206646a1b2eb0aa034e8a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9cfa08493d02aeb49870dbc4d900873a, type: 2}
     - target: {fileID: 1688083191265694686, guid: d7038721f2d206646a1b2eb0aa034e8a, type: 3}
       propertyPath: m_Enabled
       value: 1

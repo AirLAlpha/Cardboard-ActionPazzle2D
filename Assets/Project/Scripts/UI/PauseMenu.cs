@@ -26,7 +26,19 @@ public class PauseMenu : MenuBase
 
 	[Header("コンポーネント")]
 	[SerializeField]
-	private PauseManager		pauseManager;		//	ポーズマネージャー
+	private PauseManager		pauseManager;       //	ポーズマネージャー
+	[SerializeField]
+	private PauseChallangeState pauseChallangeState;
+
+	//	ボタンヒント
+	[Header("ボタンヒント")]
+	[SerializeField]
+	private ButtonHint buttonHint;
+
+	//	タスク状況
+	[Header("タスク")]
+	[SerializeField]
+	private RectTransform	challangeRoot;
 
 
 	//	実行前初期化処理
@@ -82,6 +94,20 @@ public class PauseMenu : MenuBase
 	--------------------------------------------------------------------------------*/
 	public void ActivatePauseMenu()
 	{
+		//	ボタンヒントの切り替え
+		//	ボタンヒントのアクティブを切り替え
+		buttonHint.SetActive("Vertical", true);
+		buttonHint.SetActive("Jump", true);
+		buttonHint.SetActive("Horizontal", false);
+		buttonHint.SetActive("Fire1", false);
+		buttonHint.SetActive("Restart", false);
+		buttonHint.SetActive("Menu", false);
+		//	ボタンヒントのテキストを変更
+		buttonHint.SetDisplayNameIndex("Jump", 1);
+
+		//	チャレンジのクリア状況を適応
+		pauseChallangeState.UpdateChallangeState();
+
 		gameObject.SetActive(true);		//	オブジェクトを有効化
 	}
 
@@ -90,8 +116,21 @@ public class PauseMenu : MenuBase
 	--------------------------------------------------------------------------------*/
 	private void DeactivatePauseMenu()
 	{
-		gameObject.SetActive(false);	//	オブジェクトを無効化
+		gameObject.SetActive(false);    //	オブジェクトを無効化
+
+		//	ボタンヒントの切り替え
+		//	ボタンヒントのアクティブを切り替え
+		buttonHint.SetActive("Vertical", false);
+		buttonHint.SetActive("Jump", true);
+		buttonHint.SetActive("Horizontal", true);
+		buttonHint.SetActive("Fire1", true);
+		buttonHint.SetActive("Restart", true);
+		buttonHint.SetActive("Menu", true);
+		//	ボタンヒントのテキストを変更
+		buttonHint.SetDisplayNameIndex("Jump", 0);
 
 		pauseManager.Resume();			//	ポーズの解除
 	}
+
+
 }

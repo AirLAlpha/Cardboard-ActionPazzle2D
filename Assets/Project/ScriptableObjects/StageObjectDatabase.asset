@@ -148,7 +148,7 @@ MonoBehaviour:
   - objectName: "\u7BB1\u3060\u3051\u901A\u308C\u308B\u58C1"
     type: 2
     prefab: {fileID: 7948234048704510900, guid: 39eafa20cf5fb9b4aa47de1234264b50, type: 3}
-    sprite: {fileID: 0}
+    sprite: {fileID: 579641856, guid: 4188570a796adee48a4b22502a76d1c9, type: 3}
   - objectName: "\u30AF\u30EC\u30FC\u30F3"
     type: 2
     prefab: {fileID: 1443329303289056768, guid: 8349fa9c945ee1147ba26c4de91e9974, type: 3}
@@ -204,8 +204,32 @@ MonoBehaviour:
   - objectName: "\u30D7\u30EC\u30A4\u30E4\u30FC\u3060\u3051\u901A\u308C\u308B\u58C1"
     type: 2
     prefab: {fileID: 2794215665451090904, guid: 9a5abf39bcab07346ad6d8dae5d57757, type: 3}
-    sprite: {fileID: 0}
+    sprite: {fileID: -1331599474, guid: 4188570a796adee48a4b22502a76d1c9, type: 3}
   - objectName: "\u30B9\u30C6\u30FC\u30B8\u4E0A\u306E\u6BB5\u30DC\u30FC\u30EB"
     type: 4
     prefab: {fileID: 6618288810680988599, guid: 893c10d18ddc28849a1ec1522476d464, type: 3}
     sprite: {fileID: 21300000, guid: 176d9ce5e7b4a6d4e839be9ce96c68d0, type: 3}
+  - objectName: "\u8DB3\u58342A-L"
+    type: 1
+    prefab: {fileID: 11400000, guid: a14e358e6a6158440bf8b3e9d6f9ef3e, type: 2}
+    sprite: {fileID: -605298597, guid: bec31b5c8082edb4091091f18d85a880, type: 3}
+  - objectName: "\u8DB3\u58342A-C"
+    type: 1
+    prefab: {fileID: 11400000, guid: 983398ff53474374998f2529dc0c23c1, type: 2}
+    sprite: {fileID: 1042271071, guid: bec31b5c8082edb4091091f18d85a880, type: 3}
+  - objectName: "\u8DB3\u58342A-R"
+    type: 1
+    prefab: {fileID: 11400000, guid: 629b13e2cc48f8b469dfa26a5cf2338a, type: 2}
+    sprite: {fileID: 41371125, guid: bec31b5c8082edb4091091f18d85a880, type: 3}
+  - objectName: "\u8DB3\u58342B-L"
+    type: 1
+    prefab: {fileID: 11400000, guid: 135bb41f3bbb2544d8f78cc6cd3aaf4a, type: 2}
+    sprite: {fileID: -2076789666, guid: 0cb97be367581744f936afa68d8bc455, type: 3}
+  - objectName: "\u8DB3\u58342B-C"
+    type: 1
+    prefab: {fileID: 11400000, guid: 81831022abe97e848ae10441cfb9610d, type: 2}
+    sprite: {fileID: 2146545099, guid: 0cb97be367581744f936afa68d8bc455, type: 3}
+  - objectName: "\u8DB3\u58342B-R"
+    type: 1
+    prefab: {fileID: 11400000, guid: 2880d32a07d43e7408ccd42253674f96, type: 2}
+    sprite: {fileID: -792150795, guid: 0cb97be367581744f936afa68d8bc455, type: 3}

@@ -41,6 +41,12 @@ public class StageEditorManager : MonoBehaviour
 	private GimmickSettings	gimmickSetting;
 	[SerializeField]
 	private ErrorMessage	errorMessage;
+	[SerializeField]
+	private CanvasAlphaController	editorUIAlphaController;
+	[SerializeField]
+	private CanvasAlphaController	playUIAlphaController;
+	[SerializeField]
+	private PlayerDamageReciver		playerDamageReciver;
 
 	private StagePainter	painter;
 	private StageExporter	exporter;
@@ -103,13 +109,13 @@ public class StageEditorManager : MonoBehaviour
 		//	ギミックの初期化のみ行う
 		loader.InitReveiceGimmicks();
 
-		//	モードの初期化
-		ChangeMode(currentMode);
-
 		//	ステージマネージャーの取得
 		stageManager = StageManager.Instance;
 		//	リスタートを無効化
 		stageManager.DisableRestart = true;
+
+		//	モードの初期化
+		ChangeMode(currentMode);
 	}
 
 	//	更新処理
@@ -223,6 +229,12 @@ public class StageEditorManager : MonoBehaviour
 			}
 		}
 
+		//	プレイヤーが死亡 or ステージクリア演出時は処理しない
+		if (playerDamageReciver.IsDead ||
+			stageManager.IsStageClear)
+			return;
+
+
 		//	モードを書き換える
 		currentMode = mode;
 
@@ -310,6 +322,14 @@ public class StageEditorManager : MonoBehaviour
 
 		//	エラーメッセージオブジェクトの有効化
 		errorMessage.gameObject.SetActive(true);
+
+		//	プレイヤーの無敵を有効化
+		playerDamageReciver.DontDeath = true;
+
+		//	プレイUIの非表示
+		playUIAlphaController.TargetAlpha = 0.0f;
+		//	エディターUIの表示
+		editorUIAlphaController.TargetAlpha = 1.0f;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -345,6 +365,14 @@ public class StageEditorManager : MonoBehaviour
 
 		//	ポーズの解除
 		poseManager.Resume();
+
+		//	プレイヤーの無敵を解除
+		playerDamageReciver.DontDeath = false;
+
+		//	エディターUIの非表示
+		editorUIAlphaController.TargetAlpha = 0.0f;
+		//	プレイUIの表示
+		playUIAlphaController.TargetAlpha = 1.0f;
 	}
 
 	/*--------------------------------------------------------------------------------

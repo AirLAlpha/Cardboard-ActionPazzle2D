@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyboard_keys_leftarrow
+      name: keyboard_keys_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9
-        height: 9
+        width: 27
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,62 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce857191be026a94e972e16dd8bb2976
-      internalID: 1201586876
+      spriteID: 6a48a1e2241340947ac31e3b266aac40
+      internalID: -1774697923
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: keyboard_keys_rightarrow
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 0
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7a91ab6c2c88bf419dcf94d78b910a1
-      internalID: -1013339856
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: keyboard_keys_uparrow
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 0
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b79c8c4f3d017484392a89bccd47a4d6
-      internalID: 1674181247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: keyboard_keys_downarrow
+      name: keyboard_keys_1
       rect:
         serializedVersion: 2
         x: 27
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c38ab12910827934d848a05f2702df1e
-      internalID: 1972798246
+      spriteID: e9342fe8ed82d9d4699f2a5f14f4bd39
+      internalID: 1234941655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: keyboard_keys_z
+      name: keyboard_keys_2
       rect:
         serializedVersion: 2
-        x: 36
+        x: 44
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58888d68d503ddd4cb9b02a570562c8a
-      internalID: 781182871
+      spriteID: 5289a9632271a654bac1c67da32c948a
+      internalID: -657217306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: keyboard_keys_x
+      name: keyboard_keys_3
       rect:
         serializedVersion: 2
-        x: 45
+        x: 61
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f882b6ac4535e23409baa2b0d0e715ff
-      internalID: -456837390
+      spriteID: ca19a1e8c235ed84db1f4a6bd900b2f4
+      internalID: 487766292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: keyboard_keys_c
+      name: keyboard_keys_4
       rect:
         serializedVersion: 2
-        x: 54
+        x: 78
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,29 +215,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01b76213495bd4b4aac3d12dc82bdd7a
-      internalID: -1114564150
+      spriteID: ae61a112a2b940c43877cba9296666d2
+      internalID: 1357413821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: keyboard_keys_esc
+      name: keyboard_keys_5
       rect:
         serializedVersion: 2
-        x: 63
+        x: 95
         y: 0
-        width: 15
-        height: 9
+        width: 17
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00fb598a450cbbf4d9fed83f25588a52
-      internalID: -1165423657
+      spriteID: cc5d5abe5a8209544947ee10feb941b4
+      internalID: -1765857646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyboard_keys_6
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b07d80b07f31bb14bb4ba464ebc1b716
+      internalID: 1438907897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyboard_keys_7
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 0
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ceb28db1dc49e499c083d413d7c37a
+      internalID: 1808860120
       vertices: []
       indices: 
       edges: []
@@ -295,6 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      keyboard_keys_0: -1774697923
+      keyboard_keys_1: 1234941655
+      keyboard_keys_2: -657217306
+      keyboard_keys_3: 487766292
+      keyboard_keys_4: 1357413821
+      keyboard_keys_5: -1765857646
+      keyboard_keys_6: 1438907897
+      keyboard_keys_7: 1808860120
       keyboard_keys_c: -1114564150
       keyboard_keys_downarrow: 1972798246
       keyboard_keys_esc: -1165423657

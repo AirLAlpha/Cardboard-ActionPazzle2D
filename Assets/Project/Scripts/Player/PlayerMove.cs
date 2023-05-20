@@ -30,7 +30,9 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	public bool		DisableInput { get; set; }
 
 	private Vector2 inputVec;               //	移動入力
-	private bool	inputJump;				//	ジャンプ入力	
+	private bool	inputJump;              //	ジャンプ入力	
+	private bool	saveInputJump;          //	ジャンプ入力の保持用変数
+	private bool	inputJumpReleased;		//	ジャンプ入力を解除したフラグ
 
 	//	移動
 	[Header("移動")]
@@ -50,6 +52,10 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	[Header("ジャンプ")]
 	[SerializeField]
 	private float	jumpPower;                  //	ジャンプ力
+	[SerializeField]
+	private float	gravityScale;               //	通常時の重力
+	[SerializeField]
+	private float	heighJumpGravityScale;		//	高ジャンプ時の重力
 
 	private bool	isFreeFall;					//	自由落下フラグ
 	private bool	isJumping;					//	ジャンプ中フラグ
@@ -153,7 +159,19 @@ public class PlayerMove : MonoBehaviour, IPauseable
 
 
 		//	ジャンプ入力
-		inputJump = Input.GetButtonDown("Jump");			//	ジャンプ
+		saveInputJump = inputJump;						//	保持しておく
+		inputJump = Input.GetButton("Jump");			//	ジャンプ
+
+		//	入力がなくなったら、ジャンプ入力の解除フラグを有効化
+		if(!inputJump && saveInputJump)
+		{
+			inputJumpReleased = true;
+		}
+		//	再びジャンプ入力をしたら、解除フラグをリセット
+		else if(inputJump)
+		{
+			inputJumpReleased = false;
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -208,8 +226,18 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		if (CantMove)
 			return;
 
-		//	ジャンプ入力がない or 接地していないときは処理しない
-		if (!inputJump || !isGrounded) 
+		//	入力を解除していなく、入力があれば重力を軽くしておく
+		if(!inputJumpReleased && inputJump)
+		{
+			rb.gravityScale = heighJumpGravityScale;
+		}
+		else
+		{
+			rb.gravityScale = gravityScale;
+		}
+
+		//	前フレームにジャンプ入力があった or ジャンプ入力がない or 接地していないときは処理しない
+		if (saveInputJump || !inputJump || !isGrounded) 
 			return;
 
 		//	ベクトルの加算

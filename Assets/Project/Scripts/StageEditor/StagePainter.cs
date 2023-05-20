@@ -410,23 +410,26 @@ public class StagePainter : MonoBehaviour
 			return;
 		}
 
-		//	ルートオブジェクトのときは処理しない
-		if (obj.gameObject == enemyRoot.gameObject ||
-			obj.gameObject == gimmickRoot.gameObject)
-			return;
-
 		string tag = obj.transform.tag;
 		switch (tag)
 		{
 			//	ギミック
 			case "GimmickEnemy":
 			case "Gimmick":
+				//	ルートオブジェクトのときは処理しない
+				if (obj.transform.parent == gimmickRoot)
+					return;
 				Destroy(obj.transform.parent.gameObject);
 				break;
 
 			//	敵
 			case "Enemy":
 			case "StageCardboardBox":
+				//	ルートオブジェクトのときは処理しない
+				if (obj.transform == enemyRoot ||
+					obj.transform == cardboardRoot)
+					return;
+
 				Destroy(obj.transform.gameObject);
 				break;
 

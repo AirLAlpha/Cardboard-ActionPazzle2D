@@ -128,7 +128,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c57ffb19fcf0aa8439b63b6178121d8b, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1037273825212215818}
   - component: {fileID: 934649365921715312}
   - component: {fileID: 906933334824459415}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: BladeEnemy
   m_TagString: GimmickEnemy
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!114 &1037273825212215818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8594332434298984524
 Transform:
   m_ObjectHideFlags: 0

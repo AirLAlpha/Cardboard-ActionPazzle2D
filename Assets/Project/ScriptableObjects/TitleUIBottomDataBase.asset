@@ -16,25 +16,25 @@ MonoBehaviour:
   - buttonName: Horizontal
     displayNames:
     - MOVE
-    positiveKeySprite: {fileID: 1201586876, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    negativeKeySprite: {fileID: -1013339856, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    controllerSprite: {fileID: -878075277, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    positiveKeySprite: {fileID: -657217306, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 1357413821, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    controllerSprite: {fileID: -421114973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Jump
     displayNames:
     - JUMP
     - CONFIRM
-    positiveKeySprite: {fileID: 781182871, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    positiveKeySprite: {fileID: 1808860120, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: -140568353, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    controllerSprite: {fileID: -1497783279, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Restart
     displayNames:
     - CANCEL
-    positiveKeySprite: {fileID: -1114564150, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    positiveKeySprite: {fileID: -1765857646, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: 161381830, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    controllerSprite: {fileID: 71013611, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Menu
     displayNames:
     - MENU
-    positiveKeySprite: {fileID: -1165423657, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    positiveKeySprite: {fileID: -1774697923, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: 794729594, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    controllerSprite: {fileID: -2089790973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}

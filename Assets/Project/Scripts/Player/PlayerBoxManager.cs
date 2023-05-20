@@ -14,10 +14,13 @@ using CardboardBox;
 using System.Transactions;
 
 [RequireComponent(typeof(PlayerMove))]
+[RequireComponent(typeof(PlayerDamageReciver))]
 public class PlayerBoxManager : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
-	private PlayerMove		playerMove;         //	PlayerMove
+	private PlayerMove				playerMove;         //	PlayerMove
+	private PlayerDamageReciver		playerDamageReciver;
+	private StageManager			stageManager;
 
 	//	入力
 	[SerializeField]
@@ -51,7 +54,9 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	[SerializeField]
 	private Vector2			putCheckRange;      //	箱を設置する際の確認範囲
 	[SerializeField]
-	private LayerMask		putCheckLayer;		//	設置確認用レイヤー
+	private LayerMask		putCheckLayer;      //	設置確認用レイヤー
+	[SerializeField]
+	private LayerMask		throwCheckLayer;
 
 	private bool			isPuting;           //	設置中フラグ
 	private Vector2			putStartPos;		//	設置の開始座標
@@ -71,6 +76,8 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	{
 		//	コンポーネントの取得
 		playerMove = GetComponent<PlayerMove>();
+		playerDamageReciver = GetComponent<PlayerDamageReciver>();
+		stageManager = StageManager.Instance;	
 
 		//	Nullチェック
 		if (boxOriginal == null)
@@ -86,6 +93,11 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	//	更新処理
 	private void Update()
 	{
+		//	死亡 or クリアしていたら処理を辞める
+		if (playerDamageReciver.IsDead ||
+			stageManager.IsStageClear)
+			return;
+
 		InputUpdate();      //	入力処理
 
 		if (inputGenerate)
@@ -158,7 +170,8 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		StageManager.Instance.UsedBoxCount++;
 
 		//	アクションの表示名を変更
-		buttonHint.SetDisplayNameIndex("Fire1", 1);
+		if (buttonHint != null)
+			buttonHint.SetDisplayNameIndex("Fire1", 1);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -239,7 +252,8 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		}
 
 		//	アクションの表示名を変更
-		buttonHint.SetDisplayNameIndex("Fire1", 0);
+		if (buttonHint != null)
+			buttonHint.SetDisplayNameIndex("Fire1", 0);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -247,7 +261,7 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	--------------------------------------------------------------------------------*/
 	private bool TryThrow()
 	{
-		var hit = Physics2D.OverlapBox(currentBox.transform.position, Vector2.one, 0.0f);
+		var hit = Physics2D.OverlapBox(currentBox.transform.position, Vector2.one, 0.0f, throwCheckLayer);
 		if(hit)
 		{
 			return false;
@@ -278,6 +292,10 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		currentBox.transform.localScale = Vector3.one;
 		//	持っている箱を解除
 		currentBox = null;
+
+		//	アクションの表示名を変更
+		if (buttonHint != null)
+			buttonHint.SetDisplayNameIndex("Fire1", 0);
 	}
 
 	/*--------------------------------------------------------------------------------

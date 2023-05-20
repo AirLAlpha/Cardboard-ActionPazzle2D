@@ -115,7 +115,7 @@ namespace CardboardBox
 			//	スケールの初期化
 			Parent.transform.localScale = Vector3.one;
 			//	ラベルの有効化
-			label.gameObject.SetActive(true);
+			//label.gameObject.SetActive(true);
 			//	パーティクルの再生
 			packedEffect.Play();
 

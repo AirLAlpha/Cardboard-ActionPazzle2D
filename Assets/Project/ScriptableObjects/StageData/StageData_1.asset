@@ -15,7 +15,14 @@ MonoBehaviour:
   stageId: 1
   tasks:
   - stageFileName: Stage1_noro.json
-  - stageFileName: Stage1_2.json
+    challanges:
+    - type: 1
+      value: 4
+  - stageFileName: Stage1_1.json
+    challanges: []
   - stageFileName: Stage1_3.json
+    challanges: []
   - stageFileName: Stage1_4.json
+    challanges: []
   - stageFileName: Stage1_5.json
+    challanges: []

@@ -386,7 +386,10 @@ MonoBehaviour:
   putCheckRange: {x: 0.5, y: 0.5}
   putCheckLayer:
     serializedVersion: 2
-    m_Bits: 30711
+    m_Bits: 29687
+  throwCheckLayer:
+    serializedVersion: 2
+    m_Bits: 29687
   throwPower: {x: 18, y: 22}
   throwingVelocityX: 1
 --- !u!114 &8765415605556229797
@@ -436,7 +439,7 @@ MonoBehaviour:
   blazingMat: {fileID: 2100000, guid: ee4b846cbaff067409f9a0e2b9aadad1, type: 2}
   mask:
     serializedVersion: 2
-    m_Bits: 4247
+    m_Bits: 12438
 --- !u!61 &6953774482578051068
 BoxCollider2D:
   m_ObjectHideFlags: 0

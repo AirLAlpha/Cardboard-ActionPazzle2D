@@ -5,16 +5,36 @@ using UnityEngine.UI;
 
 public class UsableBoxCounter : MonoBehaviour
 {
+	[Header("透明")]
+	[SerializeField]
+	private Vector2			invisibleArea;
+	[SerializeField]
+	private Vector2			areaOffset;
+	[SerializeField]
+	private LayerMask		invisibleAreaMask;
+	[SerializeField]
+	private Image[]			alphaTargets;
+	[SerializeField]
+	private float			onAreaAlpha;
+	[SerializeField]
+	private float			alphaSpeed;
+
+	private float alpha;
+	private Vector2 AreaWorldCenter => Camera.main.ScreenToWorldPoint(transform.position + (Vector3)areaOffset);
+
 	//	コンポーネント
 	[Header("コンポーネント")]
 	[SerializeField]
-	private Text currentCountText;		//	現在の個数を描画するテキスト
+	private NumberDrawer			currentCount;	//	現在の個数を描画するテキスト
 	[SerializeField]
-	private Text buffCountText;         //	バッファ用のテキスト
+	private NumberDrawer			buffCount;    //	バッファ用のテキスト
 	[SerializeField]
-	private Text symbolText;			//	乗算記号
+	private Image			symbol;		//	乗算記号
 
-	private RectTransform rootRect;		//	自身のRectTransform
+	private RectTransform	rootRect;	//	自身のRectTransform
+
+	private RectTransform	currentCountTransform;
+	private RectTransform	buffCountTransform;
 
 	//	表示
 	[Header("表示")]
@@ -41,16 +61,22 @@ public class UsableBoxCounter : MonoBehaviour
 	{
 		//	コンポーネントの取得
 		rootRect = transform as RectTransform;
+
+		currentCountTransform	= currentCount.transform as RectTransform;
+		buffCountTransform		= buffCount.transform as RectTransform;
 	}
 
 	//	初期化処理
 	private void Start()
 	{
+		alpha = 1.0f;
 	}
 
 	//	更新処理
 	private void Update()
 	{
+		InvisibleUpdate();
+
 		ChangeCountAnimation();
 		NonRemainingAnimation();
 	}
@@ -63,13 +89,13 @@ public class UsableBoxCounter : MonoBehaviour
 		//	残数の取得
 		int count = StageManager.Instance.RemainingBoxCount;
 		//	バッファに現在の文字列を保持
-		buffCountText.text = currentCountText.text;
+		buffCount.Number = currentCount.Number;
 		//	文字列の更新
-		currentCountText.text = countBeforeText + count.ToString() + countAfterText;
+		currentCount.Number = count;
 
 		//	文字列の座標を更新する
-		buffCountText.rectTransform.localPosition = currentCountText.rectTransform.position;
-		currentCountText.rectTransform.localPosition += Vector3.up * 150;
+		buffCountTransform.localPosition = currentCountTransform.position;
+		currentCountTransform.localPosition += Vector3.up * 150;
 
 		//	アニメーション用の変数を初期化
 		changeCountProgress = 0.0f;
@@ -83,9 +109,9 @@ public class UsableBoxCounter : MonoBehaviour
 	public void NonRemaining()
 	{
 		//	文字色を変更
-		currentCountText.color = Color.red;
-		buffCountText.color = Color.red;
-		symbolText.color = Color.red;
+		currentCount.Color = Color.red;
+		buffCount.Color = Color.red;
+		symbol.color = Color.red;
 
 		//	アニメーション用の変数を初期化
 		remainingProgress = 0.0f;
@@ -107,8 +133,8 @@ public class UsableBoxCounter : MonoBehaviour
 
 		//	座標を更新する
 		float y = Mathf.Lerp(150.0f, 0.0f, EaseOutBounce(changeCountProgress));
-		currentCountText.rectTransform.localPosition = new Vector3(100, y);
-		buffCountText.rectTransform.localPosition = new Vector3(100, -150 + y);
+		currentCountTransform.localPosition = new Vector3(100, y);
+		buffCountTransform.localPosition = new Vector3(100, -150 + y);
 
 		//	進行度が1に到達したらアニメーションを終了
 		if (changeCountProgress >= 1.0f)
@@ -132,13 +158,33 @@ public class UsableBoxCounter : MonoBehaviour
 		rootRect.localPosition = new Vector2(-456, 417) + Vector2.right * x;
 
 		//	文字色を変更
-		currentCountText.color = Color.Lerp(Color.red, Color.white, remainingProgress);
-		buffCountText.color = Color.Lerp(Color.red, Color.white, remainingProgress);
-		symbolText.color = Color.Lerp(Color.red, Color.white, remainingProgress);
+		currentCount.Color = Color.Lerp(Color.red, Color.white, remainingProgress);
+		buffCount.Color = Color.Lerp(Color.red, Color.white, remainingProgress);
+		symbol.color = Color.Lerp(Color.red, Color.white, remainingProgress);
 
 		//	進行度が1に到達したらアニメーションを終了
 		if (remainingProgress >= 1.0f)
 			isRemainingAnim = false;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| プレイヤーが近づいたら透明にする処理
+	--------------------------------------------------------------------------------*/
+	private void InvisibleUpdate()
+	{
+		var hit = Physics2D.OverlapBox(AreaWorldCenter, invisibleArea, 0.0f, invisibleAreaMask);
+		if (hit != null)
+			alpha -= Time.deltaTime * alphaSpeed;
+		else
+			alpha += Time.deltaTime * alphaSpeed;
+		alpha = Mathf.Clamp(alpha, onAreaAlpha, 1.0f);
+
+		foreach (var item in alphaTargets)
+		{
+			Color col = item.color;
+			col.a = alpha;
+			item.color = col;
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -166,4 +212,13 @@ public class UsableBoxCounter : MonoBehaviour
 			return n1 * (x -= 2.625f / d1) * x + 0.984375f;
 		}
 	}
+
+#if UNITY_EDITOR
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = new Color(0, 1, 0, 0.5f);
+
+		Gizmos.DrawCube(AreaWorldCenter, invisibleArea);
+	}
+#endif
 }

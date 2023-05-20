@@ -7,6 +7,7 @@
  *  制作日：2023/04/06
  * 
  **********************************************/
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ using UnityEngine.Events;
 public struct ButtonContainor
 {
 	public string	buttonName;				//	ボタンの名前
-	public string[] displayNames;			//	UIへの表示名
+	public Sprite[] displayNames;			//	UIへの表示名
 	public Sprite	positiveKeySprite;		//	キーボードのスプライト（正）
 	public Sprite	negativeKeySprite;		//	キーボードのスプライト（負）
 	public Sprite	controllerSprite;		//	コントローラのスプライト

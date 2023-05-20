@@ -131,8 +131,7 @@ public class GimmickSettings : MonoBehaviour
 	[SerializeField]
 	private GimmickSetting conveyorSetting;     //	ベルトコンベア
 	[SerializeField]
-	private GimmickSetting craneSetting;		//	クレーン
-
+	private GimmickSetting craneSetting;        //	クレーン
 
 	//	実行前初期化処理
 	private void Awake()

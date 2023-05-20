@@ -9,6 +9,9 @@
  **********************************************/
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
+using System.Windows.Forms.VisualStyles;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -20,6 +23,19 @@ public class CraneGimmick : ReceiveGimmick
 		public float speed;		//	速度
 		public float rangeY;	//	可動域（Y）
 	}
+
+	//	クレーンの状態
+	private enum CraneState
+	{
+		IDLE,		//	待機
+		FALL,		//	下降
+		GRAB,		//	つかむ
+		RISING,		//	上がる
+
+		RELEASE,	//	離す
+	}
+	private CraneState currentState;
+
 
 	[Header("コンポーネント")]
 	[SerializeField]
@@ -34,8 +50,11 @@ public class CraneGimmick : ReceiveGimmick
 	private float			speed;				//	移動速度
 	[SerializeField]
 	private float			heightRange;        //	降りる長さ
+	[SerializeField]
+	private float			grabWait;			//	掴むまでの待ち時間
 
 	private float			progress;           //	現在の進行度
+	private float			grabTimer;			//	掴む時間の計測用
 	private const float		ARM_X = 0.5f;		//	SpriteRootのオフセット（X)
 
 	public float Speed { get { return this.speed; } set { this.speed = value; } }
@@ -62,7 +81,29 @@ public class CraneGimmick : ReceiveGimmick
 
 	private bool			closeArms;          //	アームの閉じるフラグ	
 
-	System.Action<bool> buttonAction => (bool pressed) => { active = pressed; };
+	System.Action<bool> buttonAction => (bool pressed) =>
+	{
+		this.active = pressed;
+
+		//	ボタン投下時
+		if(pressed)
+		{
+			//	待機中 or 上昇中なら下降に変更
+			if (currentState == CraneState.IDLE || currentState == CraneState.RISING)
+				currentState = CraneState.FALL;
+		}
+		//	ボタン開放時
+		else
+		{
+			//	上昇中以降なら開放する
+			if ((int)currentState >= (int)CraneState.RISING ||
+			currentState == CraneState.GRAB && closeArms)
+				currentState = CraneState.RELEASE;
+			//	上昇前なら上昇に変更
+			else
+				currentState = CraneState.RISING;
+		}
+	};
 
 
 	//	実行前初期化処理
@@ -105,7 +146,10 @@ public class CraneGimmick : ReceiveGimmick
 	private void MoveUpdate()
 	{
 		//	進行度を進める
-		int direction = active ? 1 : -1;
+		int direction = -1;
+		if (currentState == CraneState.FALL) direction = 1;
+		if (currentState == CraneState.GRAB) direction = 0;
+
 		progress += Time.deltaTime * speed * direction;
 		progress = Mathf.Clamp01(progress);
 
@@ -120,49 +164,100 @@ public class CraneGimmick : ReceiveGimmick
 	--------------------------------------------------------------------------------*/
 	private void ArmUpdate()
 	{
-		//	下がっていく処理
-		if (active)
 		{
-			//	下がり切るまでは開けておく
-			if (progress < 1)
-			{
-				//	なにかつかんでいれば離す
-				if (closeArms)
-					Release();
+			//	下がっていく処理
+			//if (active)
+			//{
+			//	//	下がり切るまでは開けておく
+			//	if (progress < 1)
+			//	{
+			//		//	なにかつかんでいれば離す
+			//		if (closeArms)
+			//			Release();
 
-				closeArms = false;
+			//		closeArms = false;
+			//	}
+			//	//	下がりきったら閉める
+			//	else
+			//	{
+			//		//	アームが閉まる前ならつかむ処理を実行する
+			//		if (!closeArms)
+			//			Grab();
+
+			//		closeArms = true;
+			//	}
+			//}
+			////	上がっていく処理
+			//else
+			//{
+			//	//	上がり切るまでは閉めておく
+			//	if(progress > 0)
+			//	{
+			//		//	閉める瞬間ならつかむ
+			//		if (!closeArms)
+			//			Grab();
+
+			//		closeArms = true;
+			//	}
+			//	//	上がりきったら開ける
+			//	else
+			//	{
+			//		//	アームが開く前なら離す処理を実行する
+			//		if (closeArms)
+			//			Release();
+
+			//		closeArms = false;
+			//	}
+			//}
+		}
+
+		//	降下時に進行度が1に到達したら、掴むに移行
+		if(currentState == CraneState.FALL &&
+			progress >= 1.0f)
+		{
+			currentState = CraneState.GRAB;
+			grabTimer = 0;
+		}
+
+		//	つかむ時はタイマーが指定時間を超えたらつかむを実行し、上昇させる
+		if (currentState == CraneState.GRAB)
+		{
+			if (grabTimer >= grabWait)
+			{
+				//	掴む前
+				if (!closeArms)
+				{
+					Grab();
+					closeArms = true;
+
+					grabTimer = 0;
+				}
+				//	掴んだあと
+				else
+				{
+					currentState = CraneState.RISING;
+					grabTimer = 0;
+				}
 			}
-			//	下がりきったら閉める
 			else
 			{
-				//	アームが閉まる前ならつかむ処理を実行する
-				if (!closeArms)
-					Grab();
-
-				closeArms = true;
+				grabTimer += Time.deltaTime;
+				return;
 			}
 		}
-		//	上がっていく処理
-		else
+
+		//	上昇後に開放を行う
+		if (currentState == CraneState.RISING &&
+			progress <= 0.0f &&
+			!closeArms)
+			currentState = CraneState.RELEASE;
+
+		//	開放状態のときに開放を行い、待機に戻す
+		if(currentState == CraneState.RELEASE)
 		{
-			//	上がり切るまでは閉めておく
-			if(progress > 0)
-			{
-				//	閉める瞬間ならつかむ
-				if (!closeArms)
-					Grab();
-
-				closeArms = true;
-			}
-			//	上がりきったら開ける
-			else
-			{
-				//	アームが開く前なら離す処理を実行する
-				if (closeArms)
-					Release();
-
-				closeArms = false;
-			}
+			closeArms = false;
+			Release();
+			currentState = CraneState.IDLE;
 		}
 
 		//	アームにフラグを適応する
@@ -196,10 +291,26 @@ public class CraneGimmick : ReceiveGimmick
 		{
 			rb.isKinematic = true;
 			rb.velocity = Vector2.zero;
+			rb.angularVelocity = 0.0f;
 		}
 
-		//	親を保持しておく
-		grabParent = hit.transform.parent;
+		//	親がクレーンなら主導権を切り替える
+		if (hit.transform.parent != null &&
+			hit.transform.parent.parent != null &&
+			hit.transform.parent.parent.TryGetComponent<CraneGimmick>(out CraneGimmick otherCrane))
+		{
+			this.grabParent = otherCrane.grabParent;
+			this.grabTarget = otherCrane.grabTarget;
+
+			otherCrane.grabParent = null;
+			otherCrane.grabTarget = null;
+		}
+		else
+		{
+			//	親を保持しておく
+			grabParent = hit.transform.parent;
+		}
+
 		//	親子関係を設定する
 		hit.transform.parent = spriteRoot;
 		//	座標を補正する
@@ -284,6 +395,7 @@ public class CraneGimmick : ReceiveGimmick
 
 		Sender.AddAction(buttonAction);
 	}
+
 
 #if UNITY_EDITOR
 	private void OnDrawGizmosSelected()

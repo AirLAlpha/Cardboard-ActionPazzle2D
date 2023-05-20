@@ -65,8 +65,10 @@ public class PlayerDead : MonoBehaviour
 		//	カメラをズームインする
 		cameraZoom.ZoomIn = true;
 		//	UIの表示を消す
-		canvasAlphaController.TargetAlpha = 0.0f;
-		buttonHintAlpha.TargetAlpha = 0.0f;
+		if (canvasAlphaController != null)
+			canvasAlphaController.TargetAlpha = 0.0f;
+		if (buttonHintAlpha != null)
+			buttonHintAlpha.TargetAlpha = 0.0f;
 		//	待つ
 		yield return new WaitForSeconds(zoomInWait);
 

@@ -2,6 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//	タスク内のチャレンジタイプ
+public enum ChallangeType
+{
+	NONE,
+
+	BOX_COUNT,		//	箱の数
+	TIME_LIMIT,     //	時間制限
+	JUMP_COUNT,		//	ジャンプ回数
+
+	OVER_ID
+}
+//	タスク内のチャレンジを定義する構造体
+[System.Serializable]
+public struct TaskChallangeData
+{
+	public ChallangeType	type;		//	タイプ
+	public int				value;		//	数値
+}
+
+
 //	シーン1つ分の構造体
 [System.Serializable]
 public struct TaskInfo
@@ -10,8 +30,13 @@ public struct TaskInfo
 	[SerializeField]
 	private string stageFileName;
 
+	//	タスク内のチャレンジ
+	[SerializeField]
+	private TaskChallangeData[] challanges;
+
 	//	プロパティ
-	public string SceneFileName { get { return stageFileName; } }              //	ステージID
+	public string			SceneFileName	{ get { return stageFileName; } }	//	ステージID
+	public TaskChallangeData[]	TaskChallanges	{ get { return challanges; } }		//	タスク内のチャレンジ
 }
 
 //	1ステージ分のタスクをまとめるオブジェクト

@@ -472,6 +472,9 @@ MonoBehaviour:
   drawGizmos: 0
   breakingVelocity: 13.5
   breakEffect: {fileID: 4880230932744218059, guid: b19019cb1a4fd6e4d9f9f3744cd000dc, type: 3}
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 12438
 --- !u!58 &5854646942024746533
 CircleCollider2D:
   m_ObjectHideFlags: 0

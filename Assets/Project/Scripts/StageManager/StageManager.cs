@@ -28,6 +28,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	private StageLoader			stageLoader;
 	[SerializeField]
 	private BackgroundSetter	bgSetter;
+	[SerializeField]
+	private ChallangeManager	challangeManager;
 
 	public int StageID => selectedStageData.StageID;
 	public int TaskIndex => selectedStageData.TaskIndex;
@@ -144,6 +146,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 
 		//	背景の設定
 		bgSetter.SetBackground(bgType);
+
+		//	タスク内チャレンジの設定
+		if (challangeManager != null)
+			challangeManager.SetTask(stageDataBase.Stages[selectedStageData.StageID].Tasks[selectedStageData.TaskIndex]);
 	}
 
 	/*--------------------------------------------------------------------------------

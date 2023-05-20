@@ -67,9 +67,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7784407282513234940}
-  - component: {fileID: 973240810755915907}
+  - component: {fileID: 5169267471696271350}
   - component: {fileID: 7780157966836545687}
   - component: {fileID: 7248925366512945969}
+  - component: {fileID: 6313629890898373287}
   m_Layer: 10
   m_Name: BoxThroughBlock
   m_TagString: Gimmick
@@ -93,7 +94,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &973240810755915907
+--- !u!212 &5169267471696271350
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,9 +134,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.2028302, b: 0.2028302, a: 1}
+  m_SortingOrder: 41
+  m_Sprite: {fileID: 425518618, guid: 4188570a796adee48a4b22502a76d1c9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -173,3 +174,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   rotatable: 0
+  anim: {fileID: 6313629890898373287}
+  spriteRenderer: {fileID: 5169267471696271350}
+  openSprite: {fileID: 425518618, guid: 4188570a796adee48a4b22502a76d1c9, type: 3}
+  closeSprite: {fileID: 579641856, guid: 4188570a796adee48a4b22502a76d1c9, type: 3}
+  checkArea: {x: 1.05, y: 1.05}
+  checkOffset: {x: 0, y: 0}
+  checkMask:
+    serializedVersion: 2
+    m_Bits: 320
+--- !u!95 &6313629890898373287
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7948234048704510900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d4d39b8c1170104182da30a2781f225, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

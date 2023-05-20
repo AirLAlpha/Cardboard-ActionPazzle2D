@@ -32,6 +32,7 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
 
     //  ¶‘¶
     private bool                isDead;                 //  €–Sƒtƒ‰ƒO
+    public bool IsDead { get { return isDead; } }
 
     [SerializeField]
     private bool                dontDeath;               //  –³“Gƒtƒ‰ƒO
@@ -84,6 +85,9 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
 
 	private void FixedUpdate()
 	{
+        if (dontDeath)
+            return;
+
 		//	“à•”‚ÉÕ“Ë‚µ‚½‚ç’×‚³‚ê‚Ä‚¢‚é‚Æ”»’è‚·‚é
 		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, mask);
 		if (hit != null)
@@ -104,7 +108,7 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
 	public void Burn()
 	{
         //  –³“G‚ÌÛ‚Íˆ—‚µ‚È‚¢
-        if (DontDeath)
+        if (dontDeath)
             return;
 
         //  ‚·‚Å‚É€‚ñ‚Å‚¢‚é‚Æ‚«‚Íˆ—‚µ‚È‚¢

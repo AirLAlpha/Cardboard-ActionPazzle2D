@@ -15,39 +15,39 @@ MonoBehaviour:
   buttons:
   - buttonName: Horizontal
     displayNames:
-    - MOVE
-    positiveKeySprite: {fileID: 1201586876, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    negativeKeySprite: {fileID: -1013339856, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    controllerSprite: {fileID: -878075277, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    - {fileID: 21300000, guid: 2c82e71699254c6458686371d39385ee, type: 3}
+    positiveKeySprite: {fileID: -657217306, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 1357413821, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    controllerSprite: {fileID: -421114973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Vertical
     displayNames:
-    - MOVE
-    positiveKeySprite: {fileID: 1674181247, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    negativeKeySprite: {fileID: 1972798246, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    controllerSprite: {fileID: -878075277, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    - {fileID: 21300000, guid: 2b10bd9efe0130344bfda78e300cffa1, type: 3}
+    positiveKeySprite: {fileID: 1234941655, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 487766292, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    controllerSprite: {fileID: -421114973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Jump
     displayNames:
-    - JUMP
-    - CONFIRM
-    positiveKeySprite: {fileID: 781182871, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    - {fileID: 21300000, guid: 832932186e07bf048a82b89f35fd26ca, type: 3}
+    - {fileID: 21300000, guid: 5418e7db66cb04f48acc74be7522b983, type: 3}
+    positiveKeySprite: {fileID: 1808860120, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: -140568353, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    controllerSprite: {fileID: -1497783279, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Fire1
     displayNames:
-    - POP
-    - PUT
-    positiveKeySprite: {fileID: -456837390, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    - {fileID: 21300000, guid: 536df163e57a5e04180c9ea2fb63d342, type: 3}
+    - {fileID: 21300000, guid: 9883046ad6d55b645816faeab1867eb1, type: 3}
+    positiveKeySprite: {fileID: 1438907897, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: 844328937, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    controllerSprite: {fileID: 1492496603, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Restart
     displayNames:
-    - RESET
-    positiveKeySprite: {fileID: -1114564150, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    - {fileID: 21300000, guid: 48ae1c39c6d1fd542a0e9b4880b7961e, type: 3}
+    positiveKeySprite: {fileID: -1765857646, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: 161381830, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    controllerSprite: {fileID: 71013611, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Menu
     displayNames:
-    - MENU
-    positiveKeySprite: {fileID: -1165423657, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
-    negativeKeySprite: {fileID: 0}
-    controllerSprite: {fileID: 794729594, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+    - {fileID: 21300000, guid: 634e2c92a27f6764e9dbd1a867041168, type: 3}
+    positiveKeySprite: {fileID: -1774697923, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: -1774697923, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    controllerSprite: {fileID: -2089790973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}

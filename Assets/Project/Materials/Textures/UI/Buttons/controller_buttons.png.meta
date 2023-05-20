@@ -117,148 +117,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: controller_buttons_a
+      name: controller_buttons_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 8
-        height: 8
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74870154ab87f194b86b948313712d6b
-      internalID: -140568353
+      spriteID: 68d8d2e13a145ba499c368a614dc7024
+      internalID: -1497783279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: controller_buttons_b
+      name: controller_buttons_1
       rect:
         serializedVersion: 2
-        x: 9
+        x: 17
         y: 0
-        width: 8
-        height: 8
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1f7e213f0a06c74ea42e89035953e22
-      internalID: 161381830
+      spriteID: 8ca87ea232e15de45adc9791945013de
+      internalID: 71013611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: controller_buttons_x
+      name: controller_buttons_2
       rect:
         serializedVersion: 2
-        x: 18
+        x: 34
         y: 0
-        width: 8
-        height: 8
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d05ddcac6c10604489f31b8b69f28328
-      internalID: 844328937
+      spriteID: b46765dda310ffa4eae5ca268033016a
+      internalID: 1492496603
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: controller_buttons_y
+      name: controller_buttons_3
       rect:
         serializedVersion: 2
-        x: 27
+        x: 51
         y: 0
-        width: 8
-        height: 8
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 453f6a74663b9054ea1f09f519d678f1
-      internalID: -750504043
+      spriteID: c6631623c3589b4498e202ef05bd560f
+      internalID: -1891492891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: controller_buttons_lstick
+      name: controller_buttons_4
       rect:
         serializedVersion: 2
-        x: 36
+        x: 68
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38eed35e9c20d51428c9ec7b7fbd556f
-      internalID: -878075277
+      spriteID: 8fab699a9f45206449ddca8f49b8ec41
+      internalID: -2913103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: controller_buttons_rstick
+      name: controller_buttons_5
       rect:
         serializedVersion: 2
-        x: 45
+        x: 85
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff2c9889a4d07ab47bc8debab53ecc18
-      internalID: 198271729
+      spriteID: 961c0d93ce145994f8b505b01409cb19
+      internalID: -421114973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: controller_buttons_menu
+      name: controller_buttons_6
       rect:
         serializedVersion: 2
-        x: 54
+        x: 102
         y: 0
-        width: 9
-        height: 9
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 642d082a3cd77ba48b069ea376e02dc2
-      internalID: 794729594
+      spriteID: 2c8975f639104c44e8caa8b1cf5110cd
+      internalID: -2089790973
       vertices: []
       indices: 
       edges: []
@@ -274,13 +274,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      controller_buttons_a: -140568353
-      controller_buttons_b: 161381830
-      controller_buttons_lstick: -878075277
-      controller_buttons_menu: 794729594
-      controller_buttons_rstick: 198271729
-      controller_buttons_x: 844328937
-      controller_buttons_y: -750504043
+      controller_buttons_0: -1497783279
+      controller_buttons_1: 71013611
+      controller_buttons_2: 1492496603
+      controller_buttons_3: -1891492891
+      controller_buttons_4: -2913103
+      controller_buttons_5: -421114973
+      controller_buttons_6: -2089790973
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

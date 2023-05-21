@@ -85,7 +85,7 @@ public class Transition : SingletonMonoBehaviour<Transition>
 	/*--------------------------------------------------------------------------------
 	|| 画面遷移の開始処理
 	--------------------------------------------------------------------------------*/
-	public void StartTransition(string[] scenes)
+	public void StartTransition(params string[] scenes)
 	{
 		StartCoroutine(TransitionCoroutine(scenes));
 	}

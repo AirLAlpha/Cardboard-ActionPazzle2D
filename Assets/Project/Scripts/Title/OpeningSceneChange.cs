@@ -79,8 +79,7 @@ public class OpeningSceneChange : MonoBehaviour
 	{
 		muteVolume = true;
 
-		string[] scenes = { TITLE_SCENE_NAME };
-		Transition.Instance.StartTransition(scenes);
+		Transition.Instance.StartTransition(TITLE_SCENE_NAME);
 	}
 	
 }

@@ -245,8 +245,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	--------------------------------------------------------------------------------*/
 	public void ReturnTitle()
 	{
-		string[] scenes = {"TitleScene"};
-		Transition.Instance.StartTransition(scenes);
+		Transition.Instance.StartTransition("TitleScene");
 	}
 
 	/*--------------------------------------------------------------------------------

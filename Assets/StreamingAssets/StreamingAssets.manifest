@@ -1,7 +1,0 @@
-ManifestFileVersion: 0
-CRC: 3383126420
-AssetBundleManifest:
-  AssetBundleInfos:
-    Info_0:
-      Name: stagedata
-      Dependencies: {}

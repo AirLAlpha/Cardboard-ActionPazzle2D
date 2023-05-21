@@ -1,0 +1,578 @@
+{
+    "objectDatas": [
+        {
+            "databaseIndex": 0,
+            "pos": {
+                "x": -3.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 42,
+            "pos": {
+                "x": -9.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 44,
+            "pos": {
+                "x": -8.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 42,
+            "pos": {
+                "x": -1.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 0.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 1.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 2.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 3.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 4.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 44,
+            "pos": {
+                "x": 5.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 42,
+            "pos": {
+                "x": 4.0,
+                "y": -1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 44,
+            "pos": {
+                "x": 5.0,
+                "y": -1.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 42,
+            "pos": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 5.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 6.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 43,
+            "pos": {
+                "x": 7.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 44,
+            "pos": {
+                "x": 8.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 31,
+            "pos": {
+                "x": 6.500001907348633,
+                "y": 1.5000004768371583,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 17,
+            "pos": {
+                "x": 1.5,
+                "y": -0.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 48,
+            "pos": {
+                "x": -8.5,
+                "y": -2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        }
+    ],
+    "gimmickDatas": [
+        {
+            "databaseIndex": 22,
+            "pos": {
+                "x": -8.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": "{\"speedMod\":1.0,\"inverse\":false}"
+        },
+        {
+            "databaseIndex": 18,
+            "pos": {
+                "x": -7.5,
+                "y": -2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 1,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 20,
+            "pos": {
+                "x": 1.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "type": 2,
+            "targetIndex": 1,
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.10000000149011612,\"closeSpeed\":0.0}"
+        },
+        {
+            "databaseIndex": 20,
+            "pos": {
+                "x": 6.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "type": 2,
+            "targetIndex": 1,
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.10000000149011612,\"closeSpeed\":0.0}"
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 5.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 4.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 1.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": 0.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 19,
+            "pos": {
+                "x": -2.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "type": 2,
+            "targetIndex": 1,
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.10000000149011612,\"closeSpeed\":0.0}"
+        },
+        {
+            "databaseIndex": 19,
+            "pos": {
+                "x": -5.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "type": 2,
+            "targetIndex": 1,
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.10000000149011612,\"closeSpeed\":0.0}"
+        },
+        {
+            "databaseIndex": 19,
+            "pos": {
+                "x": -6.5,
+                "y": -2.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 2,
+            "targetIndex": 15,
+            "extraSetting": "{\"openOffset\":{\"x\":-1.0,\"y\":0.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
+        },
+        {
+            "databaseIndex": 33,
+            "pos": {
+                "x": -7.5,
+                "y": -0.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 18,
+            "pos": {
+                "x": -8.5,
+                "y": -0.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 1,
+            "targetIndex": -1,
+            "extraSetting": ""
+        },
+        {
+            "databaseIndex": 19,
+            "pos": {
+                "x": -8.5,
+                "y": 6.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 2,
+            "targetIndex": 15,
+            "extraSetting": "{\"openOffset\":{\"x\":0.0,\"y\":-6.0},\"openSpeed\":0.10000000149011612,\"closeSpeed\":5.0}"
+        }
+    ],
+    "usableBoxCount": 6,
+    "targetBoxCount": 2,
+    "backgroundType": 3
+}

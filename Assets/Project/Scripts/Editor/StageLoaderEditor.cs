@@ -39,12 +39,5 @@ public class StageLoaderEditor : Editor
 			//	クリックされたらロード処理を実行
 			loader.LoadStageFromJson();
 		}
-
-		//	ロード処理を実行するボタンを表示
-		if (GUILayout.Button("Load (AssetBundle)", GUILayout.Height(30)))
-		{
-			//	クリックされたらロード処理を実行
-			loader.LoadStageFromAssetBundle();
-		}
 	}
 }

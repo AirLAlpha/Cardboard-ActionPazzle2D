@@ -1,87 +1,42 @@
-/**********************************************
- * 
- *  TitleCamera.cs 
- *  タイトルのカメラ処理を記述
- * 
- *  製作者：牛丸 文仁
- *  制作日：2023/04/08
- * 
- **********************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleCamera : ScrollCamera
+public class TitleCamera : MonoBehaviour
 {
-	[Header("タスクセレクト")]
-	[SerializeField]
-	private float taskHeight;		//	タスク選択時の高さ
-	[SerializeField]
-	private float moveSpeed;		//	移動速度
-	[SerializeField]
-	private float nonSelectTaskY;	//	タスク選択時じゃない時のY座標
+	static readonly float CAMERA_Z = -10.0f;
 
+	[Header("スクロール")]
 	[SerializeField]
-	private bool isSelectTask;		//	タスクセレクトの状態
+	private Transform		cameraTarget;       //	目標のオブジェクト
+	[SerializeField]
+	private float			scrollSpeed;        //	スクロール速度
+	[SerializeField]
+	private Vector2			scrollOffset;       //	スクロールのオフセット
+	[SerializeField]
+	private float			goalDistance;		//	到着したとする距離
 
+	//	スクロール対象の座標
+	private Vector3 ScrollTargetPosition => cameraTarget.position + (Vector3)scrollOffset + Vector3.forward * CAMERA_Z;
 
-	//	実行前初期化処理
-	private void Awake()
-	{
-		ignoredPosY = nonSelectTaskY;
-	}
-
-	//	初期化処理
-	protected override void Start()
-	{
-		base.Start();
-	}
+	//	プロパティ
+	public Transform	CameraTarget { get { return cameraTarget; } set { cameraTarget = value; } }
+	public bool			IsGoal { get; private set; }
 
 	//	更新処理
 	private void Update()
 	{
-		
-	}
+		//	目標のものがないときは処理しない
+		if (cameraTarget == null)
+			return;
 
-	protected override void LateUpdate()
-	{
-		if (!isSelectTask)
-		{
-			base.LateUpdate();
-		}
+		transform.position = Vector3.Lerp(transform.position, ScrollTargetPosition, Time.deltaTime * scrollSpeed);
+
+		//	距離を求めてゴールしたかどうかを判定する
+		float sqrDist = Vector3.SqrMagnitude(ScrollTargetPosition - transform.position);
+		if (sqrDist < goalDistance * goalDistance)
+			IsGoal = true;
 		else
-			SelectTaskUpdate();
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| タスク選択時更新処理
-	--------------------------------------------------------------------------------*/
-	private void SelectTaskUpdate()
-	{
-		Vector3 targetPos = saveNonOffsetPos + new Vector3(trackingOffset.x, trackingOffset.y) + Vector3.up * taskHeight;
-		targetPos.z = -10.0f;
-
-		transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * moveSpeed);
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| タスクセレクトの開始処理
-	--------------------------------------------------------------------------------*/
-	[ContextMenu("StartTaskSelect")]
-	public void StartTaskSelect()
-	{
-		saveNonOffsetPos = currentTargetPos;
-		this.isSelectTask = true;
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| タスクセレクトの終了処理
-	--------------------------------------------------------------------------------*/
-	[ContextMenu("EndTaskSelect")]
-	public void EndTaskSelect()
-	{
-		ignoredPosY = nonSelectTaskY;
-		base.saveNonOffsetPos = transform.position;
-		this.isSelectTask = false;
+			IsGoal = false;
 	}
 }

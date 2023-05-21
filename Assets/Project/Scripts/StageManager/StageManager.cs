@@ -97,8 +97,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			return;
 
 		//	ステージの読み込みを行う
-		string stageFileName = stageDataBase.Stages[selectedStageData.StageID].Tasks[selectedStageData.TaskIndex].SceneFileName;
-		stageLoader.LoadStageFromAssetBundle(stageFileName);
+		stageLoader.LoadStageFromDatabase(selectedStageData.StageID, selectedStageData.TaskIndex);
 	}
 
 	//	更新処理

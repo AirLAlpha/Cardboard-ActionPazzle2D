@@ -60,11 +60,11 @@ Material:
     - _QueueOffset: 0
     - _SeedChangeSpeed: 0.02
     - _TimeOffset: 0
-    - _TimeScale: 0.05
+    - _TimeScale: 0.03
     - _WaveCount: 14.8
     - _WaveOffsetX: -0.5
     - _WaveScale: 0.1
     m_Colors:
     - _EdgeColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
-    - _WaveScale: {r: 0.04, g: 89.9, b: 0, a: 0}
+    - _WaveScale: {r: 0.025, g: 27.56, b: 0, a: 0}
   m_BuildTextureStacks: []

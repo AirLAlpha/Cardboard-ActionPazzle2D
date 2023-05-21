@@ -4438,6 +4438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909f963e735a3144b8fb81ab215535c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageDatabase: {fileID: 11400000, guid: 79de8b1834e3a0d48bf4b4bafdff0e66, type: 2}
   objectDatabase: {fileID: 11400000, guid: 9ef8abc5b670ce54bb13ebb955099b4c, type: 2}
   enemyRoot: {fileID: 860382737}
   gimmickRoot: {fileID: 866785918}

@@ -11,8 +11,9 @@ using UnityEngine;
 
 public class ScrollOverrider : MonoBehaviour
 {
+
 	//	コンポーネント
-	private ScrollCamera			scrollCamera;		//	スクロールカメラの取得
+	private ScrollCamera			scrollCamera;       //	スクロールカメラの取得
 
 	//	範囲
 	[Header("範囲")]

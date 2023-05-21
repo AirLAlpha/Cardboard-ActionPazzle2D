@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 2325950028
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dea044a3b244acd385e7df1fb404eecc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Project/StageData/Stage_1/1-4.json
+- Assets/Project/StageData/Stage_1/1-5.json
+- Assets/Project/StageData/Stage_1/1_1.json
+- Assets/Project/StageData/Stage_1/1-3.json
+- Assets/Project/StageData/Stage_1/1-2.json
+Dependencies: []

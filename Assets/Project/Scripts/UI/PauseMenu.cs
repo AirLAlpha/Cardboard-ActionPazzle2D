@@ -17,8 +17,8 @@ public class PauseMenu : MenuBase
 	private enum PauseMenuItem
 	{
 		RESUME,		//	再開
-		RETRY,		//	リトライ
-		//CONFIG,		//	設定
+		RETRY,      //	リトライ
+		CONFIG,     //	設定
 		EXIT,		//	タイトルへ戻る
 	}
 	//	現在選択中の項目
@@ -80,8 +80,8 @@ public class PauseMenu : MenuBase
 				StageManager.Instance.ResetStage();		//	ステージのリセット
 				break;
 
-			//case PauseMenuItem.CONFIG:
-			//	break;
+			case PauseMenuItem.CONFIG:
+				break;
 
 			case PauseMenuItem.EXIT:
 				StageManager.Instance.ReturnTitle();	//	タイトルへ戻る

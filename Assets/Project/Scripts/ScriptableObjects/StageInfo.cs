@@ -28,15 +28,15 @@ public struct TaskInfo
 {
 	//	シーン情報
 	[SerializeField]
-	private string stageFileName;
+	private TextAsset stageJson;
 
 	//	タスク内のチャレンジ
 	[SerializeField]
 	private TaskChallangeData[] challanges;
 
 	//	プロパティ
-	public string			SceneFileName	{ get { return stageFileName; } }	//	ステージID
 	public TaskChallangeData[]	TaskChallanges	{ get { return challanges; } }		//	タスク内のチャレンジ
+	public TextAsset StageJson { get { return stageJson; } }
 }
 
 //	1ステージ分のタスクをまとめるオブジェクト

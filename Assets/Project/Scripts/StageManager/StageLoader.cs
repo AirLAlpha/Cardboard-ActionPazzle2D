@@ -7,10 +7,9 @@ using System.Windows.Forms;
 
 public class StageLoader : MonoBehaviour
 {
-	//	アセットバンドル（ステージデータ）
-	static private AssetBundle		stagedataBundle;	//	ステージデータのアセットバンドル
-
 	[Header("データベース")]
+	[SerializeField]
+	private StageDataBase			stageDatabase;
 	[SerializeField]
 	private StageObjectDatabase		objectDatabase;		//	オブジェクトのデータベース
 
@@ -40,27 +39,6 @@ public class StageLoader : MonoBehaviour
 	private List<int>				senderIndex;                    //	メッセージを送るギミックの子番号
 	[SerializeField, HideInInspector]
 	private List<ReceiveGimmick>	receives;
-
-	//	有効化時処理
-	private void OnEnable()
-	{
-		//	アセットバンドルが読み込まれていないときは読み込む
-		if (stagedataBundle == null)
-		{
-			string path = UnityEngine.Application.streamingAssetsPath;
-			path = path.Replace("/", "\\");
-			path = Path.Combine(path, stageBundleName);
-			stagedataBundle = AssetBundle.LoadFromFile(path);
-		}
-	}
-
-	//	無効化時処理
-	private void OnDisable()
-	{
-		if (stagedataBundle != null)
-			AssetBundle.UnloadAllAssetBundles(true);
-	}
-
 
 	/*--------------------------------------------------------------------------------
 	|| Jsonファイルよりステージを読み込む処理
@@ -103,20 +81,9 @@ public class StageLoader : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| アセットバンドルよりステージを読み込む処理
 	--------------------------------------------------------------------------------*/
-	public void LoadStageFromAssetBundle(string fileName = "", bool pauseEnable = false)
+	public void LoadStageFromDatabase(int stageID, int taskIndex, bool pauseEnable = false)
 	{
-		if(stagedataBundle == null)
-		{
-			Debug.LogError("ステージデータのアセットバンドルが読み込まれていません。");
-			return;
-		}
-
-		if (fileName == string.Empty)
-			fileName = stageFilename;
-		else
-			stageFilename = fileName;
-
-		var asset = stagedataBundle.LoadAsset<TextAsset>(fileName);
+		var asset = stageDatabase.Stages[stageID].Tasks[taskIndex].StageJson;
 		string json = asset.ToString();
 
 		LoadStage(json, pauseEnable);
@@ -382,22 +349,4 @@ public class StageLoader : MonoBehaviour
 		string fileDir = dialog.FileName.Replace(filename, "");
 		LoadStageFromJson(filename, fileDir, true);
 	}
-
-#if UNITY_EDITOR
-	/*--------------------------------------------------------------------------------
-	|| アセットバンドルの読み込み処理（デバッグ用）
-	--------------------------------------------------------------------------------*/
-	[UnityEngine.ContextMenu("Load AssetBundle")]
-	private void LoadAsestBundle()
-	{
-		//	アセットバンドルが読み込まれていないときは読み込む
-		if (stagedataBundle == null)
-		{
-			string path = UnityEngine.Application.streamingAssetsPath;
-			path = path.Replace("/", "\\");
-			path = Path.Combine(path, stageBundleName);
-			stagedataBundle = AssetBundle.LoadFromFile(path);
-		}
-	}
-#endif
 }

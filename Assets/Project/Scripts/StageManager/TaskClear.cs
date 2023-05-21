@@ -282,7 +282,12 @@ public class TaskClear : MonoBehaviour
 		//	テキストに適応
 		boxCountText.text = n.ToString("D2");
 
-		float progress = n / (float)usedBoxCount;
+		float progress = 0.0f;
+		if (usedBoxCount != 0)
+			progress = n / (float)usedBoxCount;
+		else
+			progress = 1.0f;
+
 		if(progress >= 1.0f)
 		{
 			boxCountText.text = usedBoxCount.ToString("D2");
@@ -416,7 +421,7 @@ public class TaskClear : MonoBehaviour
 		//	セーブデータの読み込み
 		SaveData data = SaveDataLoader.LoadJson();
 
-		TaskScore taskScore = data.stageScores[selectedTask.StageID].scores[selectedTask.TaskIndex];
+		TaskScore taskScore = data.stageScores[selectedTask.StageID - 1].scores[selectedTask.TaskIndex];
 
 		//	過去にクリアしていない場合 or 使用した箱の数を更新したときは書き換える
 		if(taskScore.clearTime <= 0.0f ||														//	過去にクリアしていない
@@ -427,7 +432,7 @@ public class TaskClear : MonoBehaviour
 			taskScore.usedBoxCount = usedBoxCount;
 
 			//	書き換えたスコアをデータに格納
-			data.stageScores[selectedTask.StageID].scores[selectedTask.TaskIndex] = taskScore;
+			data.stageScores[selectedTask.StageID - 1].scores[selectedTask.TaskIndex] = taskScore;
 			//	JSONの書き出し
 			SaveDataLoader.ExportJson(data);
 		}

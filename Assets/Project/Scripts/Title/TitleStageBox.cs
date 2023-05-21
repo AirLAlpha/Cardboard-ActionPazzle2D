@@ -13,6 +13,8 @@ using UnityEngine;
 
 public class TitleStageBox : MonoBehaviour
 {
+	private bool enableTaskSelect;
+
 	//	コンポーネント
 	[Header("コンポーネント")]
 	[SerializeField]
@@ -20,77 +22,39 @@ public class TitleStageBox : MonoBehaviour
 	[SerializeField]
 	private Animator		boxAnim;
 	[SerializeField]
-	private TitleManager	titleManager;
-
-	//	ステージ情報
-	[Header("ステージ情報")]
-	[SerializeField]
-	private int stageIndex;
-
-	//	選択
-	[Header("選択")]
-	[SerializeField]
-	private Rect			selectArea;     //	選択中とする範囲
-	[SerializeField]
-	private LayerMask		selectMask;		//	選択できるレイヤー
-
-	//	選択中とする範囲の中心座標
-	private Vector3 SelectAreaCenter => new Vector3(selectArea.x, selectArea.y) + transform.position;
-
-	private bool			inRange;        //	範囲内フラグ
+	private TitleTasks		tasks;
 
 	//	ハコの開閉
 	[Header("開閉")]
+	[SerializeField]
+	private bool			isOpen;			//	開閉フラグ
 	[SerializeField]
 	private float			openSpeed;		//	ハコの開閉速度
 	
 	private float			openProgress;
 
-
-#if UNITY_EDITOR
-	[Header("デバッグ")]
+	[Header("背景")]
 	[SerializeField]
-	private bool drawGizmos;
-#endif
+	private Transform		taskBackground;
+	[SerializeField]
+	private float			bgZoomSpeed;
+	[SerializeField]
+	private Vector2			bgIdleScale;
+	[SerializeField]
+	private Vector2			bgZoomScale;
 
+	//	プロパティ
+	public bool IsOpen { get { return isOpen; } set { isOpen = value; } }
+	public int	SelectedTaskIndex => tasks.SelectedTaskIndex;
 
 	//	更新処理
 	private void Update()
 	{
-		CheckArea();
-		SelectUpdate();
 		BoxOpenUpdate();
+		BackgroundZoomUpdate();
 
 		//	クリア状況のアニメーションパラメータを変更
-		stageClearStatusAnim.SetBool("Enable", inRange);
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| 範囲判定
-	--------------------------------------------------------------------------------*/
-	private void CheckArea()
-	{
-		inRange = Physics2D.OverlapBox(SelectAreaCenter, selectArea.size, 0, selectMask);
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| 選択の適応処理
-	--------------------------------------------------------------------------------*/
-	private void SelectUpdate()
-	{
-		//	範囲外
-		if(!inRange)
-		{
-			//	自身の保持するステージ番号のときはリセットする
-			if (titleManager.SelectedStage == this.stageIndex)
-				titleManager.SelectedStage = -1;
-		}
-		//	範囲内
-		else
-		{
-			//	選択中のステージとして設定する
-			titleManager.SelectedStage = this.stageIndex;
-		}
+		stageClearStatusAnim.SetBool("Enable", isOpen);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -98,29 +62,40 @@ public class TitleStageBox : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void BoxOpenUpdate()
 	{
-		int progressDir = inRange ? 1 : -1;
+		int progressDir = isOpen ? 1 : -1;
 		openProgress += Time.deltaTime * openSpeed * progressDir;
 		openProgress = Mathf.Clamp01(openProgress);
 
 		boxAnim.SetFloat("OpenProgress", EasingFunctions.EaseInOutCubic(openProgress));
 	}
 
-#if UNITY_EDITOR
 	/*--------------------------------------------------------------------------------
-	|| ギズモの描画処理
+	|| 背景のズーム処理
 	--------------------------------------------------------------------------------*/
-	private void OnDrawGizmosSelected()
+	private void BackgroundZoomUpdate()
 	{
-		//	フラグが有効でないときは処理しない
-		if (!drawGizmos)
-			return;
-
-		//	色の設定
-		Color col = Color.yellow;
-		col.a = 0.5f;
-		Gizmos.color = col;
-		//	範囲の描画
-		Gizmos.DrawCube(SelectAreaCenter, selectArea.size);
+		Vector2 targetScale = enableTaskSelect ? bgZoomScale : bgIdleScale;
+		taskBackground.localScale = Vector2.Lerp(taskBackground.localScale, targetScale, Time.deltaTime * bgZoomSpeed);
 	}
-#endif
+
+	/*--------------------------------------------------------------------------------
+	|| ステージの選択処理
+	--------------------------------------------------------------------------------*/
+	public void SelectBox()
+	{
+		stageClearStatusAnim.SetFloat("AnimationSpeed", 0.0f);
+		tasks.StartTaskSelect();
+		enableTaskSelect = true;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| キャンセル処理
+	--------------------------------------------------------------------------------*/
+	public void CancelBox()
+	{
+		enableTaskSelect = false;
+		stageClearStatusAnim.SetFloat("AnimationSpeed", 1.0f);
+		tasks.EndTaskSelect();
+	}
+
 }

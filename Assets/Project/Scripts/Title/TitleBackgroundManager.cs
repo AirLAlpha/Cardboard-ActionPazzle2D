@@ -40,6 +40,7 @@ public class TitleBackgroundManager : MonoBehaviour
 	{
 		propertyBlock = new MaterialPropertyBlock();
 
+		//	オフセットの適応
 		for (int i = 0; i < renderers.Length; i++)
 		{
 			//	プロパティを取得
@@ -53,7 +54,21 @@ public class TitleBackgroundManager : MonoBehaviour
 			//	プロパティを設定
 			renderers[i].SetPropertyBlock(propertyBlock);
 		}
-		
+
+		//	色の変更
+		for (int i = 0; i < renderers.Length; i++)
+		{
+			Color targetColor = stageSelect.SelectedStage == i ? selectedColor : nonSelectedColor;
+
+			if (stageSelect.SelectedStage == 0 && i == 0)
+			{
+				targetColor = Color.white;
+				renderers[renderers.Length - 1].color = targetColor;
+			}
+
+			renderers[i].color = targetColor;
+		}
+
 	}
 
 	//	更新処理

@@ -156,4 +156,13 @@ public class TitlePlayer : MonoBehaviour
 	{
 		return x * x;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| 帽子の切り替え
+	--------------------------------------------------------------------------------*/
+	public void SetCapEnable(bool value)
+	{
+		cap.gameObject.SetActive(value);
+	}
+
 }

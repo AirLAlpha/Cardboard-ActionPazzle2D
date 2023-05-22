@@ -15,6 +15,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
+	[Header("ボタンヒント")]
+	[SerializeField]
+	private CanvasAlphaController buttonHintAlphaController;
+
 	//	ステージ
 	[Header("ステージデータ")]
 	[SerializeField]
@@ -25,14 +29,20 @@ public class TitleManager : MonoBehaviour
 	//	オープニング
 	[Header("オープニング")]
 	[SerializeField]
+	private PlayableDirector	titleOpeningDirector;
+	[SerializeField]
 	private TitlePlayer			player;
 	[SerializeField]
 	private Vector3				playerStartPos;
 	[SerializeField]
 	private Vector3				playerEndPos;
+	[SerializeField]
+	private float				endWait;
 
 	private bool				isOpening;
-	public bool					IsOpening { get { return isOpening; } }
+	private float				waitTime;
+
+	public bool					IsOpening { get { return isOpening; } set { isOpening = value; } }
 
 	//	実行前初期化処理
 	private void Awake()
@@ -43,6 +53,9 @@ public class TitleManager : MonoBehaviour
 
 			player.transform.position = playerStartPos;
 			player.TargetPos = playerEndPos;
+			player.SetCapEnable(false);
+
+			buttonHintAlphaController.SetAlpha(0.0f);
 		}
 	}
 
@@ -55,14 +68,16 @@ public class TitleManager : MonoBehaviour
 	//	更新処理
 	private void Update()
 	{
-		if (isOpening)
+		if (isOpening && player.IsGoal)
 		{
-			if(player.IsGoal)
+			if (waitTime >= endWait)
 			{
-				isOpening = false;
+				titleOpeningDirector.Play();
 			}
-
-			return;
+			else
+			{
+				waitTime += Time.deltaTime;
+			}
 		}
 	}
 

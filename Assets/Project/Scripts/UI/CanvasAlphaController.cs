@@ -44,4 +44,18 @@ public class CanvasAlphaController : MonoBehaviour
 				group.alpha = 0.0f;
 		}
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| 透明度を設定
+	--------------------------------------------------------------------------------*/
+	public void SetAlpha(float alpha)
+	{
+		targetAlpha = alpha;
+
+		foreach (var group in groups)
+		{
+			group.alpha = alpha;
+		}
+	}
+
 }

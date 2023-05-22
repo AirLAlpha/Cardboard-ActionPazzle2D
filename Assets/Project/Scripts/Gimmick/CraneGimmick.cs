@@ -15,7 +15,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class CraneGimmick : ReceiveGimmick
+public class CraneGimmick : ReceiveGimmick, IPauseable
 {
 	//	ギミック固有の設定
 	private struct CraneSetting
@@ -80,6 +80,9 @@ public class CraneGimmick : ReceiveGimmick
 	private bool			active;
 
 	private bool			closeArms;          //	アームの閉じるフラグ	
+
+	//	ポーズ
+	private bool			isPause;
 
 	System.Action<bool> buttonAction => (bool pressed) =>
 	{
@@ -390,6 +393,25 @@ public class CraneGimmick : ReceiveGimmick
 			return;
 
 		Sender.AddAction(buttonAction);
+	}
+
+	public void Pause()
+	{
+		isPause = true;
+	}
+
+	public void Resume()
+	{
+		isPause = false;
+
+		//	Rigidbodyがついていれば無効化する
+		if (grabTarget != null &&
+			grabTarget.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+		{
+			rb.isKinematic = true;
+			rb.velocity = Vector2.zero;
+			rb.angularVelocity = 0.0f;
+		}
 	}
 
 

@@ -13,7 +13,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DoorGimmick : ReceiveGimmick
+public class DoorGimmick : ReceiveGimmick, IPauseable
 {
 	//	ドア固有の設定の構造体
 	[System.Serializable]
@@ -71,9 +71,15 @@ public class DoorGimmick : ReceiveGimmick
 	private Vector3 savePos;        //	前回処理時の座標（移動量取得用）
 	private float saveDiffMagnitude;
 
+	//	ポーズ
+	private bool isPause;
+
 	//	更新処理（Physics2Dと合わせるためにFixedUpdateを使用）
 	private void FixedUpdate()
 	{
+		if (isPause)
+			return;
+
 		//	座標を保持しておく
 		savePos = doorRoot.position;
 
@@ -186,5 +192,15 @@ public class DoorGimmick : ReceiveGimmick
 
 		Debug.DrawRay(startPos, checkDir * distance, Color.red);
 		Debug.DrawLine(startPos + checkDir * distance + new Vector3(-1.5f, 0.5f), startPos + checkDir * distance + new Vector3(1.5f, 0.5f));
+	}
+
+	public void Pause()
+	{
+		isPause = true;
+	}
+
+	public void Resume()
+	{
+		isPause = false;
 	}
 }

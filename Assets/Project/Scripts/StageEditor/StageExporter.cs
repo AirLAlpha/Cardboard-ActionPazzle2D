@@ -84,8 +84,6 @@ public class StageExporter : MonoBehaviour
 			var tilemapList = TilemapToTileList(tilemap);
 			exportStruct.objectDatas.AddRange(tilemapList);
 		}
-		//	敵のリストを書き出し用に追加する
-		exportStruct.objectDatas.AddRange(ObjectToObjectList(enemyRoot));
 
 		//	ギミックを設定する
 		exportStruct.gimmickDatas.AddRange(GimmickToGimmickList(gimmickRoot));
@@ -93,6 +91,8 @@ public class StageExporter : MonoBehaviour
 		//	ステージ上の段ボールを書き出し用に追加する
 		exportStruct.objectDatas.AddRange(ObjectToObjectList(cardboardRoot));
 
+		//	敵のリストを書き出し用に追加する
+		exportStruct.objectDatas.AddRange(ObjectToObjectList(enemyRoot));
 
 		//	構造体をJsonにする
 		string json = JsonUtility.ToJson(exportStruct, true);

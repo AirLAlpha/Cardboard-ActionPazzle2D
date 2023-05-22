@@ -6905,7 +6905,7 @@ MonoBehaviour:
   OnControllerConnected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3373980435324473587}
         m_TargetAssemblyTypeName: ButtonHint, Assembly-CSharp
         m_MethodName: ControlButtons
         m_Mode: 6
@@ -6917,7 +6917,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3373980435324473587}
         m_TargetAssemblyTypeName: ButtonHint, Assembly-CSharp
         m_MethodName: MenuButton
         m_Mode: 6
@@ -6932,7 +6932,7 @@ MonoBehaviour:
   OnControllerReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3373980435324473587}
         m_TargetAssemblyTypeName: ButtonHint, Assembly-CSharp
         m_MethodName: ControlButtons
         m_Mode: 6
@@ -6944,7 +6944,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3373980435324473587}
         m_TargetAssemblyTypeName: ButtonHint, Assembly-CSharp
         m_MethodName: MenuButton
         m_Mode: 6
@@ -8073,51 +8073,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1455866010489839871, guid: f338c21c4388614419df7eecd4e38b04, type: 3}
   m_PrefabInstance: {fileID: 1903278711}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2094821063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323706388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 351fda9709df2da4dbd15f64738be2cf, type: 2}
-    - {fileID: 11400000, guid: f09f060b4efd7d94aa89c7ce12d31a06, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-          m_MethodName: set_DisableInput
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-          m_MethodName: set_DisableInput
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &2094821067
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(Animator))]
 public class RestartProgressBar : MonoBehaviour
 {
 	private CanvasGroup group;
+	private Animator	anim;
+
 	[SerializeField]
 	private CanvasAlphaController canvasAlphaController;
-	[SerializeField]
-	private Slider progressSlider;
 	[SerializeField]
 	private float alphaSpeed;
 
@@ -19,7 +20,8 @@ public class RestartProgressBar : MonoBehaviour
 	//	実行前初期化処理
 	private void Awake()
 	{
-		group = GetComponent<CanvasGroup>();	
+		group = GetComponent<CanvasGroup>();
+		anim = GetComponent<Animator>();
 	}
 
 	//	初期化処理
@@ -44,8 +46,7 @@ public class RestartProgressBar : MonoBehaviour
 		alpha = Mathf.Clamp01(alpha);
 		group.alpha = alpha * canvasAlphaController.TargetAlpha;
 
-		progressSlider.value = Ease(progress);
-		
+		anim.SetFloat("Progress", progress);
 	}
 
 	private float Ease(float x)

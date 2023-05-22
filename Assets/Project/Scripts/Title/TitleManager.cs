@@ -15,42 +15,12 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-	//	状態
-	enum State
-	{
-		TITLE,				//	タイトル
-		TASK_SELECT,		//	タスクセレクト
-		CHANGE_SCENE,		//	シーンチェンジ
-	}
-	private State				state;
-
 	//	ステージ
 	[Header("ステージデータ")]
 	[SerializeField]
 	private StageDataBase		stageDataBase;
 	[SerializeField]
 	private SelectedTaskData	selectedData;
-
-	//	コンポーネント
-	[Header("コンポーネント")]
-	[SerializeField]
-	private Transform			playerMove;         //	プレイヤー（移動）
-	[SerializeField]
-	private TitleCamera			titleCamera;        //	タイトルのカメラ
-	[SerializeField]
-	private TaskManager			taskManager;        //	タスクマネージャー
-
-	public int					SelectedStage { get; set; }     //	選択中のステージ
-	private int					saveSelectedStage;
-
-	//	ボタンヒント
-	[Header("ボタンヒント")]
-	[SerializeField]
-	private ButtonHint			buttonHit;
-
-	//	入力
-	private bool				inputConfirm;					//	確定ボタン
-	private bool				inputCancel;                    //	キャンセルボタン
 
 	//	オープニング
 	[Header("オープニング")]
@@ -67,9 +37,6 @@ public class TitleManager : MonoBehaviour
 	//	実行前初期化処理
 	private void Awake()
 	{
-		//	変数の初期化
-		SelectedStage = -1;
-
 		if (selectedData.StageID == -1)
 		{
 			isOpening = true;
@@ -96,60 +63,6 @@ public class TitleManager : MonoBehaviour
 			}
 
 			return;
-		}
-
-
-		InputUpdate();      //	入力処理
-
-		if (inputCancel && state == State.TASK_SELECT)
-			CancelTaskSelect();
-
-		ButtonHintUpdate();
-
-		//	値を保持する
-		saveSelectedStage = SelectedStage;
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| 入力処理
-	--------------------------------------------------------------------------------*/
-	private void InputUpdate()
-	{
-		inputConfirm	= Input.GetButtonDown("Jump");
-		inputCancel		= Input.GetButtonDown("Restart");
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| タスク選択のキャンセル時処理
-	--------------------------------------------------------------------------------*/
-	private void CancelTaskSelect()
-	{
-		if (taskManager.PickUpFlag)
-			return;
-
-		//	タイトルへと移行する
-		state = State.TITLE;
-
-		//	キャンセルボタンのヒントを非表示
-		buttonHit.SetActive("Restart", false);
-
-	}
-
-	/*--------------------------------------------------------------------------------
-	|| ボタンヒントの更新処理
-	--------------------------------------------------------------------------------*/
-	private void ButtonHintUpdate()
-	{
-		if (SelectedStage == saveSelectedStage)
-			return;
-
-		if(SelectedStage != -1)
-		{
-			buttonHit.SetDisplayNameIndex("Jump", 1);
-		}
-		else
-		{
-			buttonHit.SetDisplayNameIndex("Jump", 0);
 		}
 	}
 

@@ -41,7 +41,7 @@ public class TaskManager : MonoBehaviour
 	[SerializeField]
 	private SpriteAlphaController	backgroundAlphaControlelr;
 
-	private SoundPlayer				soundPlayer;
+	//private SoundPlayer				soundPlayer;
 
 	//	ステージインデックスの設定
 	public int StageIndex { set { selectedTask.StageID = value; } }
@@ -167,7 +167,6 @@ public class TaskManager : MonoBehaviour
 	//	実行前初期化処理
 	private void Awake()
 	{
-		soundPlayer = GetComponent<SoundPlayer>();
 	}
 
 	//	初期化処理
@@ -227,8 +226,6 @@ public class TaskManager : MonoBehaviour
 			inputX = x;
 			inputXTimer = inputXInterval;
 
-			//	サウンドの再生
-			soundPlayer.Play(1);
 		}
 		else if(inputXTimer > 0)
 		{
@@ -439,8 +436,6 @@ public class TaskManager : MonoBehaviour
 	{
 		selectedTask.TaskIndex = selectedNum;
 
-		//	サウンドの再生
-		soundPlayer.Play(0);
 
 		//	シーンの読み込みを実行
 		titleManager.LoadScene();
@@ -495,9 +490,6 @@ public class TaskManager : MonoBehaviour
 		isActive = true;
 		//	ルートオブジェクトを有効化
 		taskImageRoot.gameObject.SetActive(true);
-
-		//	サウンドの再生
-		soundPlayer.Play(2);
 	}
 
 	/*--------------------------------------------------------------------------------

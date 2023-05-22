@@ -129,13 +129,9 @@ public class CraneGimmick : ReceiveGimmick
 	//	終了処理
 	private void OnDestroy()
 	{
-		if (grabTarget != null)
-			Release();
 	}
 	private void OnDisable()
 	{
-		if (grabTarget != null)
-			Release();
 	}
 
 

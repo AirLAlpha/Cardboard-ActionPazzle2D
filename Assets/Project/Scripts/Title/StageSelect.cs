@@ -44,6 +44,8 @@ public class StageSelect : MonoBehaviour
 
 	[Header("入力")]
 	[SerializeField]
+	private ButtonHint		buttonHint;
+	[SerializeField]
 	private float			inputInterval;      //	X軸入力の間隔
 
 	private float			inputWaitTime;
@@ -191,6 +193,14 @@ public class StageSelect : MonoBehaviour
 				titleManager.LoadScene();
 			}
 		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ボタンヒントの更新
+	--------------------------------------------------------------------------------*/
+	private void ButtonHintUpdate()
+	{
+		//if()
 	}
 
 }

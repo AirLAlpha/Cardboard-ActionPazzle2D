@@ -62,7 +62,6 @@ public class TitleManager : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		
 	}
 
 	//	更新処理

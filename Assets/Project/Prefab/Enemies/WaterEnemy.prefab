@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3866590518016526168}
+  rb: {fileID: 3866590518751019314}
   attentionRange: 7
   attackRange: 5
   rangeOffset: {x: 0, y: 0.25}
@@ -235,7 +236,7 @@ MonoBehaviour:
   overlapMask:
     serializedVersion: 2
     m_Bits: 12438
-  deadEffect: {fileID: 2976459336271847165, guid: f565eaf8938cae64ca3f20086b967a69, type: 3}
+  deadEffect: {fileID: 4880230932744218059, guid: b19019cb1a4fd6e4d9f9f3744cd000dc, type: 3}
   drawGizmos: 1
   spriteRenderer: {fileID: 3866590519529855347}
   targetProgress: 0

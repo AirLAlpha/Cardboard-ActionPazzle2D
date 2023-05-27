@@ -39,4 +39,12 @@ public class TitleCamera : MonoBehaviour
 		else
 			IsGoal = false;
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| カメラの位置を強制的にターゲットに移動させる
+	--------------------------------------------------------------------------------*/
+	public void SetPosToTarget()
+	{
+		transform.position = ScrollTargetPosition;
+	}
 }

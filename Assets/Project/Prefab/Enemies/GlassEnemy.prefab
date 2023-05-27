@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  rb: {fileID: 2721762155451645146}
   attentionRange: 7
   attackRange: 5
   rangeOffset: {x: 0, y: 0}

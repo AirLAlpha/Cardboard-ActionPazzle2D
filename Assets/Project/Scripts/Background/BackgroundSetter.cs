@@ -40,6 +40,10 @@ public class BackgroundSetter : MonoBehaviour
 
 	private int anim_backgroundID;
 
+	[Header("標識")]
+	[SerializeField]
+	private Transform				sign;
+
 	private void Awake()
 	{
 		//	ハッシュの作成
@@ -76,5 +80,9 @@ public class BackgroundSetter : MonoBehaviour
 
 		//	タイルを置き換える
 		baseTilemap.SetTiles(dbIndex, bgData.TileJson);
+
+		//	レベルに応じて標識の表示を切り替える
+		bool signActive = bgData.SignActivate;
+		sign.gameObject.SetActive(signActive);
 	}
 }

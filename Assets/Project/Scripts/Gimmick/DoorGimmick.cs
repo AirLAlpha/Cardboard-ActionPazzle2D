@@ -7,6 +7,7 @@
  *  制作日：2023/04/04
  * 
  **********************************************/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -96,6 +97,11 @@ public class DoorGimmick : ReceiveGimmick, IPauseable
 		//	進行度から座標を算出する（進行度にはイージングを適応）
 		doorRoot.localPosition = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
 
+		//Vector4 pos = Vector3.Lerp(Vector3.zero, openOffset, EasingFunctions.EaseInOutSine(openProgress));
+		//pos.w = 1.0f;
+		//var a = transform.localToWorldMatrix * pos;
+		//doorRootRb.MovePosition(a);
+
 		CheckOnRodeObject();
 	}
 
@@ -168,6 +174,8 @@ public class DoorGimmick : ReceiveGimmick, IPauseable
 		if (moveDir.y < 0 &&
 			Mathf.Abs(dot) <= Mathf.Cos(Mathf.PI / 4))
 		{
+			return;
+
 			checkDir *= -1;             //	確認方向を上に向ける
 
 			//	移動開始時と終了時に浮くのが気になるときは以下のコメントアウトを解除する
@@ -179,12 +187,18 @@ public class DoorGimmick : ReceiveGimmick, IPauseable
 			moveValue = saveDiffMagnitude;
 		}
 
+
 		//	BoxCastを行いすべてのオブジェクトを取得
 		var hitResult = Physics2D.BoxCastAll(startPos, doorCollider.size * 0.9f, transform.localEulerAngles.z, checkDir, distance, checkObjectMask);
 		//	すべてのオブジェクトに移動量を加算する
 		foreach (var item in hitResult)
 		{
 			item.transform.position += moveDir * moveValue;
+			//if(item.transform.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb2d))
+			//{
+			//	rb2d.MovePosition(item.transform.position + moveDir * moveValue);
+			//	rb2d.angularVelocity = 0;
+			//}
 		}
 
 		//	今回の差分を保持しておく
@@ -202,5 +216,18 @@ public class DoorGimmick : ReceiveGimmick, IPauseable
 	public void Resume()
 	{
 		isPause = false;
+	}
+
+
+	//	キャストを行う
+	private bool TryCast<Type>(object obj, out Type type) where Type : class
+	{
+		//	キャストを行う
+		type = obj as Type;
+
+		if (type == null)
+			return false;
+
+		return true;
 	}
 }

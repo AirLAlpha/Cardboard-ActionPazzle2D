@@ -9,6 +9,7 @@
  **********************************************/
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PauseMenu : MenuBase
@@ -40,17 +41,22 @@ public class PauseMenu : MenuBase
 	[SerializeField]
 	private RectTransform	challangeRoot;
 
+	//	終了の確認ウィンドウ
+	[Header("終了の確認")]
+	[SerializeField]
+	private StageExitConfirm	exitConfirm;
 
-	//	実行前初期化処理
-	private void Awake()
-	{
-		
-	}
+	//	更新の停止
+	private bool			disableUpdate;
+	public bool				DisableUpdate { get { return disableUpdate; } set { disableUpdate = value; } }
 
-	//	初期化処理
-	private void Start()
+	//	更新処理
+	protected override void Update()
 	{
-		
+		if (disableUpdate)
+			return;
+
+		base.Update();
 	}
 
 	//	更新処理
@@ -84,7 +90,9 @@ public class PauseMenu : MenuBase
 				break;
 
 			case PauseMenuItem.EXIT:
-				StageManager.Instance.ReturnTitle();	//	タイトルへ戻る
+				StageManager.Instance.ReturnTitle();    //	タイトルへ戻る
+				//exitConfirm.gameObject.SetActive(true);
+				//disableUpdate = true;
 				break;
 		}
 	}

@@ -37,7 +37,7 @@ public class StageLoaderEditor : Editor
 		if (GUILayout.Button("Load (Json)", GUILayout.Height(30)))
 		{
 			//	クリックされたらロード処理を実行
-			loader.LoadStageFromJson();
+			loader.LoadStageFromJson(string.Empty, string.Empty, true);
 		}
 	}
 }

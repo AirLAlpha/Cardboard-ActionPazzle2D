@@ -327,6 +327,9 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	--------------------------------------------------------------------------------*/
 	private void AnimationUpdate()
 	{
+		if (anim == null)
+			return;
+
 		if (disableAnimation)
 			return;
 
@@ -358,7 +361,8 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		rb.velocity = Vector3.zero;
 
 		//	アニメーションを停止
-		anim.SetFloat("AnimationSpeed", 0.0f);
+		if (anim != null)
+			anim.SetFloat("AnimationSpeed", 0.0f);
 	}
 	/*--------------------------------------------------------------------------------
 	|| 再開処理
@@ -374,7 +378,8 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		rb.velocity = posedVelocity;
 
 		//	アニメーションを再開
-		anim.SetFloat("AnimationSpeed", 1.0f);
+		if (anim != null)
+			anim.SetFloat("AnimationSpeed", 1.0f);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -386,7 +391,9 @@ public class PlayerMove : MonoBehaviour, IPauseable
 			return;
 
 		rb.velocity = Vector2.zero;
-		anim.Play("Idle@Player");
+
+		if (anim != null)
+			anim.Play("Idle@Player");
 	}
 
 

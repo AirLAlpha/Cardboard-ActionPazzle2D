@@ -35,6 +35,10 @@ public class TaskClear : MonoBehaviour
 	[SerializeField]
 	private SelectedTaskData		selectedTask;
 
+	[Header("データベース")]
+	[SerializeField]
+	private StageImageDatabase		stageImageDatabase;
+
 	//	コンポーネント
 	[Header("コンポーネント")]
 	[SerializeField]
@@ -56,7 +60,7 @@ public class TaskClear : MonoBehaviour
 	//	送り状
 	[Header("送り状")]
 	[SerializeField]
-	private Transform				invoice;					//	送り状のTransform
+	private Invoice					invoice;					//	送り状
 	[SerializeField]
 	private float					invoiceActivateTime;		//	送り状の有効化速度
 	[SerializeField]
@@ -70,12 +74,6 @@ public class TaskClear : MonoBehaviour
 
 	//	送り状テキスト
 	[Header("送り状テキスト")]
-	[SerializeField]
-	private TextMeshPro				stageNumberText;            //	ステージ番号を表示するテキスト1
-	[SerializeField]
-	private TextMeshPro				timeText;					//	時間のテキスト
-	[SerializeField]
-	private TextMeshPro				boxCountText;               //	使用ボックスのテキスト
 	[SerializeField]
 	private float					timeAppliedTime;			//	時間の適応にかかる時間
 	[SerializeField]
@@ -153,6 +151,9 @@ public class TaskClear : MonoBehaviour
 	//	更新処理
 	private void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Return))
+			OnTaskClear();
+
 		//	アニメーションの処理がないステートの際は処理しない
 		if (currentState == State.NONE ||
 			currentState == State.END)
@@ -209,9 +210,9 @@ public class TaskClear : MonoBehaviour
 			currentState = State.INVOICE_MOVE;
 
 			//	送り状の座標を初期化
-			invoice.position = invoiceStartPos;
+			invoice.transform.position = invoiceStartPos;
 			//	ステージ番号の表示を設定
-			stageNumberText.text = selectedTask.StageID + " - " + (selectedTask.TaskIndex + 1);
+			invoice.SetStageNum(selectedTask.StageID, selectedTask.TaskIndex);
 			//	送り状を有効化
 			invoice.gameObject.SetActive(true);
 		}
@@ -227,12 +228,12 @@ public class TaskClear : MonoBehaviour
 		float progress = elapsedTime/invoiceActivateTime;
 
 		//	送り状を目標座標へ移動
-		invoice.position = Vector3.LerpUnclamped(invoiceStartPos, invoiceEndPos, EasingFunctions.EaseOutBack(progress));
+		invoice.transform.position = Vector3.LerpUnclamped(invoiceStartPos, invoiceEndPos, EasingFunctions.EaseOutBack(progress));
 
 		//	進行度が100%を超えたら次の状態へ繊維
 		if(progress >= 1.0f)
 		{
-			invoice.position = invoiceEndPos;
+			invoice.transform.position = invoiceEndPos;
 			elapsedTime = 0.0f;
 
 			currentState = State.CHANGE_TIME;
@@ -255,13 +256,11 @@ public class TaskClear : MonoBehaviour
 		int sec = (int)(t % 60);
 
 		//	テキストに適応
-		timeText.text = min.ToString("D2") + ":" + sec.ToString("D2");
+		invoice.SetTime(min, sec);
 
 		if(progress >= 1.0f)
 		{
-			int finalMin = (int)(clearedTime / 60);
-			int finalSec = (int)(clearedTime % 60);
-			timeText.text = finalMin.ToString("D2") + ":" + finalSec.ToString("D2");
+			invoice.SetTime(clearedTime);
 
 			elapsedTime = 0.0f;
 			currentState = State.CHANGE_BOX_COUT;
@@ -280,7 +279,7 @@ public class TaskClear : MonoBehaviour
 		int n = (int)Mathf.Clamp((elapsedTime - textAppliedWaitTime) * boxCountAppliedSpeed, 0, usedBoxCount);
 
 		//	テキストに適応
-		boxCountText.text = n.ToString("D2");
+		invoice.SetBoxCount(n);
 
 		float progress = 0.0f;
 		if (usedBoxCount != 0)
@@ -290,7 +289,7 @@ public class TaskClear : MonoBehaviour
 
 		if(progress >= 1.0f)
 		{
-			boxCountText.text = usedBoxCount.ToString("D2");
+			invoice.SetBoxCount(usedBoxCount);
 
 			//	スタンプの初期化
 			stamp.transform.localScale = Vector3.one * stampStartScale;
@@ -334,6 +333,8 @@ public class TaskClear : MonoBehaviour
 
 			//	リザルトパネルの有効化
 			resultPanel.gameObject.SetActive(true);
+			bool enable = selectedTask.TaskIndex < 4;
+			resultPanel.SetEnableNext(enable);
 
 			//	ボタンヒントのアクティブを切り替え
 			buttonHint.SetActive("Vertical",	true);
@@ -361,7 +362,7 @@ public class TaskClear : MonoBehaviour
 		//	パネルを移動
 		resultPanelTransform.anchoredPosition = Vector2.Lerp(panelStartPos, panelEndPos, t);
 		//	送り状を移動
-		invoice.localPosition = invoiceEndPos + Vector3.Lerp(Vector3.zero, invoicePanelMoveOffset, t);
+		invoice.transform.localPosition = invoiceEndPos + Vector3.Lerp(Vector3.zero, invoicePanelMoveOffset, t);
 
 		//	ボタンヒントの透明度を設定
 		buttonHintAlpha.TargetAlpha = progress;
@@ -370,7 +371,7 @@ public class TaskClear : MonoBehaviour
 		{
 			//	座標を補正
 			resultPanelTransform.anchoredPosition = panelEndPos;
-			invoice.localPosition = invoiceEndPos + invoicePanelMoveOffset;
+			invoice.transform.localPosition = invoiceEndPos + invoicePanelMoveOffset;
 			//	透明度の値を補正
 			buttonHintAlpha.TargetAlpha = 1.0f;
 

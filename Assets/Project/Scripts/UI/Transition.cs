@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
 
 public class Transition : SingletonMonoBehaviour<Transition>
 {
@@ -19,8 +20,9 @@ public class Transition : SingletonMonoBehaviour<Transition>
 	{
 		NONE,
 
-		FADE_OUT = 1,
-		FADE_IN = -1,
+		FADE_OUT	= 1,
+		WAIT		= 0,
+		FADE_IN		= -1,
 	}
 
 	[SerializeField]
@@ -32,8 +34,11 @@ public class Transition : SingletonMonoBehaviour<Transition>
 	private float				speed;
 	[SerializeField, Range(0.0f,1.0f)]
 	private float				progress;       //	進行度
+	[SerializeField]
+	private float				fadeinWait;
 
 	public bool IsTransition { get { return mode != TransitionMode.NONE; } }
+
 
 	//	実行前初期化処理
 	protected override void Awake()
@@ -108,11 +113,28 @@ public class Transition : SingletonMonoBehaviour<Transition>
 			yield return null;
 		}
 
+		//	モードを切り替え
+		mode = TransitionMode.WAIT;
+
+		//	自動シーン遷移を無効化
+		AsyncOperation[] asyncs = new AsyncOperation[scenes.Length];
+
+		asyncs[0] = SceneManager.LoadSceneAsync(scenes[0]);
+		asyncs[0].allowSceneActivation = false;
 		//	シーン遷移
-		SceneManager.LoadScene(scenes[0]);
 		for (int i = 1; i < scenes.Length; i++)
 		{
-			SceneManager.LoadScene(scenes[i], LoadSceneMode.Additive);
+			asyncs[i] = SceneManager.LoadSceneAsync(scenes[i], LoadSceneMode.Additive);
+			asyncs[i].allowSceneActivation = false;
+		}
+
+		//	時間まで待つ
+		yield return new WaitForSeconds(fadeinWait);
+
+		//	ステージを有効化
+		foreach (var async in asyncs)
+		{
+			async.allowSceneActivation = true;
 		}
 
 		//	モードを切り替え

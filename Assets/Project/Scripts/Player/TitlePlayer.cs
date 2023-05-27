@@ -165,4 +165,11 @@ public class TitlePlayer : MonoBehaviour
 		cap.gameObject.SetActive(value);
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| 強制的にTargetPosに移動させる処理
+	--------------------------------------------------------------------------------*/
+	public void SetPosToTarget()
+	{
+		transform.position = TargetPos;
+	}
 }

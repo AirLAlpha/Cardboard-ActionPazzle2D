@@ -16,9 +16,11 @@ public class TitleTasks : MonoBehaviour
 
 	[Header("送り状")]
 	[SerializeField]
-	private SpriteRenderer[]		invoices;           //	送り状
-
-	private Transform		InvoiceRoot => transform;       //	ルートオブジェクト
+	private int						stageNum;				//	送り状に表示するステージ番号
+	[SerializeField]
+	private Invoice[]				invoices;				//	送り状
+	[SerializeField]
+	private SpriteRenderer[]		invoiceOverlay;
 
 	[Header("ルートオブジェクトのアニメーション")]
 	[SerializeField]
@@ -27,6 +29,10 @@ public class TitleTasks : MonoBehaviour
 	private Vector2			idleScale;
 	[SerializeField]
 	private Vector2			zoomScale;
+	[SerializeField]
+	private Vector2			idlePos;
+	[SerializeField]
+	private Vector2			zoomPos;
 
 	[Header("送り状のアニメーション")]
 	[SerializeField]
@@ -53,7 +59,11 @@ public class TitleTasks : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		
+		//	送り状のステージ番号を設定
+		for (int i = 0; i < invoices.Length; i++)
+		{
+			invoices[i].SetStageNum(stageNum, i);
+		}
 	}
 
 	//	更新処理
@@ -109,7 +119,7 @@ public class TitleTasks : MonoBehaviour
 		}
 
 		//	選択の限界のときは処理しない
-		if (selectedTaskIndex + x > invoices.Length ||
+		if (selectedTaskIndex + x >= invoices.Length ||
 			selectedTaskIndex + x < 0)
 			return;
 
@@ -123,7 +133,10 @@ public class TitleTasks : MonoBehaviour
 	private void RootAnimationUpdate()
 	{
 		Vector2 targetScale = enableTaskSelect ? zoomScale : idleScale;
-		InvoiceRoot.localScale = Vector3.Lerp(InvoiceRoot.localScale, targetScale, Time.deltaTime * zoomSpeed);
+		transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * zoomSpeed);
+
+		Vector2 targetPos = enableTaskSelect ? zoomPos : idlePos;
+		transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * zoomSpeed);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -146,11 +159,23 @@ public class TitleTasks : MonoBehaviour
 			invoices[i].transform.localScale = Vector2.Lerp(invoices[i].transform.localScale, targetScale, Time.deltaTime * invoiceZoomSpeed);
 
 			//	表示順の変更
-			invoices[i].sortingOrder = i == selectedTaskIndex ? 102 : 101;
+			invoices[i].SpriteRenderer.sortingOrder = i == selectedTaskIndex ? 102 : 101;
 			//	色の変更
-			invoices[i].color = Color.Lerp(invoices[i].color, targetColor, Time.deltaTime * invoiceZoomSpeed);
+			invoiceOverlay[i].color = Color.Lerp(invoiceOverlay[i].color, targetColor, Time.deltaTime * invoiceZoomSpeed);
 		}
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| セーブデータの設定
+	--------------------------------------------------------------------------------*/
+	public void SetStageScore(StageScore score)
+	{
+		for (int i = 0; i < invoices.Length; i++)
+		{
+			if (i >= score.scores.Length)
+				break;
 
+			invoices[i].SetScore(score.scores[i]);
+		}
+	}
 }

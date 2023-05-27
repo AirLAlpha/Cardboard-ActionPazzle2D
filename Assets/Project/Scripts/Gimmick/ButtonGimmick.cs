@@ -36,8 +36,8 @@ public class ButtonGimmick : SendGimmick
 	[SerializeField]
 	private LayerMask			pushableMask;   //	ボタンを押すことが出来るレイヤー
 
-	//	判定エリアの中心座標
-	private Vector3 CheckCenterPos => transform.position + new Vector3(checkOffset.x, checkOffset.y);
+	private Vector3 Offset => transform.position + transform.rotation * checkOffset;
+	private Vector3 Area => transform.rotation * checkArea;
 
 	//	投下
 	public bool					IsPressed	{ get; private set; }       //	ボタンの投下フラグ
@@ -73,7 +73,7 @@ public class ButtonGimmick : SendGimmick
 	--------------------------------------------------------------------------------*/
 	private void CheckPressed()
 	{
-		var a = Physics2D.OverlapBox(CheckCenterPos, checkArea, 0.0f, pushableMask);
+		var a = Physics2D.OverlapBox(Offset, Area, 0.0f, pushableMask);
 		if (a == null)
 		{
 			IsPressed = false;
@@ -125,7 +125,7 @@ public class ButtonGimmick : SendGimmick
 		col.a = 0.5f;
 		Gizmos.color = col;
 
-		Gizmos.DrawCube(CheckCenterPos, checkArea);
+		Gizmos.DrawCube(Offset, Area);
 	}
 #endif
 }

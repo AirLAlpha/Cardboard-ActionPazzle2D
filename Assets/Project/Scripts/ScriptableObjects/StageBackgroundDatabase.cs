@@ -47,12 +47,15 @@ public struct BackgroundData
 	[SerializeField]
 	private List<Tile>	groundTiles;
 	[SerializeField]
-	private string		tileJson;			//	タイルの配置情報（Json）
+	private string		tileJson;           //	タイルの配置情報（Json）
+	[SerializeField]
+	private bool		signActivate;		//	標識の有効化フラグ
 
 	public Sprite		BackgroundImage { get { return backgroundImage; } }
 	public List<Tile>	GroundTiles		{ get { return groundTiles; } }
 	public string		TileJson		{ get { return tileJson; } }
-	public bool EnableAnimation			{ get { return enableAnimation; } }
+	public bool			EnableAnimation	{ get { return enableAnimation; } }
+	public bool			SignActivate	{ get { return signActivate; } }
 }
 
 [CreateAssetMenu(menuName = "Create StageBackgroundDatabase")]

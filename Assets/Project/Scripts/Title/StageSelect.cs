@@ -55,7 +55,6 @@ public class StageSelect : MonoBehaviour
 	//	タスク選択
 	private bool			enableSelectTask;
 
-
 	//	プロパティ
 	public int SelectedStage { get { return selectedStage; } }
 
@@ -69,7 +68,30 @@ public class StageSelect : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
-		
+		//	セーブデータの設定
+		SaveData saveData = SaveDataLoader.LoadJson();
+		//	送り状に設定する
+		for (int i = 0; i < stageNumberBoxes.Length; i++)
+		{
+			if (i >= saveData.stageScores.Length)
+				break;
+
+			stageNumberBoxes[i].SetStageScore(saveData.stageScores[i]);
+		}
+
+		//	選択されているステージの座標にプレイヤーを移動させる
+		if(selectedTaskData.StageID != -1)
+		{
+			player.TargetPos = stageNumberBoxes[selectedTaskData.StageID - 1].transform.position;
+			currentDir = Direction.RIGHT;
+			player.TargetOffset = stopOffset * (int)currentDir;
+			player.SetPosToTarget();
+
+			titleCamera.CameraTarget = stageNumberBoxes[selectedTaskData.StageID - 1].transform;
+			titleCamera.SetPosToTarget();
+
+			selectedStage = selectedTaskData.StageID;
+		}
 	}
 
 	//	更新処理
@@ -81,6 +103,7 @@ public class StageSelect : MonoBehaviour
 		InputUpdate();      //	入力処理
 		SelectUpdate();
 		SelectStage();
+		ButtonHintUpdate();
 	}
 
 
@@ -200,7 +223,13 @@ public class StageSelect : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void ButtonHintUpdate()
 	{
-		//if()
+		if(enableSelectTask)
+		{
+			buttonHint.SetActive("Restart", true);
+		}
+		else
+		{
+			buttonHint.SetActive("Restart", false);
+		}
 	}
-
 }

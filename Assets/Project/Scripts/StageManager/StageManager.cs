@@ -196,7 +196,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		if(saveRemainingBoxCount != RemainingBoxCount)
 		{
 			//	処理を呼び出す
-			OnChangedRemainingBoxCount?.Invoke();
+			if (OnChangedRemainingBoxCount != null)
+				OnChangedRemainingBoxCount?.Invoke();
 
 			//	変数を保持
 			saveRemainingBoxCount = RemainingBoxCount;
@@ -213,7 +214,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			return true;
 
 		//	箱の残数が0以下
-		OnNonRemaining?.Invoke();
+		if (OnNonRemaining != null)
+			OnNonRemaining?.Invoke();
 		return false;
 	}
 
@@ -225,7 +227,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		if (saveCompleteBoxCount != CompleteBoxCount)
 		{
 			//	処理を呼び出す
-			OnChangedCompleteBoxCount?.Invoke();
+			if (OnChangedCompleteBoxCount != null)
+				OnChangedCompleteBoxCount?.Invoke();
 
 			//	変数を保持
 			saveCompleteBoxCount = CompleteBoxCount;
@@ -235,7 +238,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			{
 				IsStageClear = true;
 
-				OnStageClear?.Invoke();
+				if (OnStageClear != null)
+					OnStageClear?.Invoke();
 			}
 		}
 	}

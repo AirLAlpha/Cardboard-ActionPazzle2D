@@ -28,8 +28,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	//	コンポーネント
 	[Header("コンポーネント")]
 	[SerializeField]
-	protected Animator		anim;			//	Animator
-
+	protected Animator		anim;           //	Animator
+	[SerializeField]
 	protected Rigidbody2D	rb;             //	Rigidbody2D
 
 	//	移動
@@ -82,9 +82,6 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	//	実行前初期化処理
 	protected virtual void Awake()
 	{
-		//	コンポーネントの取得
-		rb = GetComponent<Rigidbody2D>();
-
 		//	状態の初期化
 		currentState = State.IDLE;
 	}
@@ -172,7 +169,7 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	--------------------------------------------------------------------------------*/
 	protected void CheckOverlap()
 	{
-		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, overlapMask);
+		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, overlapMask);
 		if (hit != null)
 		{
 			Dead();

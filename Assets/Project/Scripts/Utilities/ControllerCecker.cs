@@ -17,6 +17,8 @@ public class ControllerCecker : SingletonMonoBehaviour<ControllerCecker>
 	//	接続確認
 	[SerializeField]
 	private bool		enableCheckUpdate;      //	毎フレーム接続処理を行うフラグ
+	[SerializeField]
+	private bool		awakeConnectedState;	//	最初の接続状態
 
 	private int			controllerCount;		//	コントローラーの接続数
 	private bool		controllerConnected;    //	コントローラーの接続フラグ
@@ -33,15 +35,23 @@ public class ControllerCecker : SingletonMonoBehaviour<ControllerCecker>
 	public int			ControllerCount		{ get { return controllerCount; } }
 	public bool			ControllerConnected { get { return controllerConnected; } }
 
-	//	初期化処理
-	private void Start()
-	{
-		
-	}
+	private bool firstUpdateEnded;  //	最初の更新フレームが終了したフラグ
 
 	//	更新処理
 	private void Update()
 	{
+		if (!firstUpdateEnded)
+		{
+			if (awakeConnectedState)
+			{
+				OnControllerConnected.Invoke();
+			}
+			else
+			{
+				OnControllerReleased.Invoke();
+			}
+			firstUpdateEnded = true;
+		}
 		if (enableCheckUpdate)
 			CheckControllerConnected();
 	}

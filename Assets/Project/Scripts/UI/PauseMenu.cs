@@ -30,6 +30,8 @@ public class PauseMenu : MenuBase
 	private PauseManager		pauseManager;       //	ポーズマネージャー
 	[SerializeField]
 	private PauseChallangeState pauseChallangeState;
+	[SerializeField]
+	private SettingMenu			setting;
 
 	//	ボタンヒント
 	[Header("ボタンヒント")]
@@ -46,14 +48,10 @@ public class PauseMenu : MenuBase
 	[SerializeField]
 	private StageExitConfirm	exitConfirm;
 
-	//	更新の停止
-	private bool			disableUpdate;
-	public bool				DisableUpdate { get { return disableUpdate; } set { disableUpdate = value; } }
-
 	//	更新処理
 	protected override void Update()
 	{
-		if (disableUpdate)
+		if (DisableInput)
 			return;
 
 		base.Update();
@@ -87,6 +85,8 @@ public class PauseMenu : MenuBase
 				break;
 
 			case PauseMenuItem.CONFIG:
+				setting.Activate(this);
+				DisableInput = true;
 				break;
 
 			case PauseMenuItem.EXIT:

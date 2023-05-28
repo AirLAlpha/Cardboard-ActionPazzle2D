@@ -3,7 +3,7 @@
         {
             "databaseIndex": 0,
             "pos": {
-                "x": -7.500000476837158,
+                "x": -7.500000953674316,
                 "y": 1.500000238418579,
                 "z": 0.0
             },
@@ -405,5 +405,5 @@
     ],
     "usableBoxCount": 3,
     "targetBoxCount": 1,
-    "backgroundType": 1
+    "backgroundType": 2
 }

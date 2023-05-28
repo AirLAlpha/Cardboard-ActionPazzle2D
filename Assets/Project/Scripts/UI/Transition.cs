@@ -131,6 +131,22 @@ public class Transition : SingletonMonoBehaviour<Transition>
 		//	時間まで待つ
 		yield return new WaitForSeconds(fadeinWait);
 
+		//	シーンのロードが終わるまで待機する
+		bool isLoadDone = false;
+		while (!isLoadDone)
+		{
+			isLoadDone = true;
+
+			for (int i = 0; i < asyncs.Length; i++)
+			{
+				if (asyncs[i].progress >= 0.9f)
+					continue;
+
+				isLoadDone = false;
+				Debug.Log("ロードが完了していません。");
+			}
+		}
+
 		//	ステージを有効化
 		foreach (var async in asyncs)
 		{

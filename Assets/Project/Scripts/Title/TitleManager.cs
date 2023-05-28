@@ -47,6 +47,21 @@ public class TitleManager : MonoBehaviour
 	//	実行前初期化処理
 	private void Awake()
 	{
+		//if (selectedData.StageID == -1)
+		//{
+		//	isOpening = true;
+
+		//	player.transform.position = playerStartPos;
+		//	player.TargetPos = playerEndPos;
+		//	player.SetCapEnable(false);
+
+		//	buttonHintAlphaController.SetAlpha(0.0f);
+		//}
+	}
+
+	//	初期化処理
+	private void Start()
+	{
 		if (selectedData.StageID == -1)
 		{
 			isOpening = true;
@@ -57,11 +72,6 @@ public class TitleManager : MonoBehaviour
 
 			buttonHintAlphaController.SetAlpha(0.0f);
 		}
-	}
-
-	//	初期化処理
-	private void Start()
-	{
 	}
 
 	//	更新処理
@@ -121,5 +131,7 @@ public class TitleManager : MonoBehaviour
 		};
 		//	シーン遷移の開始
 		Transition.Instance.StartTransition(scenes);
+		BGMPlayer.Instance.FadeSpeed = 3.0f;
+		BGMPlayer.Instance.StartTransition(selectedData.StageID, "BGM");
 	}
 }

@@ -23,7 +23,7 @@ public class StageExitConfirm : MenuBase
 		{
 			case MenuItem.CANCEL:
 				gameObject.SetActive(false);
-				pauseMenu.DisableUpdate= false;
+				pauseMenu.DisableInput = false;
 				break;
 
 			case MenuItem.CONFIRM:

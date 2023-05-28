@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff6cec0d061d734bb6e444016520f61, type: 3}
+  m_Name: TitleUIBottomDataBase
+  m_EditorClassIdentifier: 
+  buttons:
+  - buttonName: Horizontal
+    displayNames:
+    - {fileID: 21300000, guid: 2c82e71699254c6458686371d39385ee, type: 3}
+    positiveKeySprite: {fileID: -657217306, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 1357413821, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    controllerSprite: {fileID: -421114973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+  - buttonName: Jump
+    displayNames:
+    - {fileID: 21300000, guid: 5418e7db66cb04f48acc74be7522b983, type: 3}
+    - {fileID: 21300000, guid: 832932186e07bf048a82b89f35fd26ca, type: 3}
+    positiveKeySprite: {fileID: 1808860120, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 0}
+    controllerSprite: {fileID: -1497783279, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+  - buttonName: Restart
+    displayNames:
+    - {fileID: 21300000, guid: 04248a9f336c85d4ea9bfd104ba3860d, type: 3}
+    positiveKeySprite: {fileID: -1765857646, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 0}
+    controllerSprite: {fileID: 71013611, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+  - buttonName: Menu
+    displayNames:
+    - {fileID: 21300000, guid: 634e2c92a27f6764e9dbd1a867041168, type: 3}
+    positiveKeySprite: {fileID: -1774697923, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 0}
+    controllerSprite: {fileID: -2089790973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}

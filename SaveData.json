@@ -3,12 +3,36 @@
         {
             "scores": [
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 3.90271258354187,
+                    "usedBoxCount": 1
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 4.737239360809326,
+                    "usedBoxCount": 2
+                },
+                {
+                    "clearTime": 9.082096099853516,
+                    "usedBoxCount": 2
+                },
+                {
+                    "clearTime": 27.796175003051759,
+                    "usedBoxCount": 4
+                },
+                {
+                    "clearTime": 16.995075225830079,
+                    "usedBoxCount": 2
+                }
+            ]
+        },
+        {
+            "scores": [
+                {
+                    "clearTime": 8.99252700805664,
+                    "usedBoxCount": 2
+                },
+                {
+                    "clearTime": 6.973827362060547,
+                    "usedBoxCount": 3
                 },
                 {
                     "clearTime": 0.0,
@@ -51,36 +75,12 @@
         {
             "scores": [
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 9.903579711914063,
+                    "usedBoxCount": 4
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
-                },
-                {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
-                },
-                {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
-                },
-                {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
-                }
-            ]
-        },
-        {
-            "scores": [
-                {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
-                },
-                {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 14.189154624938965,
+                    "usedBoxCount": 2
                 },
                 {
                     "clearTime": 0.0,
@@ -99,24 +99,24 @@
         {
             "scores": [
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 16.651798248291017,
+                    "usedBoxCount": 4
                 },
                 {
                     "clearTime": 0.0,
                     "usedBoxCount": 0
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 23.592193603515626,
+                    "usedBoxCount": 9
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 38.586944580078128,
+                    "usedBoxCount": 2
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 22.520071029663087,
+                    "usedBoxCount": 7
                 }
             ]
         }

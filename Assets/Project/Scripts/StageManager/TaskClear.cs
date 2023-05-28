@@ -47,6 +47,8 @@ public class TaskClear : MonoBehaviour
 	private PlayerMove				playerMove;
 	[SerializeField]
 	private CanvasAlphaController	canvasAlphaController;
+	[SerializeField]
+	private SoundPlayer				soundPlayer;
 
 	private CameraShake				cameraShake;        //	カメラシェイク
 	private PlayerBoxManager		playerBoxManager;
@@ -256,7 +258,9 @@ public class TaskClear : MonoBehaviour
 		int sec = (int)(t % 60);
 
 		//	テキストに適応
-		invoice.SetTime(min, sec);
+		bool isValidate = invoice.SetTime(min, sec);
+		if (isValidate)
+			soundPlayer.PlaySound(2);
 
 		if(progress >= 1.0f)
 		{
@@ -279,7 +283,10 @@ public class TaskClear : MonoBehaviour
 		int n = (int)Mathf.Clamp((elapsedTime - textAppliedWaitTime) * boxCountAppliedSpeed, 0, usedBoxCount);
 
 		//	テキストに適応
-		invoice.SetBoxCount(n);
+		bool isValidate = invoice.SetBoxCount(n);
+		//	SEの再生
+		if (isValidate)
+			soundPlayer.PlaySound(2);
 
 		float progress = 0.0f;
 		if (usedBoxCount != 0)
@@ -321,6 +328,9 @@ public class TaskClear : MonoBehaviour
 
 		if(progress >= 1.0f)
 		{
+			//	SEの再生
+			soundPlayer.PlaySound(3);
+
 			//	スケールを補正
 			stamp.transform.localScale = Vector3.one * stampEndScale;
 			//	透明度を補正

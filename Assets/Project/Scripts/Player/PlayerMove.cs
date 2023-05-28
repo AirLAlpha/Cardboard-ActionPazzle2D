@@ -160,7 +160,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 
 		//	ジャンプ入力
 		saveInputJump = inputJump;						//	保持しておく
-		inputJump = Input.GetButton("Jump");			//	ジャンプ
+		inputJump = Input.GetButtonDown("Jump");			//	ジャンプ
 
 		//	入力がなくなったら、ジャンプ入力の解除フラグを有効化
 		if(!inputJump && saveInputJump)
@@ -226,18 +226,20 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		if (CantMove)
 			return;
 
-		//	入力を解除していなく、入力があれば重力を軽くしておく
-		if(!inputJumpReleased && inputJump)
-		{
-			rb.gravityScale = heighJumpGravityScale;
-		}
-		else
-		{
-			rb.gravityScale = gravityScale;
-		}
+		////	入力を解除していなく、入力があれば重力を軽くしておく
+		//if(!inputJumpReleased && inputJump)
+		//{
+		//	rb.gravityScale = heighJumpGravityScale;
+		//}
+		//else
+		//{
+		//	rb.gravityScale = gravityScale;
+		//}
+		////	前フレームにジャンプ入力があった or ジャンプ入力がない or 接地していないときは処理しない
+		//if (saveInputJump || !inputJump || !isGrounded) 
+		//	return;
 
-		//	前フレームにジャンプ入力があった or ジャンプ入力がない or 接地していないときは処理しない
-		if (saveInputJump || !inputJump || !isGrounded) 
+		if (!inputJump)
 			return;
 
 		//	ベクトルの加算

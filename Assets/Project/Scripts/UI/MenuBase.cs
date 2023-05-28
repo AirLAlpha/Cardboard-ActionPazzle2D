@@ -93,6 +93,11 @@ public abstract class MenuBase : MonoBehaviour
 	{
 	}
 
+	private void OnEnable()
+	{
+		currentIndex = 0;
+	}
+
 	//	更新処理
 	protected virtual void Update()
 	{
@@ -107,7 +112,7 @@ public abstract class MenuBase : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 入力処理
 	--------------------------------------------------------------------------------*/
-	private void InputUpdate()
+	protected void InputUpdate()
 	{
 		//	左右入力
 		if (activateX)
@@ -172,7 +177,7 @@ public abstract class MenuBase : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 選択処理
 	--------------------------------------------------------------------------------*/
-	private void SelectUpdate()
+	protected void SelectUpdate()
 	{
 		currentIndex -= (int)inputVec.y;                                //	上下入力を加算
 		currentIndex = (int)Mathf.Repeat(currentIndex, MaxIndex);       //	リピートする

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e9de57340ec134788ea21aa64cd197, type: 3}
+  m_Name: StageData_3
+  m_EditorClassIdentifier: 
+  stageId: 3
+  tasks:
+  - stageJson: {fileID: 4900000, guid: b41cc489b7d3e574581946834aafb970, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: 97d727f5517009a43a44f95a81cd0387, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: 90edb9f4b7524c742b5e46ddb6ae1856, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: abe5a958d9acce64ebf933a0c6157430, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: 3568f0287519e3042806ee501212a233, type: 3}
+    challanges: []

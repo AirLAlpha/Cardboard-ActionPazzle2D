@@ -92,6 +92,10 @@ public class StageSelect : MonoBehaviour
 
 			selectedStage = selectedTaskData.StageID;
 		}
+
+		//	BGMの出力先を設定
+		BGMPlayer.Instance.FadeSpeed = 10.0f;
+		BGMPlayer.Instance.SoundPlayer.SetMixer("TitleMusic");
 	}
 
 	//	更新処理
@@ -104,6 +108,7 @@ public class StageSelect : MonoBehaviour
 		SelectUpdate();
 		SelectStage();
 		ButtonHintUpdate();
+		BGMUpdate();
 	}
 
 
@@ -230,6 +235,19 @@ public class StageSelect : MonoBehaviour
 		else
 		{
 			buttonHint.SetActive("Restart", false);
+		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| BGMの変更処理
+	--------------------------------------------------------------------------------*/
+	private void BGMUpdate()
+	{
+		var source = BGMPlayer.Instance;
+
+		if(selectedStage != source.CurrentIndex)
+		{
+			source.StartTransition(selectedStage);
 		}
 	}
 }

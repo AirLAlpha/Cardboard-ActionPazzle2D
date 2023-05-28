@@ -46,9 +46,9 @@ public class Invoice : MonoBehaviour
 	}
 
 	/*--------------------------------------------------------------------------------
-	|| 時間の設定
+	|| 時間の設定（戻り値：値の変更の有無）
 	--------------------------------------------------------------------------------*/
-	public void SetTime(int min, int sec)
+	public bool SetTime(int min, int sec)
 	{
 		string m, s;
 		if(min < 0 && sec < 0)
@@ -62,7 +62,15 @@ public class Invoice : MonoBehaviour
 			s = sec.ToString("D2");
 		}
 		
-		timeText.text = m + ":" + s;
+		if(timeText.text == m + ":" + s)
+		{
+			return false;
+		}
+		else
+		{
+			timeText.text = m + ":" + s;
+			return true;
+		}
 	}
 	public void SetTime(float t)
 	{
@@ -74,9 +82,9 @@ public class Invoice : MonoBehaviour
 	}
 
 	/*--------------------------------------------------------------------------------
-	|| 使用した箱の数を設定
+	|| 使用した箱の数を設定（戻り値；値の変更の有無）
 	--------------------------------------------------------------------------------*/
-	public void SetBoxCount(int count)
+	public bool SetBoxCount(int count)
 	{
 		string c;
 		if(count < 0)
@@ -88,7 +96,15 @@ public class Invoice : MonoBehaviour
 			c = count.ToString("D2");
 		}
 
-		boxCountText.text = c;
+		if(boxCountText.text == c)
+		{
+			return false;
+		}
+		else
+		{
+			boxCountText.text = c;
+			return true;
+		}
 	}
 
 	/*--------------------------------------------------------------------------------

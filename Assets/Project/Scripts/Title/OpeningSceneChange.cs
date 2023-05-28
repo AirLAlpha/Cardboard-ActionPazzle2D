@@ -11,6 +11,9 @@ public class OpeningSceneChange : MonoBehaviour
 
 	private PlayableDirector director;
 
+	[SerializeField]
+	SoundDatabase bgm;
+
 	[Header("音")]
 	[SerializeField]
 	private AudioSource[]	audioSource;
@@ -30,6 +33,11 @@ public class OpeningSceneChange : MonoBehaviour
 	private void Awake()
 	{
 		director = GetComponent<PlayableDirector>();
+	}
+
+	private void Start()
+	{
+		Debug.Log("Test");
 	}
 
 	private void Update()

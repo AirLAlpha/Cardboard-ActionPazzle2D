@@ -474,6 +474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TransitionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 716581276471898755, guid: af4530bbd6a7de04ba9eacc4712a1890, type: 3}
+      propertyPath: fadeinWait
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 716581276471898759, guid: af4530bbd6a7de04ba9eacc4712a1890, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -900,7 +904,7 @@ AudioSource:
   m_GameObject: {fileID: 989540227}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2588819506831927746, guid: 2ab0f993b97c2174d92a54ab3ab8b7f1, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.442
@@ -1155,7 +1159,7 @@ PlayableDirector:
   - key: {fileID: -6155794950168554262, guid: 09d243b68de400c42a7c7699b4a63896, type: 2}
     value: {fileID: 968170760}
   - key: {fileID: -3378820684079235648, guid: 09d243b68de400c42a7c7699b4a63896, type: 2}
-    value: {fileID: 989540228}
+    value: {fileID: 0}
   - key: {fileID: -7319439882036256312, guid: 09d243b68de400c42a7c7699b4a63896, type: 2}
     value: {fileID: 1734770027}
   - key: {fileID: 5882272874066363273, guid: 09d243b68de400c42a7c7699b4a63896, type: 2}
@@ -1223,6 +1227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c2aca5ebf0c3d459a70a1efbe0229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgm: {fileID: 11400000, guid: 19876968c43b3b249ae5687df921f1bf, type: 2}
   audioSource:
   - {fileID: 989540228}
   - {fileID: 1734770027}
@@ -1330,7 +1335,7 @@ AudioSource:
   m_GameObject: {fileID: 1734770026}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2588819506831927746, guid: 2ab0f993b97c2174d92a54ab3ab8b7f1, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.7

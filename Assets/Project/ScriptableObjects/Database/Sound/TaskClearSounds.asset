@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8475ad32f38fb014aad300d48a8a066c, type: 3}
+  m_Name: TaskClearSounds
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: aa7380ca9db92514287a5850bc7bd648, type: 3}
+  - {fileID: 8300000, guid: 772df3d1ddbfc6f4996857d612f06a0f, type: 3}
+  - {fileID: 8300000, guid: f4ccfa76d37acbd44b94be2e57efdfde, type: 3}
+  - {fileID: 8300000, guid: 9f1b9c8190da5c64ca0c458f3d42c9f8, type: 3}

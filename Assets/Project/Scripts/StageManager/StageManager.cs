@@ -58,9 +58,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	//	リスタート
 	[Header("リスタート")]
 	[SerializeField]
-	private float restartTime;			//	リスタートになる時間
+	private float restartTime;				//	リスタートになる時間
 
-	private float restartPressedTime;   //	リスタートボタンを押している時間
+	private float	restartPressedTime;		//	リスタートボタンを押している時間
+	private bool	isRestarting;			//	リスタート中フラグ
 
 	public float RestartProgress => Mathf.Clamp01(restartPressedTime / restartTime);
 
@@ -146,6 +147,11 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		//	背景の設定
 		bgSetter.SetBackground(bgType);
 
+		//	BGMの再生
+		if (!BGMPlayer.Instance.IsFade &&
+			!BGMPlayer.Instance.IsPlaying)
+			BGMPlayer.Instance.PlayBGM(bgType);
+
 		//	タスク内チャレンジの設定
 		if (challangeManager != null)
 			challangeManager.SetTask(stageDataBase.Stages[selectedStageData.StageID].Tasks[selectedStageData.TaskIndex]);
@@ -170,6 +176,9 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		//	クリア済みのときは処理しない
 		if (IsStageClear || DisableRestart)
 			return;
+		//	すでにリスタート中は処理しない
+		if (isRestarting)
+			return;
 
 		if (Input.GetButton("Restart"))
 		{
@@ -180,6 +189,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			{
 				//	ステージを再読込する
 				ResetStage();
+
+				isRestarting = true;
 			}
 		}
 		else
@@ -250,6 +261,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	public void ReturnTitle()
 	{
 		Transition.Instance.StartTransition("TitleScene");
+		BGMPlayer.Instance.StartTransition(BGMPlayer.Instance.CurrentIndex, "TitleMusic");
 	}
 
 	/*--------------------------------------------------------------------------------

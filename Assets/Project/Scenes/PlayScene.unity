@@ -1389,6 +1389,7 @@ MonoBehaviour:
   scaleChangeRate: 10
   selectedRot: 5
   nonselectedRot: 0
+  soundPlayer: {fileID: 0}
   pauseMenu: {fileID: 1908203283}
 --- !u!1 &133427600
 GameObject:
@@ -2464,7 +2465,7 @@ GameObject:
   - component: {fileID: 333603324}
   - component: {fileID: 333603323}
   m_Layer: 0
-  m_Name: SEPlayer
+  m_Name: SESource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4327,6 +4328,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1344516149}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnChangedCompleteBoxCount:
     m_PersistentCalls:
       m_Calls: []
@@ -4360,18 +4373,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1142096911}
         m_TargetAssemblyTypeName: PlayerDamageReciver, Assembly-CSharp
         m_MethodName: set_DontDeath
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1792231975}
-        m_TargetAssemblyTypeName: BGMPlayer, Assembly-CSharp
-        m_MethodName: StopBGM
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4442,6 +4443,7 @@ MonoBehaviour:
   gimmickRoot: {fileID: 866785918}
   tilemap: {fileID: 322111511}
   cardboardRoot: {fileID: 706337648}
+  seSource: {fileID: 333603323}
   stageBundleName: stagedata
   stageDirectory: Assets/Project/StageData/Stage_1/
   stageFilename: 1-4.json
@@ -4787,6 +4789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 866785918}
+  - component: {fileID: 866785919}
   m_Layer: 0
   m_Name: GimmickRoot
   m_TagString: Untagged
@@ -4809,6 +4812,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &866785919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866785917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241324de58e474a468f2ab62a1583687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 84f0f5e332e928b4fa0eeef0776f5e4e, type: 2}
+  source: {fileID: 333603323}
+  mixer: {fileID: 24100000, guid: 2ab0f993b97c2174d92a54ab3ab8b7f1, type: 2}
 --- !u!1 &869459540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5854,6 +5872,7 @@ MonoBehaviour:
   scaleChangeRate: 10
   selectedRot: 5
   nonselectedRot: 0
+  soundPlayer: {fileID: 1344516149}
   bgmSlider: {fileID: 301544519}
   seSlider: {fileID: 1272314438}
 --- !u!1 &1128651719
@@ -6697,7 +6716,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: f4ccfa76d37acbd44b94be2e57efdfde, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 79d70ae0553d1f8498bae2dcce0b0b1f, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6936,6 +6955,7 @@ GameObject:
   - component: {fileID: 1344516145}
   - component: {fileID: 1344516144}
   - component: {fileID: 1344516148}
+  - component: {fileID: 1344516149}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -7045,6 +7065,21 @@ MonoBehaviour:
   - {fileID: 2095679163}
   targetAlpha: 1
   alphaSpeed: 10
+--- !u!114 &1344516149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344516143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241324de58e474a468f2ab62a1583687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 834e4da00dead80469948fa22041aedf, type: 2}
+  source: {fileID: 333603323}
+  mixer: {fileID: 24100000, guid: 2ab0f993b97c2174d92a54ab3ab8b7f1, type: 2}
 --- !u!1 &1371788846
 GameObject:
   m_ObjectHideFlags: 0
@@ -8631,17 +8666,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 14
   m_TargetDisplay: 0
---- !u!114 &1792231975 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6423567774089457918, guid: de1a9e85574c46b49942b8a2c2871c4b, type: 3}
-  m_PrefabInstance: {fileID: 6423567774382441966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4f6b78dc6a62349a1d07eb1a43ce1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1792754559
 GameObject:
   m_ObjectHideFlags: 0
@@ -9125,6 +9149,7 @@ MonoBehaviour:
   scaleChangeRate: 10
   selectedRot: 5
   nonselectedRot: 0
+  soundPlayer: {fileID: 1344516149}
   pauseManager: {fileID: 1719841553}
   pauseChallangeState: {fileID: 208960558}
   setting: {fileID: 1127587881}
@@ -9782,6 +9807,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6619485729816839957, guid: f338c21c4388614419df7eecd4e38b04, type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 333603323}
     - target: {fileID: 8765415605556229797, guid: f338c21c4388614419df7eecd4e38b04, type: 3}
       propertyPath: OnDead.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -9988,6 +10017,7 @@ MonoBehaviour:
   scaleChangeRate: 20
   selectedRot: 5
   nonselectedRot: 0
+  soundPlayer: {fileID: 1344516149}
 --- !u!223 &1666694374879894442
 Canvas:
   m_ObjectHideFlags: 0

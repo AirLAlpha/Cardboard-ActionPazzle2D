@@ -15,12 +15,14 @@ using System.Transactions;
 
 [RequireComponent(typeof(PlayerMove))]
 [RequireComponent(typeof(PlayerDamageReciver))]
+[RequireComponent(typeof(SoundPlayer))]
 public class PlayerBoxManager : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
 	private PlayerMove				playerMove;         //	PlayerMove
 	private PlayerDamageReciver		playerDamageReciver;
 	private StageManager			stageManager;
+	private SoundPlayer				soundPlayer;
 
 	//	入力
 	[SerializeField]
@@ -77,7 +79,8 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		//	コンポーネントの取得
 		playerMove = GetComponent<PlayerMove>();
 		playerDamageReciver = GetComponent<PlayerDamageReciver>();
-		stageManager = StageManager.Instance;	
+		stageManager = StageManager.Instance;
+		soundPlayer = GetComponent<SoundPlayer>();
 
 		//	Nullチェック
 		if (boxOriginal == null)
@@ -163,8 +166,13 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 
 		//	Rigidbodyを無効化
 		newBox.SetRigidbodyActive(false);
+		//	SEのソースを設定
+		newBox.SetSoundPlayer(soundPlayer);
 		//	所持しているハコに設定
 		currentBox = newBox;
+
+		//	SEの再生
+
 
 		//	ハコ使用数を加算
 		StageManager.Instance.UsedBoxCount++;
@@ -251,6 +259,9 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 			currentBox.transform.parent = null;
 		}
 
+		//	移動SEの再生
+		soundPlayer.PlaySound(3);
+
 		//	アクションの表示名を変更
 		if (buttonHint != null)
 			buttonHint.SetDisplayNameIndex("Fire1", 0);
@@ -292,6 +303,9 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		currentBox.transform.localScale = Vector3.one;
 		//	持っている箱を解除
 		currentBox = null;
+
+		//	移動SEの再生
+		soundPlayer.PlaySound(1);
 
 		//	アクションの表示名を変更
 		if (buttonHint != null)

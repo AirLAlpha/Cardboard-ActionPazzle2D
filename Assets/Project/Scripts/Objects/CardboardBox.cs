@@ -28,12 +28,14 @@ namespace CardboardBox
 		[SerializeField]
 		private BlazingShaderController[] burnShaderController;        //	BlazingShaderController
 
-		private SpriteRenderer spriteRenderer;      //	SpriteRrender
-		private Rigidbody2D rb;						//	Rigidbody2D
+		private SpriteRenderer	spriteRenderer;			//	SpriteRrender
+		private Rigidbody2D		rb;						//	Rigidbody2D
+		private SoundPlayer		soundPlayer;
 
 		public SpriteRenderer	SpriteRenderer	{ get { return spriteRenderer; } }
 		public Rigidbody2D		Rigidbody2D		{ get { return rb; } }
 		public SpriteRenderer[] LabelSprites	{ get { return labelSprites; } }
+		public SoundPlayer		SoundPlayer		{ get { return soundPlayer; } }
 
 		//	ステート
 		[SerializeField]
@@ -80,6 +82,7 @@ namespace CardboardBox
 
 		//	破壊
 		private bool isBruned;      //	破壊済みフラグ
+		public bool IsBurned { get { return isBruned; } }
 
 		//	実行前初期化処理
 		private void Awake()
@@ -163,6 +166,7 @@ namespace CardboardBox
 			}
 
 			Instantiate(burnEffect, transform.position, Quaternion.identity);
+			
 		}
 
 		/*--------------------------------------------------------------------------------
@@ -180,7 +184,11 @@ namespace CardboardBox
 		public void Packing(CardboardType type, IPackable packable)
 		{
 			if (currentState == nonPackedBox)
+			{
 				nonPackedBox.Packing(type, packable);
+
+				soundPlayer.PlaySound(3);
+			}
 		}
 
 		public void Pause()
@@ -217,6 +225,11 @@ namespace CardboardBox
 
 			//	ステートに入ったときの処理
 			currentState.OnEnterState();
+		}
+
+		public void SetSoundPlayer(SoundPlayer soundPlayer)
+		{
+			this.soundPlayer = soundPlayer;
 		}
 	}
 }

@@ -29,7 +29,7 @@ public class UsableBoxCounter : MonoBehaviour
 	[SerializeField]
 	private NumberDrawer			buffCount;    //	バッファ用のテキスト
 	[SerializeField]
-	private Image			symbol;		//	乗算記号
+	private Image			symbol;     //	乗算記号
 
 	private RectTransform	rootRect;	//	自身のRectTransform
 

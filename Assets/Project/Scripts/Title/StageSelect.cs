@@ -16,6 +16,10 @@ public class StageSelect : MonoBehaviour
 {
 	private TitleManager titleManager;
 
+	[Header("サウンド")]
+	[SerializeField]
+	private SoundPlayer		soundPlayer;
+
 	[Header("カメラ")]
 	[SerializeField]
 	private TitleCamera		titleCamera;
@@ -95,7 +99,7 @@ public class StageSelect : MonoBehaviour
 
 		//	BGMの出力先を設定
 		BGMPlayer.Instance.FadeSpeed = 10.0f;
-		BGMPlayer.Instance.SoundPlayer.SetMixer("TitleMusic");
+		BGMPlayer.Instance.SoundPlayer.SetMixerGroup("TitleMusic");
 	}
 
 	//	更新処理
@@ -158,6 +162,9 @@ public class StageSelect : MonoBehaviour
 		titleCamera.CameraTarget =　selectedStage == 0 ? logoTarget : stageNumberBoxes[selectedStage - 1].transform;
 
 		inputWaitTime = inputInterval;
+
+		if (x != 0)
+			soundPlayer.PlaySound(3);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -202,6 +209,10 @@ public class StageSelect : MonoBehaviour
 			stageNumberBoxes[selectedStage - 1].SelectBox();
 
 			enableSelectTask = true;
+
+			//	決定SEの再生
+			soundPlayer.PlaySound(0);
+
 			return;
 		}
 
@@ -211,12 +222,19 @@ public class StageSelect : MonoBehaviour
 			{
 				stageNumberBoxes[selectedStage - 1].CancelBox();
 				enableSelectTask = false;
+
+				//	キャンセルSEの再生
+				soundPlayer.PlaySound(1);
+
 			}
 
 			if(inputConfirm)
 			{
 				selectedTaskData.StageID = selectedStage;
 				selectedTaskData.TaskIndex = stageNumberBoxes[selectedStage - 1].SelectedTaskIndex;
+
+				//	決定SEの再生
+				soundPlayer.PlaySound(0);
 
 				titleManager.LoadScene();
 			}

@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 2721762155451645146}
   - component: {fileID: 7884033672271617566}
   - component: {fileID: 5854646942024746533}
+  - component: {fileID: 7614073890795030268}
   m_Layer: 8
   m_Name: GlassEnemy
   m_TagString: Enemy
@@ -463,6 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   rb: {fileID: 2721762155451645146}
+  soundPlayer: {fileID: 7614073890795030268}
   attentionRange: 7
   attackRange: 5
   rangeOffset: {x: 0, y: 0}
@@ -474,6 +476,7 @@ MonoBehaviour:
   overlapMask:
     serializedVersion: 2
     m_Bits: 12438
+  deadSeIndex: 0
   deadEffect: {fileID: 4880230932744218059, guid: b19019cb1a4fd6e4d9f9f3744cd000dc, type: 3}
   drawGizmos: 0
   breakingVelocity: 13.5
@@ -494,3 +497,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.475
+--- !u!114 &7614073890795030268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8171743728560990529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241324de58e474a468f2ab62a1583687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 6d0b23cbaf583f94eb95979a25682a4a, type: 2}
+  source: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 2ab0f993b97c2174d92a54ab3ab8b7f1, type: 2}

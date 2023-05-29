@@ -18,7 +18,8 @@ using UnityEngine.Events;
 public class ButtonGimmick : SendGimmick
 {
 	//	コンポーネント
-	private SpriteRenderer spriteRenderer;
+	private SpriteRenderer	spriteRenderer;
+	private SoundPlayer		soundPlayer;
 
 	//	スプライト
 	[Header("スプライト")]
@@ -60,6 +61,8 @@ public class ButtonGimmick : SendGimmick
 	private void Start()
 	{
 		//AddAction((bool b) => Debug.Log("ButtonState : " + b.ToString()));
+
+		transform.parent.TryGetComponent<SoundPlayer>(out soundPlayer);
 	}
 
 	//	更新処理
@@ -93,6 +96,9 @@ public class ButtonGimmick : SendGimmick
 			InvokeAction(IsPressed);
 
 			saveIsPressed = IsPressed;
+
+			if (soundPlayer != null)
+				soundPlayer.PlaySound(0);
 		}
 	}
 

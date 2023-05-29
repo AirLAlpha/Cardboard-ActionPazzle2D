@@ -57,6 +57,8 @@ public class SettingMenu : MenuBase
 				parent.DisableInput = false;
 				break;
 		}
+		//	SE‚ÌÄ¶
+		soundPlayer.PlaySound(2);
 	}
 
 	/*--------------------------------------------------------------------------------

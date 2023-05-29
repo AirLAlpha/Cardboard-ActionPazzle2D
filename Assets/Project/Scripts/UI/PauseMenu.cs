@@ -95,6 +95,9 @@ public class PauseMenu : MenuBase
 				//disableUpdate = true;
 				break;
 		}
+
+		//	SEの再生
+		soundPlayer.PlaySound(2);
 	}
 
 	/*--------------------------------------------------------------------------------

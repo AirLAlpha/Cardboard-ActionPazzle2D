@@ -150,7 +150,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		//	BGMの再生
 		if (!BGMPlayer.Instance.IsFade &&
 			!BGMPlayer.Instance.IsPlaying)
-			BGMPlayer.Instance.PlayBGM(bgType);
+			BGMPlayer.Instance.PlayBGM(bgType, true);
 
 		//	タスク内チャレンジの設定
 		if (challangeManager != null)
@@ -245,12 +245,16 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			saveCompleteBoxCount = CompleteBoxCount;
 
 			//	目標数に到達したら
-			if(CompleteBoxCount >= TargetBoxCount)
+			if (CompleteBoxCount >= TargetBoxCount)
 			{
 				IsStageClear = true;
 
 				if (OnStageClear != null)
+				{
 					OnStageClear?.Invoke();
+
+					BGMPlayer.Instance.StopBGM(true);
+				}
 			}
 		}
 	}

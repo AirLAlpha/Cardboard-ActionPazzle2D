@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 2851119450428355665}
   - component: {fileID: 2851119450428355664}
   - component: {fileID: 4216637654579477197}
+  - component: {fileID: 1074390968041772828}
   m_Layer: 8
   m_Name: FireEnemy
   m_TagString: Enemy
@@ -407,6 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 4925361400088381821}
   rb: {fileID: 2851119450428355666}
+  soundPlayer: {fileID: 1074390968041772828}
   attentionRange: 7
   attackRange: 5
   rangeOffset: {x: 0, y: 0}
@@ -418,6 +420,7 @@ MonoBehaviour:
   overlapMask:
     serializedVersion: 2
     m_Bits: 12416
+  deadSeIndex: 0
   deadEffect: {fileID: -3356184293391584074, guid: c214449cd8da23548baa75ad71a766ef, type: 3}
   drawGizmos: 1
   fireBall: {fileID: 6070002190379846683, guid: c96d20be233f21e4aad8182b8a29006d, type: 3}
@@ -452,6 +455,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridOffset: {x: 0, y: 0}
   z: 0
+--- !u!114 &1074390968041772828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851119450428355671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241324de58e474a468f2ab62a1583687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 6d0b23cbaf583f94eb95979a25682a4a, type: 2}
+  source: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 2ab0f993b97c2174d92a54ab3ab8b7f1, type: 2}
 --- !u!1 &2851119451157983110
 GameObject:
   m_ObjectHideFlags: 0

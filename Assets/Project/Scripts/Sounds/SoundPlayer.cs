@@ -69,7 +69,7 @@ public class SoundPlayer : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| オーディオミキサーの切り替え
 	--------------------------------------------------------------------------------*/
-	public bool SetMixer(string groupName)
+	public bool SetMixerGroup(string groupName)
 	{
 		var group = mixer.FindMatchingGroups(groupName);
 		if (group == null)
@@ -77,6 +77,11 @@ public class SoundPlayer : MonoBehaviour
 
 		source.outputAudioMixerGroup = group[0];
 		return true;
+	}
+
+	public void SetAudioSource(AudioSource source)
+	{
+		this.source = source;
 	}
 
 }

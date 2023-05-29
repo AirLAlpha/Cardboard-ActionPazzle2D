@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
 using System.Windows.Forms;
+using UnityEngine.Audio;
 
 public class StageLoader : MonoBehaviour
 {
@@ -21,7 +22,9 @@ public class StageLoader : MonoBehaviour
 	[SerializeField]		
 	private Tilemap		tilemap;                        //	ステージのタイルを配置するタイルマップ
 	[SerializeField]
-	private Transform	cardboardRoot;					//	ハコの親
+	private Transform	cardboardRoot;                  //	ハコの親
+	[SerializeField]
+	private AudioSource	seSource;
 
 	[Header("ステージ")]
 	[SerializeField]
@@ -220,6 +223,11 @@ public class StageLoader : MonoBehaviour
 			{
 				enemyPause.Resume();
 			}
+		}
+
+		if(newEnemy.TryGetComponent<SoundPlayer>(out SoundPlayer soundPlayer))
+		{
+			soundPlayer.SetAudioSource(seSource);
 		}
 	}
 

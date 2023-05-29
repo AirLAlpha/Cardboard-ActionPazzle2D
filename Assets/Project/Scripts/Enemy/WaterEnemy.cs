@@ -54,6 +54,8 @@ public class WaterEnemy : Enemy, IPackable
 	private void Start()
 	{
 		propertyBlock = new MaterialPropertyBlock();
+
+		deadSeIndex = 3;
 	}
 
 	//	更新処理
@@ -178,6 +180,9 @@ public class WaterEnemy : Enemy, IPackable
 
 		//	攻撃開始フレームまで待機
 		yield return new WaitForSeconds(ATTACK_START_FRAME / 60.0f);
+
+		//	攻撃SEの再生
+		soundPlayer.PlaySound(2);
 
 		//	攻撃の生成
 		for (int i = 0; i <= attackObjCount; i++)

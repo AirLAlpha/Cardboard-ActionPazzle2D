@@ -49,6 +49,9 @@ public class ResultMenu : MenuBase
 				StageManager.Instance.ReturnTitle();
 				break;
 		}
+
+		//	SEの再生
+		soundPlayer.PlaySound(2);
 	}
 
 	/*--------------------------------------------------------------------------------

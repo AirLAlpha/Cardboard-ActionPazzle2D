@@ -65,7 +65,10 @@ namespace CardboardBox
 
 			float hitVelMag = hitVel.sqrMagnitude;
 			if (hitVelMag >= breakingVelocity * breakingVelocity)
+			{
 				Parent.Burn();
+				Parent.SoundPlayer.PlaySound(4);
+			}
 		}
 	}
 }

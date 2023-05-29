@@ -8,6 +8,10 @@ public class TitleTasks : MonoBehaviour
 	private int				selectedTaskIndex;
 	private bool			enableTaskSelect;   //	タスク選択の開始フラグ
 
+	[Header("サウンド")]
+	[SerializeField]
+	private SoundPlayer soundPlayer;
+
 	[Header("入力")]
 	[SerializeField]
 	private float inputInterval;
@@ -125,6 +129,8 @@ public class TitleTasks : MonoBehaviour
 
 		selectedTaskIndex += x;
 		inputWaitTime = inputInterval;
+
+		soundPlayer.PlaySound(2);
 	}
 
 	/*--------------------------------------------------------------------------------

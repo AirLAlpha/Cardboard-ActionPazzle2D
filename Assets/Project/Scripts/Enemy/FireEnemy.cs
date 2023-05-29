@@ -27,7 +27,7 @@ public class FireEnemy : Enemy, IPackable
 	//	初期化処理
 	private void Start()
 	{
-		
+		deadSeIndex = 1;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -87,6 +87,9 @@ public class FireEnemy : Enemy, IPackable
 		newFireBall.Direction = toTargetVec;
 		//	親を自身に設定
 		newFireBall.Parent = transform;
+
+		//	攻撃SEの再生
+		soundPlayer.PlaySound(0);
 	}
 
 	/*--------------------------------------------------------------------------------

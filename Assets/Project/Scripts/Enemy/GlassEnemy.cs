@@ -21,6 +21,10 @@ public class GlassEnemy : Enemy, IPackable
 
 	public Sprite LabelSprite { get { return labelSprite; } }
 
+	private void Start()
+	{
+		deadSeIndex = 3;
+	}
 
 	/*--------------------------------------------------------------------------------
 	|| 待機中の更新処理

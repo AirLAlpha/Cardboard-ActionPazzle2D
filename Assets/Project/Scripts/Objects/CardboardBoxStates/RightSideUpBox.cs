@@ -96,6 +96,9 @@ namespace CardboardBox
 		--------------------------------------------------------------------------------*/
 		private void AngleUpdate()
 		{
+			if (Parent.IsBurned)
+				return;
+
 			float angle = Parent.transform.localEulerAngles.z;                      //	現在の角度を取得
 			float minus = Mathf.Repeat(startRot - Mathf.PI / 2, Mathf.PI * 2);      //	マイナス側の最低角度を取得
 			float plus = Mathf.Repeat(startRot + Mathf.PI / 2, Mathf.PI * 2);       //	プラス側の最大角度を取得
@@ -109,7 +112,10 @@ namespace CardboardBox
 				Mathf.Abs(plusDelta) < breakAngle)
 			{
 				if (breakableTimer >= breakableTime)
+				{
+					Parent.SoundPlayer.PlaySound(5);
 					Parent.Burn();
+				}
 				else
 				{
 					breakableTimer += Time.deltaTime;

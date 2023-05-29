@@ -31,6 +31,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	protected Animator		anim;           //	Animator
 	[SerializeField]
 	protected Rigidbody2D	rb;             //	Rigidbody2D
+	[SerializeField]
+	protected SoundPlayer	soundPlayer;
 
 	//	移動
 	protected Vector2		acce;			//	加速度
@@ -61,6 +63,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	[Header("めり込み")]
 	[SerializeField]
 	protected LayerMask overlapMask;
+	[SerializeField]
+	protected int		deadSeIndex;
 
 	[Header("エフェクト")]
 	[SerializeField]
@@ -184,6 +188,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 		Transform effectRoot = GameObject.Find("EffectRoot").transform;
 		var effect = Instantiate(deadEffect, transform.position, Quaternion.identity, effectRoot);
 		effect.Play();
+
+		soundPlayer.PlaySound(deadSeIndex);
 
 		Destroy(gameObject);
 	}

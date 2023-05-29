@@ -61,7 +61,7 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 	/*--------------------------------------------------------------------------------
 	|| BGMの再生
 	--------------------------------------------------------------------------------*/
-	public void PlayBGM(int dbIndex)
+	public void PlayBGM(int dbIndex, bool enableFade = false)
 	{
 		if (dbIndex >= player.Database.Clips.Count)
 			return;
@@ -74,6 +74,15 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 		player.Source.Play();
 		isPlaying = true;
 		currentIndex = dbIndex;
+
+		if(enableFade)
+		{
+			StartCoroutine(StartFade());
+		}
+		else
+		{
+			player.SetVolume(maxVolume);
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -137,7 +146,7 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 		player.Source.clip = player.Database.Clips[dbIndex];
 		//	グループの設定
 		if (groupName != string.Empty)
-			player.SetMixer(groupName);
+			player.SetMixerGroup(groupName);
 
 		//	時間まで待つ
 		yield return new WaitForSeconds(waitTime);
@@ -185,6 +194,30 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 
 		player.SetVolume(0.0f);
 		player.Source.Stop();
+		isPlaying = false;
+		isFade = false;
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| スタートフェード
+	--------------------------------------------------------------------------------*/
+	private IEnumerator StartFade()
+	{
+		if (isFade)
+			yield break;
+
+		isFade = true;
+		progress = 0.0f;
+		player.SetVolume(0.0f);
+
+		while (progress < 1.0f)
+		{
+			progress += Time.deltaTime * speed;
+			player.SetVolume(Mathf.Lerp(0.0f, maxVolume, progress));
+			yield return null;
+		}
+
+		player.SetVolume(maxVolume);
 		isPlaying = false;
 		isFade = false;
 	}

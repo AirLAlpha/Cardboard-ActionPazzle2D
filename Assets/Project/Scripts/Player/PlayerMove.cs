@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SoundPlayer))]
 public class PlayerMove : MonoBehaviour, IPauseable
 {
 	//	コンポーネント
@@ -22,6 +23,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	[SerializeField]
 	private Animator		anim;           //	Animator
 
+	private SoundPlayer		soundPlayer;
 	private Rigidbody2D		rb;             //	Rigidbody2D
 
 	public Rigidbody2D Rigidbody2D { get { return rb; } }
@@ -115,6 +117,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	{
 		//	コンポーネントの取得
 		rb = GetComponent<Rigidbody2D>();       //	Rigidbody2D
+		soundPlayer = GetComponent<SoundPlayer>();
 
 		//	向きの初期化
 		CurrentDir = Direction.RIGHT;
@@ -239,13 +242,17 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		//if (saveInputJump || !inputJump || !isGrounded) 
 		//	return;
 
-		if (!inputJump)
+		if (!inputJump ||
+			!isGrounded)
 			return;
 
 		//	ベクトルの加算
 		rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
 		//	ジャンプフラグの有効化
 		isJumping = true;
+
+		//	移動SEの再生
+		soundPlayer.PlaySound(0);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -287,10 +294,18 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	{
 		if (Mathf.Abs(inputVec.x) > 0 &&
 			isGrounded)
+		{
 			isRotate = true;
+		}
 
 		if (!isRotate)
 			return;
+
+		if(rotateInterval <= 0.0f)
+		{
+			//	移動SEの再生
+			soundPlayer.PlaySound(2);
+		}
 
 		rotateInterval += Time.deltaTime * rotateSpeed;
 		if(rotateInterval >= 1.0f)

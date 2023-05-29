@@ -75,6 +75,11 @@ public abstract class MenuBase : MonoBehaviour
 
 	public int		MaxIndex => menuItem.Length;
 
+	//	サウンド
+	[Header("サウンド")]
+	[SerializeField]
+	protected SoundPlayer		soundPlayer;
+
 	//	プロパティ
 	public int		CurrentIndex	{ get { return currentIndex; } }
 	public Vector2	InputVec		{ get { return inputVec; } }
@@ -179,6 +184,11 @@ public abstract class MenuBase : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	protected void SelectUpdate()
 	{
+		if(!Mathf.Approximately(inputVec.y, 0))
+		{
+			soundPlayer.PlaySound(1);
+		}
+
 		currentIndex -= (int)inputVec.y;                                //	上下入力を加算
 		currentIndex = (int)Mathf.Repeat(currentIndex, MaxIndex);       //	リピートする
 		//	有効でないときは次の項目へ

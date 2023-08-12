@@ -512,7 +512,7 @@
                 "w": 1.0
             },
             "type": 2,
-            "targetIndex": 30,
+            "targetIndex": 29,
             "extraSetting": "{\"openOffset\":{\"x\":0.0,\"y\":2.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
         },
         {
@@ -805,23 +805,6 @@
             "extraSetting": ""
         },
         {
-            "databaseIndex": 21,
-            "pos": {
-                "x": -0.5,
-                "y": 5.5,
-                "z": 0.0
-            },
-            "rot": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 1.0,
-                "w": 0.0
-            },
-            "type": 0,
-            "targetIndex": -1,
-            "extraSetting": ""
-        },
-        {
             "databaseIndex": 19,
             "pos": {
                 "x": 1.5,
@@ -835,7 +818,7 @@
                 "w": 0.7071068286895752
             },
             "type": 2,
-            "targetIndex": 31,
+            "targetIndex": 30,
             "extraSetting": "{\"openOffset\":{\"x\":-4.0,\"y\":0.0},\"openSpeed\":5.0,\"closeSpeed\":5.0}"
         },
         {

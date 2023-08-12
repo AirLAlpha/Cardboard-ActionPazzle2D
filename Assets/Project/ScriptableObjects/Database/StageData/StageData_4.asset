@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 4
   tasks:
-  - stageJson: {fileID: 4900000, guid: 1dba1dd02e7c49842b6f916423a6899a, type: 3}
+  - stageJson: {fileID: 4900000, guid: a2962b69d2775bd4da88de452bbf8485, type: 3}
     challanges: []
-  - stageJson: {fileID: 4900000, guid: 854c13cacf412ff4c97afca57ce7692d, type: 3}
+  - stageJson: {fileID: 4900000, guid: 83c5b05a4871cc14194a5855532350f3, type: 3}
     challanges: []
-  - stageJson: {fileID: 4900000, guid: fa2ebacdf34513846a474054adadad8d, type: 3}
+  - stageJson: {fileID: 4900000, guid: 9f7859d86fce2944d97e70c2e0a3250e, type: 3}
     challanges: []
   - stageJson: {fileID: 4900000, guid: 76e684255081f0b4d846ed61852efd50, type: 3}
     challanges: []

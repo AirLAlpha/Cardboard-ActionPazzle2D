@@ -42,6 +42,7 @@ MonoBehaviour:
   - buttonName: Restart
     displayNames:
     - {fileID: 21300000, guid: 48ae1c39c6d1fd542a0e9b4880b7961e, type: 3}
+    - {fileID: 21300000, guid: 04248a9f336c85d4ea9bfd104ba3860d, type: 3}
     positiveKeySprite: {fileID: -1765857646, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 0}
     controllerSprite: {fileID: 71013611, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}

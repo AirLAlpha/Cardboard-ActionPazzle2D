@@ -21,6 +21,9 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
     private SpriteRenderer[]            spriteRenders;              //  SpriteRender
     [SerializeField]
     private Animator                    anim;
+    [SerializeField]
+    private SoundPlayer soundPlayer;
+
 
     private BlazingShaderController[]   blazingControllers;          //  BlazingShaderController
     private Rigidbody2D                 rb;
@@ -130,6 +133,9 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
         anim.enabled = false;
         //  •¨—‰‰Z‚ğ–³Œø‰»‚·‚é
         rb.simulated = false;
+
+        //  SE‚ÌÄ¶
+        soundPlayer.PlaySound(7);
     }
 
 	/*--------------------------------------------------------------------------------

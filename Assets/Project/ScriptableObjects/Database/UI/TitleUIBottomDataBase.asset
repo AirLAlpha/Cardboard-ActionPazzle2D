@@ -19,6 +19,12 @@ MonoBehaviour:
     positiveKeySprite: {fileID: -657217306, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     negativeKeySprite: {fileID: 1357413821, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
     controllerSprite: {fileID: -421114973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
+  - buttonName: Vertical
+    displayNames:
+    - {fileID: 21300000, guid: 2b10bd9efe0130344bfda78e300cffa1, type: 3}
+    positiveKeySprite: {fileID: 1234941655, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    negativeKeySprite: {fileID: 487766292, guid: 5ec5db5ab77bf634cbfcbe2aa4fef793, type: 3}
+    controllerSprite: {fileID: -421114973, guid: 973f7eec43909c847b6ff20d37960fee, type: 3}
   - buttonName: Jump
     displayNames:
     - {fileID: 21300000, guid: 5418e7db66cb04f48acc74be7522b983, type: 3}

@@ -36,6 +36,7 @@ public class AnimationComplete : MonoBehaviour
 		{
 			//	時間になったら処理を呼び出し、呼び出し済みとする
 			OnAnimationCompleted?.Invoke();
+
 			invoked = true;
 		}
 	}

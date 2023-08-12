@@ -17,7 +17,18 @@ public class TitleManager : MonoBehaviour
 {
 	[Header("ボタンヒント")]
 	[SerializeField]
-	private CanvasAlphaController buttonHintAlphaController;
+	private CanvasAlphaController	buttonHintAlphaController;
+
+	[Header("メニュー")]
+	[SerializeField]
+	private TitleMenu				titleMenu;
+	[SerializeField]
+	private SettingMenu				settingMenu;
+
+	private bool openMenu;
+	public bool OpenMenu { get { return titleMenu.gameObject.activeSelf; } }
+
+	public bool EnableSelectTask { get; set; }
 
 	//	ステージ
 	[Header("ステージデータ")]
@@ -72,6 +83,10 @@ public class TitleManager : MonoBehaviour
 
 			buttonHintAlphaController.SetAlpha(0.0f);
 		}
+
+		//	設定の適応
+		Setting setting = SettingLoader.LoadSetting();
+		settingMenu.InitSettings(setting);
 	}
 
 	//	更新処理
@@ -88,6 +103,13 @@ public class TitleManager : MonoBehaviour
 				waitTime += Time.deltaTime;
 			}
 		}
+
+		if(Input.GetButtonDown("Menu") &&
+			!EnableSelectTask)
+		{
+			titleMenu.ActivateMenu();
+			openMenu = true;
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -96,6 +118,9 @@ public class TitleManager : MonoBehaviour
 	[ContextMenu("LoadScene")]
 	public void LoadScene()
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
 		if (stageDataBase.Stages.Length - 1 < selectedData.StageID)
 		{
 			Debug.LogError("ステージID : " + selectedData.StageID + " は設定されていません。");
@@ -132,6 +157,11 @@ public class TitleManager : MonoBehaviour
 		//	シーン遷移の開始
 		Transition.Instance.StartTransition(scenes);
 		BGMPlayer.Instance.FadeSpeed = 3.0f;
-		BGMPlayer.Instance.StartTransition(selectedData.StageID, "BGM");
+		BGMPlayer.Instance.StartTransition(selectedData.StageID, "NormalBGM");
+	}
+
+	public void PlayBGM(int index)
+	{
+		BGMPlayer.Instance.PlayBGM(index);
 	}
 }

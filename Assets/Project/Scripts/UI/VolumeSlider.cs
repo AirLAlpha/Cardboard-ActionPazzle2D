@@ -25,16 +25,15 @@ public class VolumeSlider : MonoBehaviour
 	private RectTransform		cursor;         //	カーソル
 	[SerializeField]
 	private float				cursorSpeed;    //	カーソル速度
+	[SerializeField]
+	private Vector2				cursorOffset;
 
 	public UnityEvent			OnValidate;
 
 	private int		selectedItemIndex;
 	private int		saveIndex;
 
-	private void Start()
-	{
-		selectedItemIndex = (items.Length / 2);
-	}
+	public int SelectedIndex { get { return selectedItemIndex; } }
 
 	public void InputUpdate(Vector2 input, bool inputCancel)
 	{
@@ -56,9 +55,27 @@ public class VolumeSlider : MonoBehaviour
 
 	public void CursorUpdate()
 	{
-		Vector3 targetPos = items[selectedItemIndex].rectTransform.position;
+		Vector3 targetPos = items[selectedItemIndex].rectTransform.position + (Vector3)cursorOffset;
 		cursor.position = Vector3.Lerp(cursor.position, targetPos, Time.deltaTime * cursorSpeed);
 
+		for (int i = 0; i < items.Length; i++)
+		{
+			bool selected = i == selectedItemIndex;
+
+			items[i].sprite = selected ? selectedSprite : nonselectedSprite;
+			items[i].transform.localEulerAngles = selected ? Vector3.forward * 5.0f : Vector3.zero;
+		}
+	}
+
+	public void SetIndex(int index)
+	{
+		selectedItemIndex = index;
+		saveIndex = index;
+
+		//	音量に適応
+		float vol = (float)selectedItemIndex / (float)(items.Length - 1);
+		mixer.SetFloat(targetName, Mathf.Lerp(-10.0f, 10.0f, vol));
+		//	見た目に適応
 		for (int i = 0; i < items.Length; i++)
 		{
 			bool selected = i == selectedItemIndex;

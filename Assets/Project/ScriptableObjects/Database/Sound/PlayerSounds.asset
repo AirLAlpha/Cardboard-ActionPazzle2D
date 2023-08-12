@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: PlayerSounds
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: d9aedc79e044d9c4c99ac8876b9fbe69, type: 3}
+  - {fileID: 8300000, guid: 62eccb9179cda60458789f4907d1201e, type: 3}
   - {fileID: 8300000, guid: d816bf4331b4fa14985329b46f005674, type: 3}
-  - {fileID: 8300000, guid: da4c6093144f6d9468bb658f1577e6d9, type: 3}
+  - {fileID: 8300000, guid: 8be51e3ea42209b42bcf2a926bf3c6a5, type: 3}
   - {fileID: 8300000, guid: feee4b9b6b38c484d89afcb00e1795d6, type: 3}
   - {fileID: 8300000, guid: 6517f1b130ab4f145801b3459bb49af6, type: 3}
   - {fileID: 8300000, guid: a97cf35276aa51d43b71d300e1619443, type: 3}
+  - {fileID: 8300000, guid: feee4b9b6b38c484d89afcb00e1795d6, type: 3}
+  - {fileID: 8300000, guid: a44ad3c659c878c4eb3de45152a0b438, type: 3}
+  - {fileID: 8300000, guid: 2c497a3408b987e4ab9a97d1a8158fcc, type: 3}
+  - {fileID: 8300000, guid: 7f0fbbcf6b7421d4f9906fea77fb672d, type: 3}

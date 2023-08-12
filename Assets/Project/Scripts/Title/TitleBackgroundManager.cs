@@ -9,6 +9,8 @@ public class TitleBackgroundManager : MonoBehaviour
 	private StageSelect				stageSelect;
 	[SerializeField]
 	private SpriteRenderer[]		renderers;
+	[SerializeField]
+	private SpriteRenderer			logo;
 
 	[Header("シェーダー")]
 	[SerializeField]
@@ -65,6 +67,10 @@ public class TitleBackgroundManager : MonoBehaviour
 				targetColor = Color.white;
 				renderers[renderers.Length - 1].color = targetColor;
 			}
+			else
+			{
+				logo.color = targetColor;
+			}
 
 			renderers[i].color = targetColor;
 		}
@@ -107,6 +113,9 @@ public class TitleBackgroundManager : MonoBehaviour
 			renderers[i].color = Color.Lerp(renderers[i].color, targetColor, Time.deltaTime * colorChangeRate);
 		}
 
+		//	ロゴ
+		Color logoTargetColor = stageSelect.SelectedStage == 0 ? Color.white : nonSelectedColor;
+		logo.color = Color.Lerp(logo.color, logoTargetColor, Time.deltaTime * colorChangeRate);
 
 	}
 

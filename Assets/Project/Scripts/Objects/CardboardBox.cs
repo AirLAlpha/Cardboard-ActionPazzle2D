@@ -166,7 +166,8 @@ namespace CardboardBox
 			}
 
 			Instantiate(burnEffect, transform.position, Quaternion.identity);
-			
+
+			soundPlayer.PlaySound(8);
 		}
 
 		/*--------------------------------------------------------------------------------
@@ -186,8 +187,6 @@ namespace CardboardBox
 			if (currentState == nonPackedBox)
 			{
 				nonPackedBox.Packing(type, packable);
-
-				soundPlayer.PlaySound(3);
 			}
 		}
 

@@ -54,6 +54,8 @@ public abstract class MenuBase : MonoBehaviour
 
 	private float			animProgress;		//	アニメーション進行度
 
+	protected RectTransform MenuCursor { get { return menuCursor; } }
+
 	//	メニュー項目
 	[Header("メニュー項目")]
 	[SerializeField]

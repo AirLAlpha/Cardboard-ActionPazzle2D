@@ -27,8 +27,11 @@ public class PauseActivator : MonoBehaviour
 	//	更新処理
 	private void Update()
 	{
+		if (StageManager.Instance.IsStageClear)
+			return;
+
 		//	ポーズ中は処理しない
-		if (pauseManager.IsPose)
+		if (pauseManager.IsPause)
 			return;
 
 		PauseUpdate();		//	ポーズの有効化処理

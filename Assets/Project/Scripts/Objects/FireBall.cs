@@ -50,6 +50,11 @@ public class FireBall : MonoBehaviour, IPauseable
 	private bool	disableUpdate;
 	private Vector2 posedVelocity;
 
+	//	サウンド
+	private SoundPlayer soundPlayer;
+	private int			soundIndex;
+
+
 	//	実行前初期化処理
 	private void Awake()
 	{
@@ -86,6 +91,9 @@ public class FireBall : MonoBehaviour, IPauseable
 			return;
 
 		Instantiate(destroyEffect, transform.position, Quaternion.identity);
+
+		//	サウンドの再生
+		soundPlayer.PlaySound(soundIndex);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -136,5 +144,11 @@ public class FireBall : MonoBehaviour, IPauseable
 
 		rb.isKinematic = false;
 		rb.velocity = posedVelocity;
+	}
+
+	public void SetSound(SoundPlayer soundPlayer, int dbIndex)
+	{
+		this.soundPlayer = soundPlayer;
+		soundIndex = dbIndex;
 	}
 }

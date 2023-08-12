@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: BGMDatabase
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: b2c2569dee5070b47a126bae094d3ed1, type: 3}
   - {fileID: 8300000, guid: 08d74ccb20651884bb186c33766fe9d3, type: 3}
   - {fileID: 8300000, guid: 18fb32a2b5469fd4593268017f53e60b, type: 3}
   - {fileID: 8300000, guid: 98cc837159894204380a8183d69b7c4b, type: 3}
   - {fileID: 8300000, guid: 940c64a62d9755543bdc156d45954863, type: 3}
   - {fileID: 8300000, guid: c04b00b2e7a9aa84c97d9f2481a9ce91, type: 3}
+  - {fileID: 8300000, guid: f7675ba7b9fe3044a82727fe9bfd1352, type: 3}

@@ -36,6 +36,8 @@ public struct SaveData
 {
 	//	各ステージのスコア
 	public StageScore[] stageScores;
+
+	public int lastSelectStage;
 	//	コンストラクタ
-	public SaveData(StageScore[] scores) { this.stageScores = scores; }
+	public SaveData(StageScore[] scores, int lastSelectStage) { this.stageScores = scores; this.lastSelectStage = lastSelectStage; }
 }

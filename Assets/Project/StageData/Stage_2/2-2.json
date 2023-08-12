@@ -295,7 +295,7 @@
             }
         },
         {
-            "databaseIndex": 53,
+            "databaseIndex": 55,
             "pos": {
                 "x": 4.0,
                 "y": 0.0,
@@ -309,7 +309,7 @@
             }
         },
         {
-            "databaseIndex": 53,
+            "databaseIndex": 56,
             "pos": {
                 "x": 5.0,
                 "y": 0.0,
@@ -323,7 +323,7 @@
             }
         },
         {
-            "databaseIndex": 53,
+            "databaseIndex": 56,
             "pos": {
                 "x": 6.0,
                 "y": 0.0,
@@ -337,7 +337,7 @@
             }
         },
         {
-            "databaseIndex": 53,
+            "databaseIndex": 56,
             "pos": {
                 "x": 7.0,
                 "y": 0.0,
@@ -351,24 +351,10 @@
             }
         },
         {
-            "databaseIndex": 53,
+            "databaseIndex": 56,
             "pos": {
                 "x": 8.0,
                 "y": 0.0,
-                "z": 0.0
-            },
-            "rot": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0,
-                "w": 1.0
-            }
-        },
-        {
-            "databaseIndex": 17,
-            "pos": {
-                "x": 4.5,
-                "y": -2.5,
                 "z": 0.0
             },
             "rot": {
@@ -383,6 +369,20 @@
             "pos": {
                 "x": 4.5,
                 "y": -1.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "databaseIndex": 17,
+            "pos": {
+                "x": 4.5,
+                "y": -2.5,
                 "z": 0.0
             },
             "rot": {

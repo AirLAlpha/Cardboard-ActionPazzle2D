@@ -46,7 +46,7 @@ public class PauseMenu : MenuBase
 	//	終了の確認ウィンドウ
 	[Header("終了の確認")]
 	[SerializeField]
-	private StageExitConfirm	exitConfirm;
+	private GameExitConfirm	exitConfirm;
 
 	//	更新処理
 	protected override void Update()
@@ -62,11 +62,22 @@ public class PauseMenu : MenuBase
 	{
 		//	メニューキーでポーズを解除
 		if (Input.GetButtonDown("Menu"))
+		{
 			DeactivatePauseMenu();
+			//	SEの再生
+			soundPlayer.PlaySound(3);
+		}
 
 		//	確定処理
 		if (InputConfirm)
 			ConfirmUpdate();
+
+		if (InputCancel)
+		{
+			DeactivatePauseMenu();
+			//	SEの再生
+			soundPlayer.PlaySound(3);
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -111,15 +122,21 @@ public class PauseMenu : MenuBase
 		buttonHint.SetActive("Jump", true);
 		buttonHint.SetActive("Horizontal", false);
 		buttonHint.SetActive("Fire1", false);
-		buttonHint.SetActive("Restart", false);
+		buttonHint.SetActive("Restart", true);
 		buttonHint.SetActive("Menu", false);
 		//	ボタンヒントのテキストを変更
 		buttonHint.SetDisplayNameIndex("Jump", 1);
+		buttonHint.SetDisplayNameIndex("Restart", 1);
 
 		//	チャレンジのクリア状況を適応
 		pauseChallangeState.UpdateChallangeState();
 
-		gameObject.SetActive(true);		//	オブジェクトを有効化
+		gameObject.SetActive(true);     //	オブジェクトを有効化
+
+		BGMPlayer.Instance.SoundPlayer.SetMixerGroup("EffectedBGM");
+
+		//SEの再生
+		soundPlayer.PlaySound(4);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -139,8 +156,11 @@ public class PauseMenu : MenuBase
 		buttonHint.SetActive("Menu", true);
 		//	ボタンヒントのテキストを変更
 		buttonHint.SetDisplayNameIndex("Jump", 0);
+		buttonHint.SetDisplayNameIndex("Restart", 0);
 
-		pauseManager.Resume();			//	ポーズの解除
+		pauseManager.Resume();          //	ポーズの解除
+
+		BGMPlayer.Instance.SoundPlayer.SetMixerGroup("NormalBGM");
 	}
 
 

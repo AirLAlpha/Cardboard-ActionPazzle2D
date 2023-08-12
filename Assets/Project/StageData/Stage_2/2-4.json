@@ -1013,7 +1013,7 @@
             },
             "type": 2,
             "targetIndex": 14,
-            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.20000000298023225,\"closeSpeed\":5.0}"
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.15000000298023225,\"closeSpeed\":5.0}"
         },
         {
             "databaseIndex": 19,
@@ -1030,7 +1030,7 @@
             },
             "type": 2,
             "targetIndex": 14,
-            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.20000000298023225,\"closeSpeed\":5.0}"
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.15000000298023225,\"closeSpeed\":5.0}"
         },
         {
             "databaseIndex": 19,
@@ -1047,7 +1047,7 @@
             },
             "type": 2,
             "targetIndex": 14,
-            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.20000000298023225,\"closeSpeed\":5.0}"
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.15000000298023225,\"closeSpeed\":5.0}"
         },
         {
             "databaseIndex": 20,
@@ -1064,7 +1064,7 @@
             },
             "type": 2,
             "targetIndex": 14,
-            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.20000000298023225,\"closeSpeed\":1.5}"
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.15000000298023225,\"closeSpeed\":1.5}"
         },
         {
             "databaseIndex": 18,
@@ -1132,7 +1132,7 @@
             },
             "type": 2,
             "targetIndex": 14,
-            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.20000000298023225,\"closeSpeed\":5.0}"
+            "extraSetting": "{\"openOffset\":{\"x\":-9.0,\"y\":0.0},\"openSpeed\":0.15000000298023225,\"closeSpeed\":5.0}"
         }
     ],
     "usableBoxCount": 0,

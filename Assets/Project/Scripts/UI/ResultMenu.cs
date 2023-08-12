@@ -28,6 +28,9 @@ public class ResultMenu : MenuBase
 	--------------------------------------------------------------------------------*/
 	protected override void MenuUpdate()
 	{
+		if (DisableInput)
+			return;
+
 		if (InputConfirm)
 			ConfirmUpdate();
 	}
@@ -43,7 +46,7 @@ public class ResultMenu : MenuBase
 				StageManager.Instance.LoadNextStage();
 				break;
 			case MenuItems.RETRY:
-				StageManager.Instance.ResetStage();
+				StageManager.Instance.ResetStage(true);
 				break;
 			case MenuItems.RETURN_TITLE:
 				StageManager.Instance.ReturnTitle();

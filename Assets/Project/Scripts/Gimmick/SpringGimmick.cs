@@ -60,6 +60,7 @@ public class SpringGimmick : Gimmick
 	private float		springProgress;     //	バネの進行度
 
 	private Rigidbody2D targetRb;           //	対象のRigidbody2D
+	private SoundPlayer soundPlayer;
 
 #if UNITY_EDITOR
 	[Header("デバッグ")]
@@ -71,6 +72,7 @@ public class SpringGimmick : Gimmick
 	private void Awake()
 	{
 		spriteRoot.TryGetComponent<BoxCollider2D>(out boxCollider);
+		transform.parent.TryGetComponent<SoundPlayer>(out soundPlayer);
 	}
 
 	//	初期化処理
@@ -144,6 +146,9 @@ public class SpringGimmick : Gimmick
 			//	乗っているターゲットに力を加える
 			targetRb.AddForce(spriteRoot.up * springPower * targetRb.mass, ForceMode2D.Impulse);
 			targetRb = null;
+
+			//	SEの再生
+			soundPlayer.PlaySound(1);
 		}
 
 		//	各パーツの座標を更新する

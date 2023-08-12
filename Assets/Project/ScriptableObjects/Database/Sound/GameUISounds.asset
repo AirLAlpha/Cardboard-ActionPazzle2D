@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GameUISounds
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 709aa7d1f8c89f64da2c86a5bbce7910, type: 3}
+  - {fileID: 8300000, guid: ec1121b8464d8314fbca081fdb7355bf, type: 3}
   - {fileID: 8300000, guid: 26292ec509948a94f89a3e2446ffd54f, type: 3}
-  - {fileID: 8300000, guid: 79d70ae0553d1f8498bae2dcce0b0b1f, type: 3}
+  - {fileID: 8300000, guid: 6ce04d5077b5fbb4a8a553d2d5be9baf, type: 3}
+  - {fileID: 8300000, guid: 44cc26a7af37db14ba1a8ec48bb7ff8b, type: 3}
+  - {fileID: 8300000, guid: 37ebc5b2201f2fb4ea0955d1e32ce2aa, type: 3}
+  - {fileID: 8300000, guid: 0a08a023feaca474ea915d5c2ba9af5c, type: 3}

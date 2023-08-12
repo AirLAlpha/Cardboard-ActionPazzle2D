@@ -22,7 +22,6 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 		WAIT,
 		FADE_IN
 	}
-	private SoundTransitionMode mode;   //	現在の遷移モード
 
 	[Header("サウンドプレイヤー")]
 	[SerializeField]
@@ -84,6 +83,11 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 			player.SetVolume(maxVolume);
 		}
 	}
+	public void PlayBGMFade(int dbIndex)
+	{
+		PlayBGM(dbIndex, true);
+	}
+
 
 	/*--------------------------------------------------------------------------------
 	|| BGMの停止
@@ -126,8 +130,6 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 
 		//	進行度をリセット
 		progress = 0.0f;
-		//	モードを設定
-		mode = SoundTransitionMode.FADE_OUT;
 		//	フェードアウト
 		while (progress < 1.0f)
 		{
@@ -135,9 +137,6 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 			player.SetVolume(Mathf.Lerp(maxVolume, 0.0f, progress));
 			yield return null;
 		}
-
-		//	モードを切り替え
-		mode = SoundTransitionMode.WAIT;
 
 		isPlaying = false;
 		//	音量を0にしておく
@@ -155,8 +154,6 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 		player.Source.Play();
 		isPlaying = true;
 
-		//	モードを切り替え
-		mode = SoundTransitionMode.FADE_IN;
 		//	進行度をリセット
 		progress = 0.0f;
 
@@ -168,8 +165,6 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 			yield return null;
 		}
 
-		//	終了
-		mode = SoundTransitionMode.NONE;
 
 		isFade = false;
 	}
@@ -218,7 +213,7 @@ public class BGMPlayer : SingletonMonoBehaviour<BGMPlayer>
 		}
 
 		player.SetVolume(maxVolume);
-		isPlaying = false;
+		isPlaying = true;
 		isFade = false;
 	}
 }

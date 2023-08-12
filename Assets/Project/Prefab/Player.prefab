@@ -320,9 +320,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1455866009983635765}
   anim: {fileID: 1455866011123590182}
-  moveSpeed: 10
+  moveSpeed: 9
   speedChangeRate: 15
-  jumpPower: 13
+  jumpPower: 14
   gravityScale: 0
   heighJumpGravityScale: 0
   groundCheckArea: {x: 0.93, y: 0.09}
@@ -411,6 +411,7 @@ MonoBehaviour:
   - {fileID: 1455866009983635765}
   - {fileID: 1455866009813371976}
   anim: {fileID: 1455866011123590182}
+  soundPlayer: {fileID: 0}
   dontDeath: 0
   OnDead:
     m_PersistentCalls:

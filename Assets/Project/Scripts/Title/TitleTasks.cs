@@ -130,7 +130,7 @@ public class TitleTasks : MonoBehaviour
 		selectedTaskIndex += x;
 		inputWaitTime = inputInterval;
 
-		soundPlayer.PlaySound(2);
+		soundPlayer.PlaySound(1);
 	}
 
 	/*--------------------------------------------------------------------------------

@@ -309,6 +309,40 @@
             "type": 0,
             "targetIndex": -1,
             "extraSetting": "{\"speedMod\":1.0,\"inverse\":false}"
+        },
+        {
+            "databaseIndex": 22,
+            "pos": {
+                "x": 6.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": "{\"speedMod\":1.0,\"inverse\":false}"
+        },
+        {
+            "databaseIndex": 22,
+            "pos": {
+                "x": 8.5,
+                "y": -3.5,
+                "z": 0.0
+            },
+            "rot": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "type": 0,
+            "targetIndex": -1,
+            "extraSetting": "{\"speedMod\":1.0,\"inverse\":false}"
         }
     ],
     "usableBoxCount": 5,

@@ -16,7 +16,7 @@ using System.IO;
 public static class SaveDataLoader
 {
 	[SerializeField]
-	static readonly public string		SAVE_PATH = "SaveData.json";        //	セーブデータのパス
+	static readonly public string		SAVE_PATH = "SaveData";        //	セーブデータのパス
 
 	private const int STAGE_COUNT = 5;
 	private const int TASK_COUNT = 5;
@@ -80,7 +80,7 @@ public static class SaveDataLoader
 		{
 			stages[i].scores = new TaskScore[TASK_COUNT];
 		}
-		SaveData saveData = new SaveData(stages);
+		SaveData saveData = new SaveData(stages, -1);
 
 		SaveDataLoader.ExportJson(saveData);
 	}

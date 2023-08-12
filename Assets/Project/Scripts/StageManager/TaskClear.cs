@@ -153,9 +153,6 @@ public class TaskClear : MonoBehaviour
 	//	更新処理
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
-			OnTaskClear();
-
 		//	アニメーションの処理がないステートの際は処理しない
 		if (currentState == State.NONE ||
 			currentState == State.END)
@@ -192,6 +189,13 @@ public class TaskClear : MonoBehaviour
 				return;
 		}
 
+		//	スキップ
+		if(Input.GetButtonDown("Jump") &&
+			(int)currentState < (int)State.STAMP_MOVE)
+		{
+			Skip();
+			currentState = State.STAMP_MOVE;
+		}
 	}
 
 
@@ -422,6 +426,9 @@ public class TaskClear : MonoBehaviour
 
 		//	状態を更新
 		currentState = State.CAM_MOVE;
+
+		//	クリア時BGMを再生
+		BGMPlayer.Instance.PlayBGM(6, true);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -444,9 +451,35 @@ public class TaskClear : MonoBehaviour
 
 			//	書き換えたスコアをデータに格納
 			data.stageScores[selectedTask.StageID - 1].scores[selectedTask.TaskIndex] = taskScore;
+			//	選択中のステージを保持
+			data.lastSelectStage = selectedTask.StageID;
 			//	JSONの書き出し
 			SaveDataLoader.ExportJson(data);
 		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| スキップ処理
+	--------------------------------------------------------------------------------*/
+	private void Skip()
+	{
+		CameraTransform.position = clearCameraPos;
+
+		//	ステージ番号の表示を設定
+		invoice.SetStageNum(selectedTask.StageID, selectedTask.TaskIndex);
+		//	送り状を有効化
+		invoice.gameObject.SetActive(true);
+
+		invoice.transform.position = invoiceEndPos;
+
+		invoice.SetTime(clearedTime);
+
+		invoice.SetBoxCount(usedBoxCount);
+
+		//	スタンプの初期化
+		stamp.transform.localScale = Vector3.one * stampStartScale;
+		stamp.color = new Color(stamp.color.r, stamp.color.g, stamp.color.b, 0.0f);
+		stamp.gameObject.SetActive(true);
 	}
 
 }

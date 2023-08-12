@@ -172,7 +172,7 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 		currentBox = newBox;
 
 		//	SEの再生
-
+		soundPlayer.PlaySound(6);
 
 		//	ハコ使用数を加算
 		StageManager.Instance.UsedBoxCount++;

@@ -63,8 +63,8 @@ Material:
     - _TimeScale: 1
     - _VertexColorPower: 1
     m_Colors:
-    - _InsideColor: {r: 1, g: 0, b: 0, a: 1}
-    - _OutsideColor: {r: 0.101960786, g: 1, b: 0, a: 1}
+    - _InsideColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
+    - _OutsideColor: {r: 0, g: 0.6509804, b: 0.023529412, a: 1}
     - _PositionOffset: {r: 0, g: -0.5, b: 0, a: 0}
     - _RootPosition: {r: 0, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

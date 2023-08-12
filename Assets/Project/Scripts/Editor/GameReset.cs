@@ -49,7 +49,7 @@ public class GameReset
 				stages[i].scores[j] = task;
 			}
 		}
-		SaveData saveData = new SaveData(stages);
+		SaveData saveData = new SaveData(stages, -1);
 
 		SaveDataLoader.ExportJson(saveData);
 	}

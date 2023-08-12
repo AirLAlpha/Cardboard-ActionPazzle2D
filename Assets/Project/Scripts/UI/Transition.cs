@@ -37,7 +37,8 @@ public class Transition : SingletonMonoBehaviour<Transition>
 	[SerializeField]
 	private float				fadeinWait;
 
-	public bool IsTransition { get { return mode != TransitionMode.NONE; } }
+	private bool isTransition;
+	public bool IsTransition { get { return isTransition; } }
 
 
 	//	実行前初期化処理
@@ -100,6 +101,8 @@ public class Transition : SingletonMonoBehaviour<Transition>
 	--------------------------------------------------------------------------------*/
 	private IEnumerator TransitionCoroutine(string[] scenes)
 	{
+		isTransition = true;
+
 		//	イメージのアクティブを切り替え
 		transitionImage.gameObject.SetActive(true);
 		//	進行度をリセット
@@ -169,6 +172,8 @@ public class Transition : SingletonMonoBehaviour<Transition>
 		mode = TransitionMode.NONE;
 		//	イメージのアクティブを切り替え
 		transitionImage.gameObject.SetActive(false);
+
+		isTransition = false;
 	}
 
 	/*--------------------------------------------------------------------------------

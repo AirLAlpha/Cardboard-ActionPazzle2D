@@ -34,7 +34,6 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	private Vector2 inputVec;               //	移動入力
 	private bool	inputJump;              //	ジャンプ入力	
 	private bool	saveInputJump;          //	ジャンプ入力の保持用変数
-	private bool	inputJumpReleased;		//	ジャンプ入力を解除したフラグ
 
 	//	移動
 	[Header("移動")]
@@ -164,17 +163,6 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		//	ジャンプ入力
 		saveInputJump = inputJump;						//	保持しておく
 		inputJump = Input.GetButtonDown("Jump");			//	ジャンプ
-
-		//	入力がなくなったら、ジャンプ入力の解除フラグを有効化
-		if(!inputJump && saveInputJump)
-		{
-			inputJumpReleased = true;
-		}
-		//	再びジャンプ入力をしたら、解除フラグをリセット
-		else if(inputJump)
-		{
-			inputJumpReleased = false;
-		}
 	}
 
 	/*--------------------------------------------------------------------------------

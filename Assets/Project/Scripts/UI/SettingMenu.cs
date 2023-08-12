@@ -21,6 +21,9 @@ public class SettingMenu : MenuBase
 	[SerializeField]
 	private VolumeSlider	seSlider;
 
+	[SerializeField]
+	private ButtonHint		buttonHint;
+
 	protected override void Update()
 	{
 		if(DisableInput)
@@ -40,6 +43,16 @@ public class SettingMenu : MenuBase
 	{
 		if (InputConfirm)
 			ConfirmUpdate();
+
+		if (InputCancel)
+		{
+			gameObject.SetActive(false);
+			parent.DisableInput = false;
+
+			soundPlayer.PlaySound(3);
+
+			ExportSetting();        //	設定の書き出し
+		}
 	}
 
 	protected override void ConfirmUpdate()
@@ -50,11 +63,14 @@ public class SettingMenu : MenuBase
 			case MenuItem.SE:
 				sliderSelected = true;
 				DisableInput = true;
+				SetButtonHint(true);
 				break;
 
 			case MenuItem.RETURN:
 				gameObject.SetActive(false);
 				parent.DisableInput = false;
+
+				ExportSetting();		//	設定の書き出し
 				break;
 		}
 		//	SEの再生
@@ -67,7 +83,7 @@ public class SettingMenu : MenuBase
 	private void SliderUpdate()
 	{
 		//	BGM
-		if((MenuItem)CurrentIndex == MenuItem.BGM)
+		if ((MenuItem)CurrentIndex == MenuItem.BGM)
 		{
 			bgmSlider.InputUpdate(InputVec, InputCancel);
 			bgmSlider.CursorUpdate();
@@ -87,6 +103,10 @@ public class SettingMenu : MenuBase
 	{
 		sliderSelected = false;
 		DisableInput = false;
+
+		SetButtonHint(false);
+
+		soundPlayer.PlaySound(3);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -97,4 +117,46 @@ public class SettingMenu : MenuBase
 		parent = menu;
 		gameObject.SetActive(true);
 	}
+
+	/*--------------------------------------------------------------------------------
+	|| 設定の適応
+	--------------------------------------------------------------------------------*/
+	public void InitSettings(Setting setting)
+	{
+		bgmSlider.SetIndex(setting.bgmVol);
+		seSlider.SetIndex(setting.seVol);
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| 設定の書き出し
+	--------------------------------------------------------------------------------*/
+	public void ExportSetting()
+	{
+		Setting setting;
+		setting.seVol = seSlider.SelectedIndex;
+		setting.bgmVol = bgmSlider.SelectedIndex;
+
+		SettingLoader.ExportSetting(setting);
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| スライダーを選択したときのボタンUI切り替え
+	--------------------------------------------------------------------------------*/
+	private void SetButtonHint(bool enable)
+	{
+		if (enable)
+		{
+			buttonHint.SetActive("Vertical", false);
+			buttonHint.SetActive("Jump", false);
+			buttonHint.SetActive("Horizontal", true);
+		} 
+		else
+		{
+			buttonHint.SetActive("Vertical", true);
+			buttonHint.SetActive("Jump", true);
+			buttonHint.SetActive("Horizontal", false);
+		}
+
+	}
+
 }

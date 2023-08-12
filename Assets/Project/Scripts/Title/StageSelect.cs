@@ -62,7 +62,6 @@ public class StageSelect : MonoBehaviour
 	//	プロパティ
 	public int SelectedStage { get { return selectedStage; } }
 
-
 	//	実行前初期化処理
 	private void Awake()
 	{
@@ -82,6 +81,8 @@ public class StageSelect : MonoBehaviour
 
 			stageNumberBoxes[i].SetStageScore(saveData.stageScores[i]);
 		}
+		//	選択されているステージを設定
+		selectedTaskData.StageID = saveData.lastSelectStage;
 
 		//	選択されているステージの座標にプレイヤーを移動させる
 		if(selectedTaskData.StageID != -1)
@@ -99,13 +100,16 @@ public class StageSelect : MonoBehaviour
 
 		//	BGMの出力先を設定
 		BGMPlayer.Instance.FadeSpeed = 10.0f;
-		BGMPlayer.Instance.SoundPlayer.SetMixerGroup("TitleMusic");
+		BGMPlayer.Instance.SoundPlayer.SetMixerGroup("EffectedBGM");
+		if (selectedStage <= 0)
+			BGMPlayer.Instance.StartTransition(0);
 	}
 
 	//	更新処理
 	private void Update()
 	{
-		if (titleManager.IsOpening)
+		if (titleManager.IsOpening ||
+			titleManager.OpenMenu)
 			return;
 
 		InputUpdate();      //	入力処理
@@ -164,7 +168,7 @@ public class StageSelect : MonoBehaviour
 		inputWaitTime = inputInterval;
 
 		if (x != 0)
-			soundPlayer.PlaySound(3);
+			soundPlayer.PlaySound(5);
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -209,9 +213,10 @@ public class StageSelect : MonoBehaviour
 			stageNumberBoxes[selectedStage - 1].SelectBox();
 
 			enableSelectTask = true;
+			titleManager.EnableSelectTask = true;
 
 			//	決定SEの再生
-			soundPlayer.PlaySound(0);
+			soundPlayer.PlaySound(2);
 
 			return;
 		}
@@ -222,9 +227,10 @@ public class StageSelect : MonoBehaviour
 			{
 				stageNumberBoxes[selectedStage - 1].CancelBox();
 				enableSelectTask = false;
+				titleManager.EnableSelectTask = false;
 
 				//	キャンセルSEの再生
-				soundPlayer.PlaySound(1);
+				soundPlayer.PlaySound(3);
 
 			}
 
@@ -234,7 +240,7 @@ public class StageSelect : MonoBehaviour
 				selectedTaskData.TaskIndex = stageNumberBoxes[selectedStage - 1].SelectedTaskIndex;
 
 				//	決定SEの再生
-				soundPlayer.PlaySound(0);
+				soundPlayer.PlaySound(2);
 
 				titleManager.LoadScene();
 			}
@@ -249,10 +255,12 @@ public class StageSelect : MonoBehaviour
 		if(enableSelectTask)
 		{
 			buttonHint.SetActive("Restart", true);
+			buttonHint.SetActive("Menu", false);
 		}
 		else
 		{
 			buttonHint.SetActive("Restart", false);
+			buttonHint.SetActive("Menu", true);
 		}
 	}
 
@@ -266,6 +274,15 @@ public class StageSelect : MonoBehaviour
 		if(selectedStage != source.CurrentIndex)
 		{
 			source.StartTransition(selectedStage);
+		}
+
+		if(selectedStage <= 0)
+		{
+			source.SoundPlayer.SetMixerGroup("NormalBGM");
+		}
+		else
+		{
+			source.SoundPlayer.SetMixerGroup("EffectedBGM");
 		}
 	}
 }

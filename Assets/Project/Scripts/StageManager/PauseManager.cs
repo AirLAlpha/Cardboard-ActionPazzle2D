@@ -18,7 +18,7 @@ public class PauseManager : MonoBehaviour
 	private string[]	pauseTargetTags;		//	ポーズの対象になるタグの配列
 
 	//	ポーズ中フラグ
-	public bool			IsPose { get; private set; }
+	public bool			IsPause { get; private set; }
 
 	private IPauseable[]	poseTargets;        //	ポーズの対象になるオブジェクト配列
 
@@ -65,7 +65,7 @@ public class PauseManager : MonoBehaviour
 			target.Pause();
 		}
 
-		IsPose = true;
+		IsPause = true;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -82,6 +82,6 @@ public class PauseManager : MonoBehaviour
 			target?.Resume();
 		}
 
-		IsPose = false;
+		IsPause = false;
 	}
 }

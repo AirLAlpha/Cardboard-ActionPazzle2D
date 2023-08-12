@@ -1,0 +1,125 @@
+{
+    "stageScores": [
+        {
+            "scores": [
+                {
+                    "clearTime": 4.663465976715088,
+                    "usedBoxCount": 1
+                },
+                {
+                    "clearTime": 3.8616511821746828,
+                    "usedBoxCount": 2
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                }
+            ]
+        },
+        {
+            "scores": [
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 18.559755325317384,
+                    "usedBoxCount": 7
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 4.421444416046143,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 8.509711265563965,
+                    "usedBoxCount": 3
+                }
+            ]
+        },
+        {
+            "scores": [
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 17.751842498779298,
+                    "usedBoxCount": 5
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                }
+            ]
+        },
+        {
+            "scores": [
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 18.50656509399414,
+                    "usedBoxCount": 5
+                }
+            ]
+        },
+        {
+            "scores": [
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 26.9799747467041,
+                    "usedBoxCount": 9
+                },
+                {
+                    "clearTime": 0.0,
+                    "usedBoxCount": 0
+                },
+                {
+                    "clearTime": 21.209957122802736,
+                    "usedBoxCount": 7
+                }
+            ]
+        }
+    ],
+    "lastSelectStage": 3
+}

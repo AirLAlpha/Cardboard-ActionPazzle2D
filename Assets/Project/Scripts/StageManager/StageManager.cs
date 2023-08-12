@@ -29,7 +29,11 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	[SerializeField]
 	private BackgroundSetter	bgSetter;
 	[SerializeField]
+	private PauseManager		pauseManager;
+	[SerializeField]
 	private ChallangeManager	challangeManager;
+	[SerializeField]
+	private SettingMenu			settingMenu;
 
 	public int StageID => selectedStageData.StageID;
 	public int TaskIndex => selectedStageData.TaskIndex;
@@ -99,6 +103,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 
 		//	ステージの読み込みを行う
 		stageLoader.LoadStageFromDatabase(selectedStageData.StageID, selectedStageData.TaskIndex);
+
+		//	設定の初期化
+		Setting setting = SettingLoader.LoadSetting();
+		settingMenu.InitSettings(setting);
 	}
 
 	//	更新処理
@@ -151,6 +159,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		if (!BGMPlayer.Instance.IsFade &&
 			!BGMPlayer.Instance.IsPlaying)
 			BGMPlayer.Instance.PlayBGM(bgType, true);
+		BGMPlayer.Instance.SoundPlayer.SetMixerGroup("NormalBGM");
 
 		//	タスク内チャレンジの設定
 		if (challangeManager != null)
@@ -174,7 +183,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	private void RestartUpdate()
 	{
 		//	クリア済みのときは処理しない
-		if (IsStageClear || DisableRestart)
+		if (IsStageClear || DisableRestart || pauseManager.IsPause)
 			return;
 		//	すでにリスタート中は処理しない
 		if (isRestarting)
@@ -264,15 +273,26 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	--------------------------------------------------------------------------------*/
 	public void ReturnTitle()
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
+		//	選択したステージを保持する
+		var saveData = SaveDataLoader.LoadJson();
+		saveData.lastSelectStage = selectedStageData.StageID;
+		SaveDataLoader.ExportJson(saveData);
+
 		Transition.Instance.StartTransition("TitleScene");
-		BGMPlayer.Instance.StartTransition(BGMPlayer.Instance.CurrentIndex, "TitleMusic");
+		BGMPlayer.Instance.StartTransition(BGMPlayer.Instance.CurrentIndex, "EffectedBGM");
 	}
 
 	/*--------------------------------------------------------------------------------
 	|| ステージの再読み込み処理
 	--------------------------------------------------------------------------------*/
-	public void ResetStage()
+	public void ResetStage(bool bgmReset = false)
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
 		int loadedSceneCount = SceneManager.sceneCount;
 		string[] scenes = new string[loadedSceneCount];
 		//	すべてのシーン名を取得
@@ -283,6 +303,11 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 
 		//	再読み込みを実行
 		Transition.Instance.StartTransition(scenes);
+
+		if(bgmReset)
+		{
+			BGMPlayer.Instance.StartTransition(selectedStageData.StageID);
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -290,6 +315,9 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 	--------------------------------------------------------------------------------*/
 	public void LoadNextStage()
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
 		//	タスクインデックをインクリメント
 		selectedStageData.TaskIndex ++;
 
@@ -301,6 +329,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 		string[] scenes = { /*"StageBase", */taskSceneName };
 
 		Transition.Instance.StartTransition(scenes);
+		BGMPlayer.Instance.StopBGM(true);
 	}
 
 #if UNITY_EDITOR

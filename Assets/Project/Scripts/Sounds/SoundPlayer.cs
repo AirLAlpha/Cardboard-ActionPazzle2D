@@ -37,6 +37,9 @@ public class SoundPlayer : MonoBehaviour
 	}
 	public void PlaySound(int dbIndex, float exVol)
 	{
+		if (source == null)
+			return;
+
 		//	指定のインデックスが範囲外なら処理しない
 		if (dbIndex >= database.Clips.Count)
 			return;
@@ -84,4 +87,11 @@ public class SoundPlayer : MonoBehaviour
 		this.source = source;
 	}
 
+	/*--------------------------------------------------------------------------------
+	|| ミュート
+	--------------------------------------------------------------------------------*/
+	public void SetMute(bool muteEnable)
+	{
+		source.mute = muteEnable;
+	}
 }

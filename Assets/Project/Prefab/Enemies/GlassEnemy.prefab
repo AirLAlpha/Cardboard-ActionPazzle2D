@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1064251277, guid: 017f858581a25944cb34fcc7e2c50842, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -213,7 +213,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -699649308, guid: 017f858581a25944cb34fcc7e2c50842, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -297,7 +297,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -1701910402, guid: 017f858581a25944cb34fcc7e2c50842, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -381,7 +381,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -365264138, guid: 017f858581a25944cb34fcc7e2c50842, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -479,7 +479,7 @@ MonoBehaviour:
   deadSeIndex: 0
   deadEffect: {fileID: 4880230932744218059, guid: b19019cb1a4fd6e4d9f9f3744cd000dc, type: 3}
   drawGizmos: 0
-  breakingVelocity: 13.5
+  breakingVelocity: 13
   breakEffect: {fileID: 4880230932744218059, guid: b19019cb1a4fd6e4d9f9f3744cd000dc, type: 3}
 --- !u!58 &5854646942024746533
 CircleCollider2D:

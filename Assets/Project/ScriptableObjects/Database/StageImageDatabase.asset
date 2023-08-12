@@ -14,32 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageData:
   - taskImage:
-    - {fileID: 21300000, guid: 79da4a4682125d54fbc001551d255aa1, type: 3}
-    - {fileID: 21300000, guid: 95cab5d5a8a60e04fb2c8ae61e4822e3, type: 3}
-    - {fileID: 21300000, guid: 2c4ed9ccb0f213d4c8ede2680625bb2a, type: 3}
-    - {fileID: 21300000, guid: 4208c00e112cb6e48b05f6881d9cff57, type: 3}
-    - {fileID: 21300000, guid: cddb77ebb4ac4284ab1be9cb34d8bb2d, type: 3}
+    - {fileID: 21300000, guid: d35912b8017ebe7488296869b15d99cd, type: 3}
+    - {fileID: 21300000, guid: e403a536971aa5b49b07b547b0173836, type: 3}
+    - {fileID: 21300000, guid: 9cb8e20e3ebdad24ea073854e3f9a56c, type: 3}
+    - {fileID: 21300000, guid: 139a50ef757101848b172fba51d11fbe, type: 3}
+    - {fileID: 21300000, guid: 1a739c51f32cbff4eab7355089494865, type: 3}
   - taskImage:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 7685c8099c59b2d4f8451dd50a18ace6, type: 3}
+    - {fileID: 21300000, guid: 5558b5d0f7c4bcd47bfe9b89b6483897, type: 3}
+    - {fileID: 21300000, guid: c146ebd318445a24ebe65f45d19c9127, type: 3}
+    - {fileID: 21300000, guid: ff39fb4823d1ea24e91e19c038fc0357, type: 3}
+    - {fileID: 21300000, guid: 6a558dfe25899bf4d9745f428fc5e0fd, type: 3}
   - taskImage:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 90ceecd6214a2fd44adb08e5dc40fcfc, type: 3}
+    - {fileID: 21300000, guid: e0821a50f44e551418bfb0cbb5773825, type: 3}
+    - {fileID: 21300000, guid: aa0956a8cfb79e048819030af8c001ce, type: 3}
+    - {fileID: 21300000, guid: bd22a7c90f1511c4e8be31ed9bdd763c, type: 3}
+    - {fileID: 21300000, guid: 789cddd055f581144b92d73d94f104cb, type: 3}
   - taskImage:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: b2be4880556a50d47ba73af89195eac8, type: 3}
+    - {fileID: 21300000, guid: f544e37720a623c429ab6e6c28c76f6d, type: 3}
+    - {fileID: 21300000, guid: d56c643395cbe4f4f8d1ea5504cd7736, type: 3}
+    - {fileID: 21300000, guid: de8f0b118c91ef4479f9e4acb842da96, type: 3}
+    - {fileID: 21300000, guid: 00b78f4d3077e0848818b867333fce93, type: 3}
   - taskImage:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 04650ca0577b17948ae634f37c080569, type: 3}
+    - {fileID: 21300000, guid: 565d6c567bfe1a1468234702a29cef03, type: 3}
+    - {fileID: 21300000, guid: ee1e3d50793e9014bb808df3b64f2cd0, type: 3}
+    - {fileID: 21300000, guid: 456224a48739e0e4cb0d0898733a2333, type: 3}
+    - {fileID: 21300000, guid: 59fd4a19329f9a9408937852f6e67447, type: 3}

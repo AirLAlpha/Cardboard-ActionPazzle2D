@@ -62,10 +62,19 @@ namespace CardboardBox
 		--------------------------------------------------------------------------------*/
 		public override void OnCollisionEnter(Collision2D collision)
 		{
+			const float BREAKING_VELOCITY = 13.5f;
+
 			if (collision.transform.TryGetComponent<IPackable>(out var hit))
 			{
 				//	相手の梱包処理を実行
 				CardboardType type = hit.Packing();
+				if(type == CardboardType.BREAKABLE)
+				{
+					float hitVelMag = collision.relativeVelocity.sqrMagnitude;
+					if (hitVelMag >= BREAKING_VELOCITY * BREAKING_VELOCITY)
+						return;
+				}
+
 				//	自身の梱包時処理を実行
 				Packing(type, hit);
 			}
@@ -115,6 +124,8 @@ namespace CardboardBox
 
 			//	ステートの更新
 			Parent.SetState(nextState);
+			//	SEの再生
+			Parent.SoundPlayer.PlaySound(9);
 		}
 	}
 }

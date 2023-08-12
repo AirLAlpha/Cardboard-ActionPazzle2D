@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: EnemySounds
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 02a4d9a7a5379cb47bfb20163ac47722, type: 3}
-  - {fileID: 8300000, guid: 4530b5f24c8761e49a2c8c66b49b8ff7, type: 3}
-  - {fileID: 8300000, guid: a97cf35276aa51d43b71d300e1619443, type: 3}
+  - {fileID: 8300000, guid: 5917343a4a33f8f4a8b242560fdd1f77, type: 3}
+  - {fileID: 8300000, guid: c5fc8ad7204a7524292124254e06e706, type: 3}
+  - {fileID: 8300000, guid: 3b5c2ee157904c744af9a37d6ece1136, type: 3}
   - {fileID: 8300000, guid: 6517f1b130ab4f145801b3459bb49af6, type: 3}
+  - {fileID: 8300000, guid: 63e2d53749484904d809d0e74f8f2024, type: 3}

@@ -129,6 +129,10 @@ public class StageLoader : MonoBehaviour
 
 		tilemap.ClearAllTiles();
 
+		//	プレイヤーのサウンド
+		SoundPlayer soundPlayer = player.GetComponent<SoundPlayer>();
+		Debug.Assert(soundPlayer != null);
+
 		//	リストにあるオブジェクトを１つずつ生成していく
 		foreach (var objData in data.objectDatas)
 		{
@@ -143,7 +147,7 @@ public class StageLoader : MonoBehaviour
 					break;
 
 				case ObjectType.ENEMY:              //	敵
-					SetObject(enemyRoot, obj, objData.pos, objData.rot, pauseEnable);
+					SetEnemy(enemyRoot, obj, objData.pos, objData.rot, pauseEnable);
 					break;
 
 				case ObjectType.PLAYER:				//	プレイヤー
@@ -154,7 +158,7 @@ public class StageLoader : MonoBehaviour
 					break;
 
 				case ObjectType.BOX:                //	ハコ
-					SetObject(cardboardRoot, obj, objData.pos, objData.rot, pauseEnable);
+					SetBox(cardboardRoot, obj, objData.pos, pauseEnable, soundPlayer);
 					break;
 
 				default:							//	それ以外が指定されたら処理しない
@@ -202,12 +206,9 @@ public class StageLoader : MonoBehaviour
 	/*--------------------------------------------------------------------------------
 	|| 敵オブジェクトの設置処理
 	--------------------------------------------------------------------------------*/
-	private void SetObject(Transform parent, StageObject obj, Vector3 pos, Quaternion rot, bool pauseEnable)
+	private void SetEnemy(Transform parent, StageObject obj, Vector3 pos, Quaternion rot, bool pauseEnable)
 	{
-		if (enemyRoot == null)
-			return;
-		if (obj.type != ObjectType.ENEMY &&
-			obj.type != ObjectType.BOX)
+		if (obj.type != ObjectType.ENEMY)
 			return;
 
 		//	オブジェクトの生成
@@ -228,6 +229,35 @@ public class StageLoader : MonoBehaviour
 		if(newEnemy.TryGetComponent<SoundPlayer>(out SoundPlayer soundPlayer))
 		{
 			soundPlayer.SetAudioSource(seSource);
+		}
+	}
+
+	/*--------------------------------------------------------------------------------
+	|| ステージ上の箱の設置処理
+	--------------------------------------------------------------------------------*/
+	private void SetBox(Transform parent, StageObject obj, Vector3 pos, bool pauseEnable, SoundPlayer soundPlayer)
+	{
+		if (obj.type != ObjectType.BOX)
+			return;
+
+		//	オブジェクトの生成
+		var newBox = Instantiate(obj.prefab, pos, Quaternion.identity, parent) as GameObject;
+		//	ポーズ状態の設定
+		if (newBox.TryGetComponent<IPauseable>(out IPauseable enemyPause))
+		{
+			if (pauseEnable)
+			{
+				enemyPause.Pause();
+			}
+			else
+			{
+				enemyPause.Resume();
+			}
+		}
+
+		if(newBox.TryGetComponent<CardboardBox.CardboardBox>(out CardboardBox.CardboardBox box))
+		{
+			box.SetSoundPlayer(soundPlayer);
 		}
 	}
 

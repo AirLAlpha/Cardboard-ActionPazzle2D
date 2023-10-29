@@ -14,28 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 1
   tasks:
-  - stageFileName: 1_1.json
-    stageJson: {fileID: 4900000, guid: 8fc80fc4a108f9840848d718477ecebd, type: 3}
-    challanges:
-    - type: 1
-      value: 4
-  - stageFileName: 1-2.json
-    stageJson: {fileID: 4900000, guid: f6329f3db142e694fa4053c00f0a38e2, type: 3}
-    challanges:
-    - type: 1
-      value: 4
-  - stageFileName: 1-3.json
-    stageJson: {fileID: 4900000, guid: 251d480d2bae680468db8f9c670a559b, type: 3}
-    challanges:
-    - type: 1
-      value: 4
-  - stageFileName: 1-4.json
-    stageJson: {fileID: 4900000, guid: 7a5670bc0f9f3894d92c4335e764be91, type: 3}
-    challanges:
-    - type: 1
-      value: 4
-  - stageFileName: 1-5.json
-    stageJson: {fileID: 4900000, guid: 5841d35e084036540b4940616527f239, type: 3}
-    challanges:
-    - type: 1
-      value: 4
+  - stageJson: {fileID: 4900000, guid: 80864d5236cbff349a19b1dd2f9d6da3, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: f6329f3db142e694fa4053c00f0a38e2, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: 251d480d2bae680468db8f9c670a559b, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: 7a5670bc0f9f3894d92c4335e764be91, type: 3}
+    challanges: []
+  - stageJson: {fileID: 4900000, guid: 5841d35e084036540b4940616527f239, type: 3}
+    challanges: []

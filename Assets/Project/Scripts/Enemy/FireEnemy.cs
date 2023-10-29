@@ -51,6 +51,9 @@ public class FireEnemy : Enemy, IPackable
 	--------------------------------------------------------------------------------*/
 	protected override void AttackUpdate()
 	{
+		if (fireBall == null)
+			return;
+
 		attackIntervalCount += Time.deltaTime;
 
 		if(attackIntervalCount >= attackInterval)

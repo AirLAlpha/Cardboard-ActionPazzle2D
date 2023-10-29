@@ -322,7 +322,7 @@ MonoBehaviour:
     breakingVelocity: 13
   rightSideUpBox:
     stateColor: {r: 0.101960786, g: 1, b: 0, a: 1}
-    breakAngle: 15
+    breakAngle: 75
     material: {fileID: 2100000, guid: 9e2d28f08e3d7694888ce3ab52e8b1ca, type: 2}
     safeColor: {r: 0, g: 0.6509804, b: 0.023529412, a: 1}
     safeLabelColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}

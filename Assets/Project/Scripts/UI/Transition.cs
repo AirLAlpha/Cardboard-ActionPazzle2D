@@ -131,9 +131,6 @@ public class Transition : SingletonMonoBehaviour<Transition>
 			asyncs[i].allowSceneActivation = false;
 		}
 
-		//	時間まで待つ
-		yield return new WaitForSeconds(fadeinWait);
-
 		//	シーンのロードが終わるまで待機する
 		bool isLoadDone = false;
 		while (!isLoadDone)
@@ -160,6 +157,9 @@ public class Transition : SingletonMonoBehaviour<Transition>
 		mode = TransitionMode.FADE_IN;
 		//	進行度をリセット
 		progress = 0.0f;
+
+		//	時間まで待つ
+		yield return new WaitForSeconds(fadeinWait);
 
 		//	フェードイン
 		while(progress < 1.0f)

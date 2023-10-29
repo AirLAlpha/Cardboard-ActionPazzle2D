@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using UnityEngine;
 
 namespace CardboardBox
@@ -59,28 +56,12 @@ namespace CardboardBox
 			Parent.LabelSprites[0].material = material;
 			Parent.LabelSprites[1].material = material;
 
-			//	角度を取得
-			float angle = ConvertToRadian(Parent.transform.localEulerAngles.z);
-
-			//	ANGLESの配列から一番近い値を検索
-			float saveDiff = Mathf.PI;
-			int index = -1;
-			for (int i = 0; i < ANGLES.Length; i++)
-			{
-				float diff = Mathf.Abs(ANGLES[i] - angle);
-				if (saveDiff > diff)
-				{
-					saveDiff = diff;
-					index = i;
-				}
-			}
-
-			//	インデックスが4(2pi)のときは0にする
-			if (index == 4)
-				index = 0;
-
-			//	最初の角度を保持しておく
-			startRot = ANGLES[index];
+			//	角度を取得(90度刻みに補正）
+			float a = (int)Parent.transform.localEulerAngles.z / 90;
+			float b = Parent.transform.localEulerAngles.z % 90.0f;
+			if (b > 45.0f)
+				a += 1.0f;
+			startRot = a * 90.0f;
 		}
 
 		public override void OnExitState()
@@ -98,18 +79,14 @@ namespace CardboardBox
 		{
 			if (Parent.IsBurned)
 				return;
+			
+			//	現在の角度を保持
+			float angle = Parent.transform.localEulerAngles.z;
+			//	開始時の角度との差を求める
+			float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(angle, startRot));
 
-			float angle = Parent.transform.localEulerAngles.z;                      //	現在の角度を取得
-			float minus = Mathf.Repeat(startRot - Mathf.PI / 2, Mathf.PI * 2);      //	マイナス側の最低角度を取得
-			float plus = Mathf.Repeat(startRot + Mathf.PI / 2, Mathf.PI * 2);       //	プラス側の最大角度を取得
-
-			//	現在の角度との差分を取得
-			float minusDelta = Mathf.DeltaAngle(angle, minus * Mathf.Rad2Deg);
-			float plusDelta = Mathf.DeltaAngle(angle, plus * Mathf.Rad2Deg);
-
-			//	差が一定未満になったときに破壊する
-			if (Mathf.Abs(minusDelta) < breakAngle ||
-				Mathf.Abs(plusDelta) < breakAngle)
+			//	差が破壊される角度以上になったら破壊
+			if(deltaAngle > breakAngle)
 			{
 				if (breakableTimer >= breakableTime)
 				{
@@ -126,11 +103,8 @@ namespace CardboardBox
 				breakableTimer = 0.0f;
 			}
 
-			//	角度から割合を計算
-			float a = Mathf.InverseLerp(90.0f, breakAngle, Mathf.Abs(plusDelta));
-			float b = Mathf.InverseLerp(90.0f, breakAngle, Mathf.Abs(minusDelta));
-			//	割合をbreakAngleに向けた進行度として保持
-			this.angleProgress= a + b;
+			//	角度の割合を保持
+			this.angleProgress = deltaAngle / breakAngle;
 		}
 
 		/*--------------------------------------------------------------------------------

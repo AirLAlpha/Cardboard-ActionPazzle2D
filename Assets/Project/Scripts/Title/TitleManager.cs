@@ -73,6 +73,8 @@ public class TitleManager : MonoBehaviour
 	//	初期化処理
 	private void Start()
 	{
+		Application.targetFrameRate = 60;
+
 		if (selectedData.StageID == -1)
 		{
 			isOpening = true;

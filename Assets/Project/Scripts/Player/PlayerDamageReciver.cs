@@ -91,9 +91,14 @@ public class PlayerDamageReciver : MonoBehaviour, IBurnable
         if (dontDeath)
             return;
 
-		//	“à•”‚ÉÕ“Ë‚µ‚½‚ç’×‚³‚ê‚Ä‚¢‚é‚Æ”»’è‚·‚é
-		var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, mask);
-		if (hit != null)
+        //	“à•”‚ÉÕ“Ë‚µ‚½‚ç’×‚³‚ê‚Ä‚¢‚é‚Æ”»’è‚·‚é
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.layerMask = mask;
+        filter.useLayerMask = true;
+        filter.useTriggers = false;
+        Collider2D[] result = new Collider2D[1];
+		int hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, filter, result);
+		if (hit != 0)
 		{
 			Burn();
 		}

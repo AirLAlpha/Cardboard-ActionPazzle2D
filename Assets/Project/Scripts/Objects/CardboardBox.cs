@@ -116,8 +116,13 @@ namespace CardboardBox
 			if (rb.simulated == true)
 			{
 				//	箱の内部に衝突したら潰されていると判定する
-				var hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.1f, 0.0f, destroyMask);
-				if (hit != null)
+				ContactFilter2D filter = new ContactFilter2D();
+				filter.layerMask = destroyMask;
+				filter.useLayerMask = true;
+				filter.useTriggers = false;
+				Collider2D[] result = new Collider2D[1];
+				int hit = Physics2D.OverlapBox(transform.position, Vector2.one * 0.01f, 0.0f, filter, result);
+				if (hit != 0)
 					Burn();
 			}
 		}

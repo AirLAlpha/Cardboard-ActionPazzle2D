@@ -11,7 +11,7 @@
                     "usedBoxCount": 2
                 },
                 {
-                    "clearTime": 15.926813125610352,
+                    "clearTime": 13.733210563659668,
                     "usedBoxCount": 2
                 },
                 {
@@ -67,8 +67,8 @@
                     "usedBoxCount": 5
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 30.092714309692384,
+                    "usedBoxCount": 5
                 }
             ]
         },
@@ -99,8 +99,8 @@
         {
             "scores": [
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 16.254884719848634,
+                    "usedBoxCount": 3
                 },
                 {
                     "clearTime": 0.0,
@@ -121,5 +121,5 @@
             ]
         }
     ],
-    "lastSelectStage": 1
+    "lastSelectStage": 2
 }

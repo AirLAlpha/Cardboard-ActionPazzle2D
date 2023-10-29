@@ -123,6 +123,8 @@ public class PlayerMove : MonoBehaviour, IPauseable
 
 		//	向きの初期化
 		CurrentDir = Direction.RIGHT;
+
+		Pause();
 	}
 
 	//	更新処理

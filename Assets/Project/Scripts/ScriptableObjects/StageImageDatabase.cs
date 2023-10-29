@@ -7,8 +7,11 @@ using UnityEngine;
 public struct StageImageData
 {
 	[SerializeField]
-	private Sprite[] taskImage;
+	private Sprite		invoice;
+	[SerializeField]
+	private Sprite[]	taskImage;
 
+	public Sprite Invoice => invoice;
 	public Sprite[] TaskImage => taskImage;
 }
 

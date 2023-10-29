@@ -6197,19 +6197,7 @@ MonoBehaviour:
         m_CallState: 2
   OnChangedCompleteBoxCount:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1812064521}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   OnStageClear:
     m_PersistentCalls:
       m_Calls:
@@ -6226,18 +6214,6 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1344516148}
-        m_TargetAssemblyTypeName: CanvasAlphaController, Assembly-CSharp
-        m_MethodName: set_TargetAlpha
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CanvasAlphaController, Assembly-CSharp
         m_MethodName: set_TargetAlpha
         m_Mode: 4
@@ -13618,11 +13594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99febe2994e9b445b875917288298f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!198 &1812064521 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8420711647367270817, guid: 0498d6823a0163b438a6275afce7db4b, type: 3}
-  m_PrefabInstance: {fileID: 1401099454}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1835387082
 GameObject:
   m_ObjectHideFlags: 0

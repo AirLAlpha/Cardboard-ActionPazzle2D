@@ -10,6 +10,7 @@ public class Invoice : MonoBehaviour
 	private StageImageDatabase imageDatabase;
 
 	//	コンポーネント
+	[SerializeField]
 	private SpriteRenderer		spriteRenderer;
 
 	[Header("ステージ")]
@@ -32,7 +33,6 @@ public class Invoice : MonoBehaviour
 
 	private void Awake()
 	{
-		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -42,6 +42,7 @@ public class Invoice : MonoBehaviour
 	{
 		stageNumText.text = stageNum + "-" + (taskNum + 1);
 
+		spriteRenderer.sprite = imageDatabase.StageData[stageNum - 1].Invoice;
 		stageImage.sprite = imageDatabase.StageData[stageNum - 1].TaskImage[taskNum];
 	}
 

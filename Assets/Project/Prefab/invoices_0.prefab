@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageDatabase: {fileID: 11400000, guid: 22a39fa15a7a0364684d3231d41b0822, type: 2}
+  spriteRenderer: {fileID: 4047876478546779853}
   stageNumText: {fileID: 2459472550943819926}
   stageImage: {fileID: 7659391303308168538}
   timeText: {fileID: 8813773472199242450}
@@ -619,7 +620,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8672443107847973824

@@ -88,6 +88,8 @@ public abstract class Enemy : MonoBehaviour, IPauseable
 	{
 		//	状態の初期化
 		currentState = State.IDLE;
+
+		Pause();
 	}
 
 	//	更新処理

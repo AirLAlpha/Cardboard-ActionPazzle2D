@@ -94,6 +94,9 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	private bool				isRotate;               //	回転中
 	private int					rotateCount;
 
+	//	設置できなかったときのフラグ（トリガー）
+	private bool				cantPut;
+
 	//	ポーズ
 	private Vector2				posedVelocity;
 	private bool				disableAnimation;
@@ -102,7 +105,7 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	public float MoveSpeed			{ get { return moveSpeed; } set { moveSpeed = value; } }
 	public float RotateSpeed		{ get { return rotateSpeed; } set { rotateSpeed = value; } }
 	public float SpeedChangeRate	{ get { return speedChangeRate; } }
-
+	public bool CantPut				{ get { return cantPut; } set { cantPut = value; } }
 
 #if UNITY_EDITOR
 	//	デバッグ
@@ -344,6 +347,12 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		anim.SetBool("Jump", isJumping);
 		//	自由落下フラグ
 		anim.SetBool("FreeFall", isFreeFall);
+
+		if (cantPut)
+		{
+			anim.SetTrigger("CantPut");
+			cantPut = false;
+		}
 	}
 
 	/*--------------------------------------------------------------------------------

@@ -108,13 +108,20 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 
 		if (inputPut)
 		{
+			bool putResult = false;
 			if (Mathf.Abs(playerMove.Rigidbody2D.velocity.x) < throwingVelocityX)
 			{
-				TryPut();
+				putResult = TryPut();
 			}
 			else
 			{
-				TryThrow();
+				putResult = TryThrow();
+			}
+
+			if(!putResult)
+			{
+				playerMove.CantPut = true;
+				soundPlayer.PlaySound(11);
 			}
 		}
 

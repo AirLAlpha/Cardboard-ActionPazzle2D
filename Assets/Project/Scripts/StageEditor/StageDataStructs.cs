@@ -19,7 +19,7 @@ public class StageObjectData
 {
 	public int				databaseIndex;		//	データベースにおけるインデックス番号
 	public Vector3			pos;                //	座標
-	public Quaternion		rot;				//	回転
+	public Quaternion		rot;                //	回転
 
 	//	コンストラクタ
 	public StageObjectData(int databaseIndex, Vector3 pos, Quaternion rot)

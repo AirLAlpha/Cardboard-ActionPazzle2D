@@ -102,7 +102,8 @@ public class StageManager : SingletonMonoBehaviour<StageManager>
 			return;
 
 		//	ステージの読み込みを行う
-		stageLoader.LoadStageFromDatabase(selectedStageData.StageID, selectedStageData.TaskIndex);
+		stageLoader.LoadStageFromDatabase(selectedStageData.StageID, selectedStageData.TaskIndex, true);
+		pauseManager.Resume();
 
 		//	設定の初期化
 		Setting setting = SettingLoader.LoadSetting();

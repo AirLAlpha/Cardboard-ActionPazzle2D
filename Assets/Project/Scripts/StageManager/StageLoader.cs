@@ -155,10 +155,22 @@ public class StageLoader : MonoBehaviour
 					player.transform.position = objData.pos;
 					player.transform.rotation = objData.rot;
 					player.GetComponent<PlayerMove>().OnStageReset();
+					//	ポーズ状態の設定
+					if (player.TryGetComponent<IPauseable>(out IPauseable enemyPause))
+					{
+						if (pauseEnable)
+							enemyPause.Pause();
+						else
+							enemyPause.Resume();
+					}
 					break;
 
 				case ObjectType.BOX:                //	ハコ
 					SetBox(cardboardRoot, obj, objData.pos, pauseEnable, soundPlayer);
+					break;
+
+				case ObjectType.NONE:				//	未設定
+					Instantiate(obj.prefab, objData.pos, objData.rot);
 					break;
 
 				default:							//	それ以外が指定されたら処理しない
@@ -174,7 +186,8 @@ public class StageLoader : MonoBehaviour
 			//	ギミックを設置する
 			SetGimmick(obj, gimmick, pauseEnable, out ReceiveGimmick receive);
 			//	イベントを受け取るギミックのときはリストに追加する
-			if (receive != null)
+			if (gimmick.type != GimmickType.EVENT_NONE &&
+				receive != null)
 			{
 				senderIndex.Add(gimmick.targetIndex);
 				receives.Add(receive);

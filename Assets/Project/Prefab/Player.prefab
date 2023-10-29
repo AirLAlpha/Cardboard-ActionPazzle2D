@@ -320,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1455866009983635765}
   anim: {fileID: 1455866011123590182}
-  moveSpeed: 9
+  moveSpeed: 8
   speedChangeRate: 15
   jumpPower: 14
   gravityScale: 0

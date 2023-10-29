@@ -410,7 +410,7 @@ MonoBehaviour:
   rb: {fileID: 2851119450428355666}
   soundPlayer: {fileID: 1074390968041772828}
   attentionRange: 7
-  attackRange: 5
+  attackRange: 0
   rangeOffset: {x: 0, y: 0}
   detectionLayer:
     serializedVersion: 2

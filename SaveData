@@ -55,7 +55,7 @@
                     "usedBoxCount": 2
                 },
                 {
-                    "clearTime": 26.515378952026368,
+                    "clearTime": 15.683481216430664,
                     "usedBoxCount": 2
                 },
                 {
@@ -103,8 +103,8 @@
                     "usedBoxCount": 3
                 },
                 {
-                    "clearTime": 0.0,
-                    "usedBoxCount": 0
+                    "clearTime": 9.324227333068848,
+                    "usedBoxCount": 2
                 },
                 {
                     "clearTime": 26.9799747467041,
@@ -121,5 +121,5 @@
             ]
         }
     ],
-    "lastSelectStage": 2
+    "lastSelectStage": 3
 }

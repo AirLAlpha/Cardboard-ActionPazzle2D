@@ -1,4 +1,5 @@
 {
     "bgmVol": 2,
-    "seVol": 2
+    "seVol": 2,
+    "fullscreen": false
 }

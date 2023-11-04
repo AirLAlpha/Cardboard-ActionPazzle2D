@@ -53,7 +53,16 @@ public class OpeningSceneChange : MonoBehaviour
 
 	private void Start()
 	{
-		Debug.Log("Test");
+		//	設定の適応
+		Setting setting = SettingLoader.LoadSetting();
+		if (setting.fullscreen)
+		{
+			Screen.SetResolution(1920, 1080, true);
+		}
+		else
+		{
+			Screen.SetResolution(1280, 720, false);
+		}
 	}
 
 	private void Update()

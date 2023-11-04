@@ -13,4 +13,5 @@ public struct Setting
 {
 	public int bgmVol;
 	public int seVol;
+	public bool fullscreen;
 }

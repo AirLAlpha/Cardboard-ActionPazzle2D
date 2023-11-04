@@ -240,7 +240,8 @@ public class PlayerMove : MonoBehaviour, IPauseable
 			return;
 
 		//	ベクトルの加算
-		rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+		//rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+		rb.velocity = Vector2.up * jumpPower;
 		//	ジャンプフラグの有効化
 		isJumping = true;
 

@@ -144,7 +144,8 @@ public class SpringGimmick : Gimmick
 				return;
 
 			//	乗っているターゲットに力を加える
-			targetRb.AddForce(spriteRoot.up * springPower * targetRb.mass, ForceMode2D.Impulse);
+			//targetRb.AddForce(spriteRoot.up * springPower * targetRb.mass, ForceMode2D.Impulse);
+			targetRb.velocity = Vector2.up * springPower;
 			targetRb = null;
 
 			//	SEの再生

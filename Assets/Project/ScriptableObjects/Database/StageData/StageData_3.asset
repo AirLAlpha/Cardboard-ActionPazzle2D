@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 3
   tasks:
-  - stageJson: {fileID: 4900000, guid: b41cc489b7d3e574581946834aafb970, type: 3}
+  - stageJson: {fileID: 4900000, guid: 65bee0f15cf3592418ba10da2f797823, type: 3}
     challanges: []
-  - stageJson: {fileID: 4900000, guid: 97d727f5517009a43a44f95a81cd0387, type: 3}
+  - stageJson: {fileID: 4900000, guid: 1fac03d12c549504081c56315cdd0150, type: 3}
     challanges: []
   - stageJson: {fileID: 4900000, guid: 90edb9f4b7524c742b5e46ddb6ae1856, type: 3}
     challanges: []

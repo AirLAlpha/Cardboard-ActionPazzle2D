@@ -10,6 +10,7 @@ public class SettingMenu : MenuBase
 	{
 		BGM,
 		SE,
+		FULLSCREEN,
 		RETURN,
 
 		OVER_ID
@@ -72,6 +73,17 @@ public class SettingMenu : MenuBase
 
 				ExportSetting();		//	ê›íËÇÃèëÇ´èoÇµ
 				break;
+
+			case MenuItem.FULLSCREEN:
+				if (Screen.fullScreen)
+				{
+					Screen.SetResolution(1280, 720, false);
+				}
+				else
+				{
+					Screen.SetResolution(1920, 1080, true);
+				}
+				break;
 		}
 		//	SEÇÃçƒê∂
 		soundPlayer.PlaySound(2);
@@ -125,6 +137,15 @@ public class SettingMenu : MenuBase
 	{
 		bgmSlider.SetIndex(setting.bgmVol);
 		seSlider.SetIndex(setting.seVol);
+
+		if (setting.fullscreen)
+		{
+			Screen.SetResolution(1920, 1080, true);
+		}
+		else
+		{
+			Screen.SetResolution(1280, 720, false);
+		}
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -135,6 +156,7 @@ public class SettingMenu : MenuBase
 		Setting setting;
 		setting.seVol = seSlider.SelectedIndex;
 		setting.bgmVol = bgmSlider.SelectedIndex;
+		setting.fullscreen = Screen.fullScreen;
 
 		SettingLoader.ExportSetting(setting);
 	}

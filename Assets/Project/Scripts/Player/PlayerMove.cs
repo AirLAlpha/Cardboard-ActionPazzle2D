@@ -52,6 +52,8 @@ public class PlayerMove : MonoBehaviour, IPauseable
 	//	ジャンプ
 	[Header("ジャンプ")]
 	[SerializeField]
+	private bool	invertInput;
+	[SerializeField]
 	private float	jumpPower;                  //	ジャンプ力
 	[SerializeField]
 	private float	gravityScale;               //	通常時の重力
@@ -164,9 +166,14 @@ public class PlayerMove : MonoBehaviour, IPauseable
 		inputVec.x = Mathf.Clamp(inputVec.x, -1, 1);
 		inputVec.y = Mathf.Clamp(inputVec.y, -1, 1);
 
-
 		//	ジャンプ入力
 		saveInputJump = inputJump;						//	保持しておく
+		if(invertInput)
+		{
+			inputJump = Input.GetButtonDown("Fire1");
+			return;
+		}
+
 		inputJump = Input.GetButtonDown("Jump");			//	ジャンプ
 	}
 

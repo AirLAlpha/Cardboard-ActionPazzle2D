@@ -26,7 +26,9 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 
 	//	入力
 	[SerializeField]
-	private ButtonHint		buttonHint;			//	ボタンの表示されるアクション名を変更
+	private ButtonHint		buttonHint;         //	ボタンの表示されるアクション名を変更
+	[SerializeField]
+	private bool			invertInput;
 
 	public bool				DisableInput { set; get; }		//	入力の無効フラグ
 
@@ -137,6 +139,21 @@ public class PlayerBoxManager : MonoBehaviour, IPauseable
 	{
 		if (DisableInput)
 			return;
+
+		if(invertInput)
+		{
+			inputGenerate =
+				Input.GetKeyDown(KeyCode.R) ||
+				Input.GetButtonDown("Jump");               //	生成
+
+
+			inputPut =
+				currentBox != null &&
+				(Input.GetKeyDown(KeyCode.R) ||
+				Input.GetButtonDown("Jump"));              //	設置
+
+			return;
+		}
 
 		inputGenerate = 
 			Input.GetKeyDown(KeyCode.R) ||

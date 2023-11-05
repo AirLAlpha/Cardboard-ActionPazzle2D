@@ -29,7 +29,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6a558dfe25899bf4d9745f428fc5e0fd, type: 3}
   - invoice: {fileID: -936391110, guid: 5a931f6913e057f498a0ee7320f82e97, type: 3}
     taskImage:
-    - {fileID: 21300000, guid: 90ceecd6214a2fd44adb08e5dc40fcfc, type: 3}
+    - {fileID: 21300000, guid: bc12bb56ebae5274997073e55880a167, type: 3}
     - {fileID: 21300000, guid: e0821a50f44e551418bfb0cbb5773825, type: 3}
     - {fileID: 21300000, guid: aa0956a8cfb79e048819030af8c001ce, type: 3}
     - {fileID: 21300000, guid: bd22a7c90f1511c4e8be31ed9bdd763c, type: 3}

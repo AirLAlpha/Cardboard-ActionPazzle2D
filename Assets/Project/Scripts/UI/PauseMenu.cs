@@ -85,6 +85,9 @@ public class PauseMenu : MenuBase
 	--------------------------------------------------------------------------------*/
 	protected override void ConfirmUpdate()
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
 		switch (CurrentSelectItem)
 		{
 			case PauseMenuItem.RESUME:

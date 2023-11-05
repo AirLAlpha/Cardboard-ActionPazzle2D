@@ -206,6 +206,10 @@ public class StageSelect : MonoBehaviour
 	--------------------------------------------------------------------------------*/
 	private void SelectStage()
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
+
 		if (!enableSelectTask &&
 			inputConfirm &&
 			selectedStage != 0)

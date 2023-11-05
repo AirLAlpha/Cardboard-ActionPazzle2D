@@ -40,6 +40,9 @@ public class ResultMenu : MenuBase
 	--------------------------------------------------------------------------------*/
 	protected override void ConfirmUpdate()
 	{
+		if (Transition.Instance.IsTransition)
+			return;
+
 		switch ((MenuItems)CurrentIndex)
 		{
 			case MenuItems.NEXT_TASK:
@@ -63,6 +66,9 @@ public class ResultMenu : MenuBase
 	public void SetEnableNext(bool active)
 	{
 		SetItemActive(0, active);
+
+		if(!active)
+			CurrentIndex = (int)MenuItems.RETURN_TITLE;
 	}
 
 }

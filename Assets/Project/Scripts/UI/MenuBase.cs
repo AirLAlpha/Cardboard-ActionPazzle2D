@@ -83,7 +83,7 @@ public abstract class MenuBase : MonoBehaviour
 	protected SoundPlayer		soundPlayer;
 
 	//	プロパティ
-	public int		CurrentIndex	{ get { return currentIndex; } }
+	public int		CurrentIndex	{ get { return currentIndex; } set { currentIndex = value; } }
 	public Vector2	InputVec		{ get { return inputVec; } }
 	public bool		InputConfirm	{ get { return inputConfirm; } }
 	public bool		InputCancel		{ get { return inputCancel; } }
